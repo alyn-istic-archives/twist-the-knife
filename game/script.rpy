@@ -3,16 +3,28 @@
 # Declare characters used by this game. The color argument colorizes the
 # name of the character.
 
-define e = Character("Eileen")
+init python:
+    persistent.confessions = 0
+    persistent.last_confess = []
+    persistent.endings = []
+    persistent.tw = True
+
+define a = "Anton"
 
 
 # The game starts here.
 
 label start:
 
-    # Show a background. This uses a placeholder by default, but you can
-    # add a file (named either "bg room.png" or "bg room.jpg") to the
-    # images directory to show it.
+    if persistent.tw:
+        "Trigger Warning: blood, gore, violence (specifically only bad endings so u should be fine)"
+        "do you wanna disable this warning for future playthroughs (AKA CLOSING THE GAME RESETS UR PROGRESS TWIN)"
+        menu:
+            "yESSIR":
+                $persistent.tw = False
+            "AWH HELL NAH":
+                $persistent.tw = True
+        "Also make sure to keep the game open while playing over and over to unlock certain endings !!"
 
     scene bg room
 
@@ -20,13 +32,11 @@ label start:
     # replace it by adding a file named "eileen happy.png" to the images
     # directory.
 
-    show eileen happy
+    show anton_neutral
 
     # These display lines of dialogue.
 
-    e "You've created a new Ren'Py game."
-
-    e "Once you add a story, pictures, and music, you can release it to the world!"
+    a "so... you come round here often?"
 
     # This ends the game.
 
