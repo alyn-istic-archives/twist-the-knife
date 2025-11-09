@@ -32,7 +32,7 @@ label start:
     # replace it by adding a file named "eileen happy.png" to the images
     # directory.
 
-    show anton_neutral
+    show a_neutral
 
     # These display lines of dialogue.
 
