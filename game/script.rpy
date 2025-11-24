@@ -9,6 +9,8 @@ init python:
     persistent.endings = []
     persistent.tw = True
 
+define dis = { "master" : Dissolve(0.5) }
+
 define a = "Anton"
 define pc = "You"
 define s = "???"
@@ -29,6 +31,7 @@ label start:
                 $persistent.tw = True
         "Also make sure to keep the game open while playing over and over to unlock certain endings !!"
 
+    with Dissolve(1)
     scene bg cork wall
 
     # This shows a character sprite. A placeholder is used, but you can
@@ -37,8 +40,9 @@ label start:
 
     # These display lines of dialogue.
 
-    "You find yourself standing to a tall cork wall, thumbtacks embedded into it with red string woven around each base. You watch your associats pile into the room slowly, single file, muttering as they enter."
-    "All chatter stops  as you knock on the hard surface of the board."
+
+    "You find yourself standing to a tall cork wall, thumbtacks embedded into it with red string woven around each base. You watch your associates pile into the room slowly, single file, muttering as they enter."
+    "All chatter stops as you knock on the hard surface of the board."
 
     pc "Attention."
 
@@ -46,11 +50,17 @@ label start:
 
     pc "He's struck again."
 
-    "The immediate silence that follows is nothing short of chilling. It's been three months since the [s] had brought a halt to his crimes. However, it seems to ahve been extremely short-lived as he's back on the rise."
+    "The immediate silence that follows is nothing short of chilling. It's been three months since the [s] had brought a halt to his crimes. However, it seems to have been extremely short-lived as he's back on the rise."
 
     pc "The victim is aged 24, female, identified as Annalisse Intar."
+    
+    show a neutral
+    with dis
 
     "You specifically point to a photo of a quite happy, satisfied, blonde on the corkboard."
+
+    hide a neutral
+    with dis
 
     pc "Now, forensics has identified her primarily by the... teeth left at the scene where she was last seen. Aside from that, we have very little evidence."
 
@@ -100,7 +110,7 @@ label start:
 
     "Your nose wrinkles at the very thought of Delta unit, stomach twisting as you do. You push it down, as that unfortunately led to you having to do supplemental teaching. Leave it to Delta Precinct to fuck up, as usual."
 
-    scene bg bar
+    show bg bar zoom1
 
     "The first case rolled around three months into Anton's successful integration to the team. You're off hours, having a drink, your arm casually wrapped around his back, grinning down at him as he offers a crooked, earnest smile back to you."
     "The rest of the team is toasting together, hell even Marlen is chiming in."
@@ -117,13 +127,21 @@ label start:
 
     "{i}What a roundabout way of saying I'm bullshitting him.{/i}"
 
-    show bg bar zoom1
+    show bg bar 
 
     "You sigh, pulling yourself out of your chair. You eye the way Anton rises with you, following suit, even pulling his jacket on before your hand steadies him and pushes him back into his seat."
 
     pc "You're staying here. You're new, and we don't know what the hell the boss could be presenting."
 
+    with Dissolve(.25)
+    scene bg bar empty
+    with Dissolve(.65)
+    show a_pouto at center
+
+
     a "W-What?! Why can't I go?"
+
+    show a_pout 
 
     "He stutter indignantly, affronted by the exclusionary practice."
 
@@ -131,6 +149,8 @@ label start:
     
     "You glance over at one of the older, grayer members. He's stocky, onset eyes that lock with yours before sending over a slow nod in your direction. You pat Anton on the back, offering him a cautious grin."
 
+    show a_worry
+    
     pc "It's probably nothing, Anton. Don't fuss. Enjoy your night."
 
     "It was NOT nothing."

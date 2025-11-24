@@ -342,14 +342,14 @@ define gui.history_spacing = 0
 ## speaking character.
 define gui.history_name_xpos = 233
 define gui.history_name_ypos = 0
-define gui.history_name_width = 233
+define gui.history_name_width = 1110
 define gui.history_name_xalign = 1.0
 
 ## The position, width, and alignment of the dialogue text.
-define gui.history_text_xpos = 233
+define gui.history_text_xpos = 255
 define gui.history_text_ypos = 3
 define gui.history_text_width = 1110
-define gui.history_text_xalign = 1.0
+define gui.history_text_xalign = 0.0
 
 
 ## NVL-Mode ####################################################################
