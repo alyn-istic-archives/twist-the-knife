@@ -158,21 +158,49 @@ label start:
     "24 hours later, you're running on no sleep, leading a team of people you've known for either as long as five years or as little as three months trying to catch a violent, destructive murderer."
     "One victim is all you know of so far, but it's not long until your 'very professional' boss tells you that the corpse is HOW OLD-- and that there's probably MORE VICTIMS--"
 
-    "Your hand sinks into your hands at your desk, waiting for the results of your database searches to finalize based off of what little information of the victim you have."
+    scene bg desk
 
+    "Your head sinks into your hands at your desk, waiting for the results of your database searches to finalize based off of what little information of the victim you have."
 
     "The only comfort you had, was what litle 'battery acid' you and Marlen snuck to the back to create. An amalgamation of coffee, sour candies, energy drinks, and a bit of sugar packets from the break room. It had lasted you pretty long, you'll admit."
+    
+    hide item
+    with dis
+    show item empty mug
 
     "But even that had ran out, much like your patience. Your eyes rove over to the now-empty cup, wistfully."
 
+    hide item
+    with dis
+
     "Maybe you should have gotten another drink at the pub. A stronger, alcholic one. Anything to make the strain of this stupid case dissipate."
+
+    scene bg slam desk
+    with vpunch
 
     "Your head falls, nearly banging on the hard of your desk, vision blurring as you hear worried mutters from those around you. You're so... {b} so {/b} done."
 
-    "It's the hesitant footfalls against the linoleum floor that slowly gets your attention of the white of your computer screen. The five dollar bill slipped under the cross of your arm renders you suddenly perking up."
+    "It's the hesitant footfalls against the linoleum floor that slowly gets your attention of the white of your computer screen."
+    
+    show item freemoney
+    with hpunch
+    
+    "The five dollar bill slipped under the cross of your arm renders you suddenly perking up."
+
+    hide item freemoney
+    with vpunch
+
+    scene bg desk
+
     "Anton's firm and broad shoulders come into view, stiffening at the immediate reaction, pulled tight to avoid laughing as he slowly retracts the bill."
 
+    show a_worry at right
+
     a "Sorry, Sarge. You looked like you needed a pick-me-up."
+
+    show item mug
+    with zoomin
+
 
     "Before you have any time to complain or interject or assure him you're fine (like a good superior), he slides you a mug of... something."
 
@@ -187,16 +215,33 @@ label start:
     "You grin back at the gesture, basking in the warmth of the mug."
     menu:
         "Take a sip.":
+            show item tea mug
+
+            "It's... good."
+            hide item
+            with dis
+            show item empty mug
+            "Really good."
+            hide item
+
             jump tea_sip
 
           #  menu:
           #  "Some people just... maybe need help, you suppose.":
           #  "Good fucking riddance.":
         "Don't drink it, but thank him.":
+            hide item
             jump tea_dont_sip
 
     
     label tea_sip:
+    
+
+    scene bg slam desk
+    with pixellate
+    pause.2
+    with zoomin
+
     "You fall asleep promptly at your desk a couple minutes later. 6 hours later, you wake up to your own coat covering your shoulders. He should get a raise."
     "That morning, Anton had finished external research and networking, before presenting it with some information that just... clicks with what you were working on!"
     "You approach Marlen with this new evidence and ask if he could go with you on a stakeout later that day. He readily agrees, his wife having scolded him last night for his absence and he is ready to be done with this quick but cruel case."
@@ -207,10 +252,26 @@ label start:
 
     "The takedown is swift and easy. Aside from the already-bloodied knife, coated in the previous victim's blood, the suspect (white, late 20s, jealous ex-boyfriend) practically breaks down and confesses everything in front of MArlen's body camera."
 
-    "It's the weight of the blod on his hands that has him pleading guilty in front of the court, not even properly hiring a lawyer."
+    "It's the weight of the blood on his hands that has him pleading guilty in front of the court, not even properly hiring a lawyer."
 
     label tea_dont_sip:
-    "You make progress int he case, able to locate the original drop site of the murder, and luckily enough, you manage to find the weapon! It's a typical murder, stab and ditch."
+    
+    hide a_worry
+    
+    "Hours pass just sat in front of your computer. Some of your coworkers check in on you."
+    "It's really boring. You take several small power naps."
+    pause.25
+    "You scroll past another seemingly boring lead. Unless."
+    
+    with vpunch
+    pc "What--!"
+    
+    "It's perfect."
+    "Somehow this dead end is enough to locate the original drop site of the murder, and luckily enough, you manage to find the weapon! It's a typical murder, stab and ditch."
+
+    show item knife
+
+
     "You catch the guy (white, early-to-mid 30s, businessman with a grudge) and he's promptly sent to jail after he pleads guilty, feeling the weight of his crimes heavy on him."
 
 
