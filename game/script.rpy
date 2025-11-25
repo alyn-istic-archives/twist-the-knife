@@ -16,6 +16,8 @@ define pc = "You"
 define s = "???"
 define m = "Marlen"
 
+default nonmeat = False
+
 
 # The game starts here.
 
@@ -243,6 +245,10 @@ label start:
     with zoomin
 
     "You fall asleep promptly at your desk a couple minutes later. 6 hours later, you wake up to your own coat covering your shoulders. He should get a raise."
+
+    scene bg desk
+    with dis
+
     "That morning, Anton had finished external research and networking, before presenting it with some information that just... clicks with what you were working on!"
     "You approach Marlen with this new evidence and ask if he could go with you on a stakeout later that day. He readily agrees, his wife having scolded him last night for his absence and he is ready to be done with this quick but cruel case."
 
@@ -254,10 +260,11 @@ label start:
 
     "It's the weight of the blood on his hands that has him pleading guilty in front of the court, not even properly hiring a lawyer."
 
-    label tea_dont_sip:
+    jump dinner_inv
+
+label tea_dont_sip:
     
     hide a_worry
-    
     "Hours pass just sat in front of your computer. Some of your coworkers check in on you."
     "It's really boring. You take several small power naps."
     pause.25
@@ -268,11 +275,79 @@ label start:
     
     "It's perfect."
     "Somehow this dead end is enough to locate the original drop site of the murder, and luckily enough, you manage to find the weapon! It's a typical murder, stab and ditch."
-
     show item knife
-
-
     "You catch the guy (white, early-to-mid 30s, businessman with a grudge) and he's promptly sent to jail after he pleads guilty, feeling the weight of his crimes heavy on him."
+
+label dinner_inv:
+
+    scene office doors
+    with dis
+
+    "You're finally clocking out of your shift. God forbid."
+    "This case has been nothing but a pain in your ass these past couple days. Not weeks, thankfully. But you definitely could have seen it getting that extreme."
+
+    "You're finally honing it to that far door, you're so close--"
+
+    with hpunch
+    show item partial Anton
+    
+    a "Uh, hi boss?"
+
+    "...Something in his hand smells... delicious. Goddamn it, you're starving."
+
+    "And in record time, your stomach growls equally as loud. You've technically missed every word he's said since, but the growing smile on his face..."
+    "does NOT go unremarked."
+
+    a "You, uh, hungry, sarge?"
+    "He manages, a cheeky undertone pulling at his tired voice."
+
+    pc "No."
+
+    a "Really now? I think something else disagrees."
+
+    "And if on cue, your stomach growls again. Sure, you had eaten earlier."
+    pause.25
+    "Earlier this week, at least."
+
+    pc "What is it to you if I am? Are you offering to deal with it?"
+
+    a "Sure! I usually make a mean pulled pork sandwich, or at least I have the leftovers here with me right now. But back at home, I've got like a large dinner set up for me and everything, if you'd like to join me!"
+
+    "That sounds... really good considering you don't have any food already prepped..."
+
+    menu:
+        "Hm. Sure.":
+            menu:
+                "Do you have any non-meat food? Meat's not a personal preference.":
+                    $nonmeat = True
+                    #show a_neutral
+                    a "Oh!"
+                    a "Sorry, I didn't know that! I don't have anything on me at the ready..."
+                    pause.2
+                    #show a_worry with hpunch
+                    a "I actually do!"
+                    a "I was planning on a quaint four course meal tonight, nothing too heavy or anything. I'm so glad to have you join me!"
+                    a "I don't mind making some quick alternatives, but most of it is a little meat-heavy... But I've got alternatives, so don't you worry!"
+                    jump car
+                "Sounds great.":
+                    a "Fantastic! We'll take my car!"
+                    "Silently, you raise an eyebrow in his direction. He quickly scatters following up with his reasoning."
+                    a "Well, uhm, you look really tired, Sarge."
+                    a "Least I can do for you."
+                    a "If you don't mind..."
+                    jump car
+        "No thanks.":
+            pc "I'll pass tonight."
+            "His smile falters, but he wishes you well."
+            a "Ah, it's fine. I figured I'd just offer."
+
+            "Neutral Ending: So you're no fun?"
+            if "Neutral" not in persistent.endings:
+                $persistent.endings.append("No Dinner For You :(")
+label car:
+
+        
+
 
 
 
