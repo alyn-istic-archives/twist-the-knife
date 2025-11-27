@@ -84,7 +84,7 @@ label start:
         "you have the experience to do it right the first time. you're sure some other bumbling fool would fuck this up somehow.":
             jump bar
 
-    label bar:
+label bar:
 
     "You sigh. Regardless of motive, you have little to no choice in this whole ordeal. He's a criminal, a murderer -- and you're a homicidal specialist detective."
     "And unfortunately, this makes it exclusively your job to handle this criminal and get him off the streets -- for good."
@@ -138,12 +138,12 @@ label start:
     with Dissolve(.25)
     scene bg bar empty
     with Dissolve(.65)
-    show a_pouto at center
+    show ant_pouto at center
 
 
     a "W-What?! Why can't I go?"
 
-    show a_pout 
+    show ant_pout 
 
     "He stutter indignantly, affronted by the exclusionary practice."
 
@@ -151,9 +151,11 @@ label start:
     
     "You glance over at one of the older, grayer members. He's stocky, onset eyes that lock with yours before sending over a slow nod in your direction. You pat Anton on the back, offering him a cautious grin."
 
-    show a_worry
+    show ant_worry
     
     pc "It's probably nothing, Anton. Don't fuss. Enjoy your night."
+    
+label cont:
 
     "It was NOT nothing."
 
@@ -196,7 +198,7 @@ label start:
 
     "Anton's firm and broad shoulders come into view, stiffening at the immediate reaction, pulled tight to avoid laughing as he slowly retracts the bill."
 
-    show a_worry at right
+    show ant_worry at right
 
     a "Sorry, Sarge. You looked like you needed a pick-me-up."
 
@@ -262,9 +264,9 @@ label start:
 
     jump dinner_inv
 
-label tea_dont_sip:
+    label tea_dont_sip:
     
-    hide a_worry
+    hide ant_worry
     "Hours pass just sat in front of your computer. Some of your coworkers check in on you."
     "It's really boring. You take several small power naps."
     pause.25
@@ -289,7 +291,7 @@ label dinner_inv:
     "You're finally honing it to that far door, you're so close--"
 
     with hpunch
-    show item partial Anton
+    show ant_nervous
     
     a "Uh, hi boss?"
 
@@ -344,9 +346,148 @@ label dinner_inv:
             "Neutral Ending: So you're no fun?"
             if "Neutral" not in persistent.endings:
                 $persistent.endings.append("No Dinner For You :(")
+            return
+
 label car:
 
+    scene bg car
+    with dis
+
+    show car Anton
+
+    "The car ride isn't spectacular or anything, still on edge from spending countless nights at your desk. It's a couple moments later that you're hesitantly speaking up."
+
+    menu:
+        "So... Sandwiches, am I right?":
+            a "Yes! I love making them. They're easy to put together and they aren't anything to heavy. Something you can finish anywhere if need be!"
+            a "Gotta be ready whenever on the job!"
+            jump cont_car
+        "Four courses... is quaint?":
+            "He chuckles nervously."
+            a "Is it not? I like to eat a lot, I'm afraid."
+            a "I hope it's not something you mind?"
+            menu:
+                "Nah, I eat a lot too.":
+                    "He beams back at you in full force."
+                    a "Now here's someone who shares the same dedication I do!"
+                    jump cont_car
+                "Um... it's whatever, I guess.":
+                    a "That's good."
+                    "He hums to himself absentmindedly as the next song plays on the radio."
+                    jump cont_car
+                "Big back ahhh":
+                    "Silence fills the air as his face freezes."
+                    "Stiltedly, he coughs."
+                    jump cont_car
+        "(I like the silence...)":
+            jump cont_car
+    
+    label cont_car:
+        "The rest of the ride is filled with a neutral silence, the brief humming of the car, and whatever was playing on the radio."
+        "A couple minutes later, you pull up into the parking lot of a... house???"
+        pc "What the..."
+        "You're... flabbergasted."
+        "He's what... 27 to 28? At most, 30?"
+        "And he has... a wholeass HOUSE?"
+        "Nah... This isn't real."
+
+        "As if catching your flabbergasted stare with amusement, he parks the car before heading around and opening your door."
+        a "It is my house. If you're that curious, why not come in and actually take a look, Sarge?"
+        "You scoff at the endearment with a grin."
+        pc "You know I'm not actually your work superior."
+        "You make your way outside the car."
+        pc "I just trained you cause the real boss asked me to instead."
+
+    label house_01:
+
+        "You follow him to the entrance of Anton's house. He fiddles with his keys, before the door swings open with little to no fanfare."
+        "He has you put your shoes on a shoe rack and hang up your coat in the closet."
+        "You awkwardly trail behind him as he gives you a quick introduction around his primary living space."
+
+        "He tells you to get settled at the island bar as you watch him get to cooking. Grinning, he boasts, tying the apron around his waist."
+        a "I promise that everything I'm gonna serve is gonna be like nothing you've ever had before."
+        "He pauses."
+        a "Well, there's a good chance it'll be something you've had before. But better!"
+
+        menu:
+            "Watch him make the first course.":
+                jump course01
+            "Take a look around from where you're sitting.":
+                "It's not like you were expecting much. But still."
+                "His house is a lot more bare bones than you were expecting it to be."
+                "It lacks... emotion. Wherever you look, it's hard to find a trace of, well, Anton."
+                "No personal or family photos, no evidence that the house is really lived in."
+                jump serve01
         
+
+    label course01:
+        "You watch him pull a bowl out of the fridge."
+        if nonmeat:
+            jump vegancourse01
+
+    label vegancourse01:
+        "It's... sweet potatoes? They look fairly fresh and they've already been peeled!"
+        "And soaked?"
+        "He pours out the starchy water down the sink before looking back up at you."
+        a "Do you like sweet potatoes?"
+        menu:
+            "(Well, if you didn't you're eating them now.)":
+                pc "Uh... I like them enough!"
+                a "Ahh, sorry. I'll rememeber for next time."
+                "...?"
+                "There's going to be a next time?"
+                "Ambitious, you guess."
+            "Yes!":
+                pc "I love sweet potatoes. Really delicious. And like the name suggests, sweet."
+                a "Fantastic!"
+        "It's not really a moment later until he's quickly scribbling something down on a sheet of paper."
+        a "Here's the line-up for tonight. I figured I should give you a heads-up on what you're eating!"
+        "Appetizer - Sweet Potato Fries."
+        "First Course - Tomato Soup with a side of Garlic Bread."
+        "Palate Cleanser - Tea Time | Wine and Dine."
+        "Entree - Tofu Steak."
+        "Dessert - Velvet Mousse."
+
+        menu:
+            "This isn't as... professional as you made it sound.":
+                a "I'm just a man! Not a three-star Michelin chef."
+                jump vc1cont
+            "This sounds... delicious!":
+                a "Thank you! I try my best to make meals I'll enjoy and ones that actually feed me well enough!"
+                jump vc1cont
+
+    label vc1cont:
+        "He makes quick work of the sweet potatoes, expertly frying them in the built-in deep fryer (?!!?!) in his kitchen before he grabs a seperate package from his fridge."
+        menu:
+            "What's that?":
+                "His body stiffens before he awkwardly chuckles."
+                a "I'm just preferential to meat. Sorry."
+                "He carefully peels a thin sheet of red meat out of the package."
+                a "It's wonderfully marbled beef. And nothing tastes better than fried beef."
+                "He grins sheepishly, before apologizing."
+                a "I know it's not your thing but I hope you don't mind."
+                pc "As long as you aren't feeding it to me."
+                a "What?! I would never do that!"
+                "It's an immediate knee-jerk response, as if he's almost hurt at the suggestion."
+                pc "Ahaha... I was just. Joking."
+                a "Oh. Sorry. I would never feed someone something they aren't comfortable without asking first!"
+                a "You just scared me, that's all."
+            "How do you know when to take them out of the fryer?":
+                a "Huh?"
+                a "Oh, you mean the food?"
+                a "It's pretty easy for the sweet potatoes."
+                a "You just wait between 5-10 minutes depending on how crispy (or burnt) you want them to be."
+                a "Or you keep an eye on the colour!"
+                pc "Hmm... Sounds a bit more easy than you make it look."
+                a "I do tend to do that."
+    
+    label serve01:
+
+        "yipe"
+
+        
+
+
 
 
 
