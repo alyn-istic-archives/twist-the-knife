@@ -16,6 +16,9 @@ define pc = "You"
 define s = "???"
 define m = "Marlen"
 
+default preferences.text_cps = 45
+default preferences.afm_enable = False
+
 default nonmeat = False
 
 
@@ -33,7 +36,7 @@ label start:
                 $persistent.tw = True
         "Also make sure to keep the game open while playing over and over to unlock certain endings !!"
 
-    with Dissolve(1)
+    with dis
     scene bg cork wall
 
     # This shows a character sprite. A placeholder is used, but you can
@@ -67,11 +70,9 @@ label start:
     pc "Now, forensics has identified her primarily by the... teeth left at the scene where she was last seen. Aside from that, we have very little evidence."
 
     "Someone scoffs."
-
     s "As usual."
     
     "Someone immediately slaps the back of their head, grumbling."
-    
     s "Shh--!"
 
     "You've been on this wild goose chase for a year now, you can't blame them. You too tire of this mundanity. But you've taken up the mantle because:"
@@ -135,7 +136,7 @@ label bar:
 
     pc "You're staying here. You're new, and we don't know what the hell the boss could be presenting."
 
-    with Dissolve(.25)
+    with dis
     scene bg bar empty
     with Dissolve(.65)
     show ant_pouto at center
@@ -177,7 +178,7 @@ label cont:
     hide item
     with dis
 
-    "Maybe you should have gotten another drink at the pub. A stronger, alcholic one. Anything to make the strain of this stupid case dissipate."
+    "Maybe you should have gotten another drink at the pub.{w=.2} A stronger, alcholic one. Anything to make the strain of this stupid case dissipate."
 
     scene bg slam desk
     with vpunch
@@ -187,7 +188,6 @@ label cont:
     "It's the hesitant footfalls against the linoleum floor that slowly gets your attention of the white of your computer screen."
     
     show item freemoney
-    with hpunch
     
     "The five dollar bill slipped under the cross of your arm renders you suddenly perking up."
 
@@ -198,21 +198,26 @@ label cont:
 
     "Anton's firm and broad shoulders come into view, stiffening at the immediate reaction, pulled tight to avoid laughing as he slowly retracts the bill."
 
-    show ant_worry at right
+    show ant_grin
 
     a "Sorry, Sarge. You looked like you needed a pick-me-up."
 
     show item mug
     with zoomin
 
+    show ant_fond
 
     "Before you have any time to complain or interject or assure him you're fine (like a good superior), he slides you a mug of... something."
 
     a "Tea. It's chamomile."
 
     "He clarifies, pointedly looking away, as he awkwardly explains himself."
+
+    show ant_worryo
     
     a "Ah-- is it too rude of me to offer? I can take it away--"
+
+    show ant_worry
 
     pc "You're fine."
     
@@ -223,10 +228,12 @@ label cont:
 
             "It's... good."
             hide item
+            show ant_fond
             with dis
             show item empty mug
             "Really good."
             hide item
+
 
             jump tea_sip
 
@@ -258,7 +265,7 @@ label cont:
     "You both arrive on sight, just to see the suspect arguing with, what you assume is a business partner, before he pulls out what seems to be the {u}exact same weapon used on the victim {/u}!"
     "Marlen calls in backup before heading towards the man, hidden by the sunset cover. You support him from behind, trailing far enough to be able to step in, should he need it."
 
-    "The takedown is swift and easy. Aside from the already-bloodied knife, coated in the previous victim's blood, the suspect (white, late 20s, jealous ex-boyfriend) practically breaks down and confesses everything in front of MArlen's body camera."
+    "The takedown is swift and easy. Aside from the already-bloodied knife, coated in the previous victim's blood, the suspect (white, late 20s, jealous ex-boyfriend) practically breaks down and confesses everything in front of Marlen's body camera."
 
     "It's the weight of the blood on his hands that has him pleading guilty in front of the court, not even properly hiring a lawyer."
 
@@ -282,7 +289,7 @@ label cont:
 
 label dinner_inv:
 
-    scene office doors
+    scene bg office doors
     with dis
 
     "You're finally clocking out of your shift. God forbid."
@@ -291,21 +298,33 @@ label dinner_inv:
     "You're finally honing it to that far door, you're so close--"
 
     with hpunch
-    show ant_nervous
+    show ant_worryo
     
     a "Uh, hi boss?"
+
+    show ant_neutral
 
     "...Something in his hand smells... delicious. Goddamn it, you're starving."
 
     "And in record time, your stomach growls equally as loud. You've technically missed every word he's said since, but the growing smile on his face..."
     "does NOT go unremarked."
 
+    show ant_grin
+    pause.25
+    show ant_neutralo
+
     a "You, uh, hungry, sarge?"
+    show ant_neutral
     "He manages, a cheeky undertone pulling at his tired voice."
 
     pc "No."
 
+    show ant_fond
+    pause.25
+    show ant_neutralo
     a "Really now? I think something else disagrees."
+
+    show ant_grin
 
     "And if on cue, your stomach growls again. Sure, you had eaten earlier."
     pause.25
@@ -313,7 +332,13 @@ label dinner_inv:
 
     pc "What is it to you if I am? Are you offering to deal with it?"
 
+    show ant_grin
+    pause.2
+    show ant_neutralo
+
     a "Sure! I usually make a mean pulled pork sandwich, or at least I have the leftovers here with me right now. But back at home, I've got like a large dinner set up for me and everything, if you'd like to join me!"
+
+    show ant_grin
 
     "That sounds... really good considering you don't have any food already prepped..."
 
@@ -322,18 +347,24 @@ label dinner_inv:
             menu:
                 "Do you have any non-meat food? Meat's not a personal preference.":
                     $nonmeat = True
-                    #show a_neutral
+                    show ant_shocko
                     a "Oh!"
+                    show ant_worryo
                     a "Sorry, I didn't know that! I don't have anything on me at the ready..."
                     pause.2
-                    #show a_worry with hpunch
+                    show ant_neutralo
                     a "I actually do!"
                     a "I was planning on a quaint four course meal tonight, nothing too heavy or anything. I'm so glad to have you join me!"
                     a "I don't mind making some quick alternatives, but most of it is a little meat-heavy... But I've got alternatives, so don't you worry!"
                     jump car
                 "Sounds great.":
+                    show ant_grin
+                    pause.25
+                    show ant_neutralo
                     a "Fantastic! We'll take my car!"
+                    show ant_neutral
                     "Silently, you raise an eyebrow in his direction. He quickly scatters following up with his reasoning."
+                    show ant_worryo
                     a "Well, uhm, you look really tired, Sarge."
                     a "Least I can do for you."
                     a "If you don't mind..."
@@ -411,7 +442,10 @@ label car:
 
         menu:
             "Watch him make the first course.":
-                jump course01
+                if nonmeat:
+                    jump vegancourse01
+                else:
+                    jump course01
             "Take a look around from where you're sitting.":
                 "It's not like you were expecting much. But still."
                 "His house is a lot more bare bones than you were expecting it to be."
@@ -421,14 +455,75 @@ label car:
         
 
     label course01:
-        "You watch him pull a bowl out of the fridge."
-        if nonmeat:
-            jump vegancourse01
+        "You watch him pull a bowl of... buttermilk(?) out of the fridge."
+        "And there it was in front of you."
+        "...?"
+        pc "Is that... actually, no, what is that?"
+        a "Gizzard! Have you heard of it before?"
+        "This didn't answer any questions. This actually gave you more questions."
+        menu:
+            "Um... no.":
+                jump what_gizzard
+            "Yeah, it seems pretty cool!":
+                a "Really now? I don't think I've met a lot of people who know what it is!"
+                a "That's super cool!"
+                jump yes_gizzard
+            "Um, ew, unfortunately. And you think I'm eating that?":
+                jump no_gizzard
+        label what_gizzard:
+            pc "What's gizzard?"
+            a "Well, I don't actually have a real definition for you. But it's part of the chicken's stomach!"
+            a "It also tastes really similar to other dark meat!"
+            a "And if you know what giblets are, they're part of that sub-group."
+            "You subtly grab your phone and type in gizzards and giblets into your search bar."
+            "Giblets... Giblets are... edible internal organs? And gizzards happen to be those. So... gizzards are uysed to grind the food of chickens? They're muscles?"
+            pc "Why do chickens need to grind their food."
+            a "They don't have teeth. I guess their beaks don't do all of that."
+            pc "So, uh, why's it soaking in all that?"
+            a "Well, I'm guessing it said something about the gizzards being a muscle. And usually, muscles don't have the best texture."
+            a "Buttermilk has acidic properties that let it break those muscle fibers."
+            a "It also tenderizes the meat!"
+            a "I let these guys sit for about 20 hours to tenderize them. I could slow cook them, but I prefer to have something already ready to cook when I get home."
+            pc "Especially with that psycho on the loose."
+            a "Correction, having *been* on the loose. Off the streets now, thank god."
+            jump yes_gizzard
+
+        label yes_gizzard:
+            "He moves aside, preparing two bowls of a beaten egg mixture and another bowl that he adds flour, salt, garlic and onion powder, and some paprika to."
+            "Generously, he coats each individual piece in the egg wash and then the flour."
+            "His hands stiffen in the bowl, as if remembering a question."
+            a "Oh. Sorry, does the idea of eating these bother you?"
+            menu:
+                "A little...":
+                    a "I can offer you something else to eat then! I have a more... vegan course prepared if you'd like?"
+                    "He... hadn't known you were coming. How would he have prepared all that?"
+                    menu:
+                        "Yeah, I'd rather that.":
+                            a "Yeah. Yeah, of course!"
+                            "He quickly washes his hands, moving to put the gizzard in the fridge and bringing out a different bowl."
+                            "Water sloshes around the rim as you lean in."
+                            jump vegancourse01
+                        "Oh, no, it's fine.":
+                            jump yay_gizzard
+                "Not at all!":
+                    jump yay_gizzard
+            label yay_gizzard:
+            "Something about the sudden pleasantries makes you feel a bit defensive."
+            "Your hands raise up to your shoulders in defense."
+            pc "It doesn't bother me! Really!"
+            "His shoulders relax at the assurance."
+            a "As long as you're sure. I wouldn't want to scare away my guest now."
+            jump vserve01
+
+        label no_gizzard:
+            "He winces at your tone and diction. If almost wounded by your harshness."
+            a "Ouch, alright, I get it."
+            a "I can prepare you something else."
+            jump vserve01
 
     label vegancourse01:
-        "It's... sweet potatoes? They look fairly fresh and they've already been peeled!"
-        "And soaked?"
-        "He pours out the starchy water down the sink before looking back up at you."
+        "It's... sweet potatoes? They look fairly fresh and they've already been peeled."
+        "He pours it into a pot, letting it boil on the stove for 4-10 minutes before letting them cool and drying them gently."
         a "Do you like sweet potatoes?"
         menu:
             "(Well, if you didn't you're eating them now.)":
@@ -442,12 +537,11 @@ label car:
                 a "Fantastic!"
         "It's not really a moment later until he's quickly scribbling something down on a sheet of paper."
         a "Here's the line-up for tonight. I figured I should give you a heads-up on what you're eating!"
-        "Appetizer - Sweet Potato Fries."
+        "Appetizer - Cubed Sweet Potato."
         "First Course - Tomato Soup with a side of Garlic Bread."
         "Palate Cleanser - Tea Time | Wine and Dine."
         "Entree - Tofu Steak."
         "Dessert - Velvet Mousse."
-
         menu:
             "This isn't as... professional as you made it sound.":
                 a "I'm just a man! Not a three-star Michelin chef."
@@ -456,40 +550,82 @@ label car:
                 a "Thank you! I try my best to make meals I'll enjoy and ones that actually feed me well enough!"
                 jump vc1cont
 
-    label vc1cont:
-        "He makes quick work of the sweet potatoes, expertly frying them in the built-in deep fryer (?!!?!) in his kitchen before he grabs a seperate package from his fridge."
+        label vc1cont:
+        "The potatoes are all lumped into one bowl of oil and spices, shaken around until even coating."
+        "Anton makes quick work of the sweet potatoes, expertly frying them in the built-in deep fryer (?!!?!) in his kitchen before he grabs a seperate package from his fridge."
         menu:
             "What's that?":
                 "His body stiffens before he awkwardly chuckles."
                 a "I'm just preferential to meat. Sorry."
-                "He carefully peels a thin sheet of red meat out of the package."
+                if not nonmeat:
+                    a "Sweet potatoes and gizzards can taste great together, but I prefer red meat over white in this case."
+                    a "Plus, you aren't huge on the gizzards, I won't make you uncomfortable like that."
+                "He carefully peels a thin sheet of red out of the package."
                 a "It's wonderfully marbled beef. And nothing tastes better than fried beef."
                 "He grins sheepishly, before apologizing."
-                a "I know it's not your thing but I hope you don't mind."
-                pc "As long as you aren't feeding it to me."
-                a "What?! I would never do that!"
-                "It's an immediate knee-jerk response, as if he's almost hurt at the suggestion."
-                pc "Ahaha... I was just. Joking."
-                a "Oh. Sorry. I would never feed someone something they aren't comfortable without asking first!"
-                a "You just scared me, that's all."
+                if not nonmeat:
+                    a "Sorry, I didn't tell you this was another option. But I don't think I have enough for two servings of beef anyway."
+                if nonmeat:
+                    a "I know it's not your thing but I hope you don't mind."
+                    pc "As long as you aren't feeding it to me."
+                    a "What?! I would never do that!"
+                    "It's an immediate knee-jerk response, as if he's almost hurt at the suggestion."
+                    pc "Ahaha... I was just. Joking."
+                    a "Oh. Sorry. I would never feed someone something they aren't comfortable without asking first!"
+                    a "You just scared me, that's all."
+                pc "Eh. It's fine, don't stress too much."
+                jump vserve01
             "How do you know when to take them out of the fryer?":
                 a "Huh?"
                 a "Oh, you mean the food?"
                 a "It's pretty easy for the sweet potatoes."
-                a "You just wait between 5-10 minutes depending on how crispy (or burnt) you want them to be."
+                a "You just wait between 10-14 minutes depending on how crispy (or burnt) you want them to be."
                 a "Or you keep an eye on the colour!"
                 pc "Hmm... Sounds a bit more easy than you make it look."
                 a "I do tend to do that."
-    
-    label serve01:
-
-        "yipe"
+                jump vserve01
 
         
+        
+    label vserve01:
+        "Everything is done quickly, with a subtle layer of quiet finesse to it. You're not sure how often he cooks for himself."
+        "But his apparent talent is clear."
+        "His plate sits in front of you, pouring you a glass of water in a wineglass, the lemon pitcher resting nearby."
+        "He gestures to his dining table as you watch him clean the cutting boards, wash them under running water."
+        a "You can go make yourself comfortable if you'd like?"
+        menu:
+            "Oh. Yeah, sure.":
+                a "I mean you don't have to!"
+            "Can I do anything to help you with?":
+                a "Ah, you could set the table? You just need to grab your preffered cutlery. Top drawer."
+                "He gestures to his left."
+
+                ## scene bg cutlery01
+
+                menu:
+                    "Open the top drawer.":
+
+                    ## scene bg cutlery02, the cutlery is spoon knife chopstick butterknife etc.
+
+                    ## $ cutlery = whatever they choose
+                        "PEAK"
+                        jump serve01
+
+                    "Open the second drawer.":
+
+                        # blur of action or sum with hpunch
+                        "You slide open the second drawer with a clatter, hearing metal scrape as you quickly glance to your right as Anton's eyes narrow on you."
+                        a "No--"
+                        #hpunch
+                        a "What. {w=.2}Are. {w=.2}You. {w=.2} Doing."
+                        jump serve01
 
 
 
 
+    label serve01:
+
+        "YIPE"
 
 
 
