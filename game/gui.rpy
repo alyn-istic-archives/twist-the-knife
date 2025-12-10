@@ -24,28 +24,32 @@ init python:
 ##
 ## The colors of text in the interface.
 
+
+# 34407E - dark blue
+# 6079D9 - light blue
+
 ## An accent color used throughout the interface to label and highlight text.
-define gui.accent_color = '#cc0000'
+define gui.accent_color = '#ffffff'
 ## The color used for a text button when it is neither selected nor hovered.
-define gui.idle_color = '#888888'
+define gui.idle_color = '#34407E'
 ## The small color is used for small text, which needs to be brighter/darker to
 ## achieve the same effect.
-define gui.idle_small_color = '#aaaaaa'
+define gui.idle_small_color = '#34407E'
 
 ## The color that is used for buttons and bars that are hovered.
-define gui.hover_color = '#e06666'
+define gui.hover_color = '#6079D9'
 
 ## The color used for a text button when it is selected but not focused. A
 ## button is selected if it is the current screen or preference value.
 define gui.selected_color = '#ffffff'
 
 ## The color used for a text button when it cannot be selected.
-define gui.insensitive_color = '#8888887f'
+define gui.insensitive_color = '#34407E'
 
 ## Colors used for the portions of bars that are not filled in. These are not
 ## used directly, but are used when re-generating bar image files.
-define gui.muted_color = '#510000'
-define gui.hover_muted_color = '#7a0000'
+define gui.muted_color = '#34407E'
+define gui.hover_muted_color = '#6079D9'
 
 ## The colors used for dialogue and menu choice text.
 define gui.text_color = '#ffffff'
@@ -98,7 +102,7 @@ define gui.textbox_yalign = 0.975
 
 ## The placement of the speaking character's name, relative to the textbox.
 ## These can be a whole number of pixels from the left or top, or 0.5 to center.
-define gui.name_xpos = 360
+define gui.name_xpos = 300
 define gui.name_ypos = -75
 
 ## The horizontal alignment of the character's name. This can be 0.0 for left-
@@ -107,12 +111,12 @@ define gui.name_xalign = 0.0
 
 ## The width, height, and borders of the box containing the character's name,
 ## or None to automatically size it.
-define gui.namebox_width = None
-define gui.namebox_height = None
+define gui.namebox_width = 350
+define gui.namebox_height = 100
 
 ## The borders of the box containing the character's name, in left, top, right,
 ## bottom order.
-define gui.namebox_borders = Borders(25, 15, 25, 15)
+define gui.namebox_borders = Borders(25, 25, 25, 25)
 
 ## If True, the background of the namebox will be tiled, if False, the
 ## background of the namebox will be scaled.

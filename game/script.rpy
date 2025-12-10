@@ -18,9 +18,14 @@ define m = "Marlen"
 
 default preferences.text_cps = 45
 default preferences.afm_enable = False
-
 default nonmeat = False
 
+
+# stats such as affection, suspicion, murder rate (how likely u r to die)
+
+default a_s = 0
+default a_mr = 10
+default a_a = 0
 
 # The game starts here.
 
@@ -224,10 +229,9 @@ label cont:
     "You grin back at the gesture, basking in the warmth of the mug."
     menu:
         "Take a sip.":
+            hide item mug 
             show item tea mug
-
             "It's... good."
-            hide item
             show ant_fond
             with dis
             show item empty mug
@@ -347,6 +351,10 @@ label dinner_inv:
             menu:
                 "Do you have any non-meat food? Meat's not a personal preference.":
                     $nonmeat = True
+                    $a_mr = -100000
+                    #aka ur not dying any time soon
+                    #not cause he hates you, but because like,, youre a vegan, you cna't eat humans
+                    #vro draws the line at religion my chevre my beloved son  <3
                     show ant_shocko
                     a "Oh!"
                     show ant_worryo
@@ -502,6 +510,7 @@ label car:
                             a "Yeah. Yeah, of course!"
                             "He quickly washes his hands, moving to put the gizzard in the fridge and bringing out a different bowl."
                             "Water sloshes around the rim as you lean in."
+                            $nonmeat = True
                             jump vegancourse01
                         "Oh, no, it's fine.":
                             jump yay_gizzard
@@ -519,6 +528,7 @@ label car:
             "He winces at your tone and diction. If almost wounded by your harshness."
             a "Ouch, alright, I get it."
             a "I can prepare you something else."
+            $nonmeat = True
             jump vserve01
 
     label vegancourse01:
@@ -540,7 +550,7 @@ label car:
         "Appetizer - Cubed Sweet Potato."
         "First Course - Tomato Soup with a side of Garlic Bread."
         "Palate Cleanser - Tea Time | Wine and Dine."
-        "Entree - Tofu Steak."
+        "Entree - Tofu Tomahawk."
         "Dessert - Velvet Mousse."
         menu:
             "This isn't as... professional as you made it sound.":
@@ -549,6 +559,14 @@ label car:
             "This sounds... delicious!":
                 a "Thank you! I try my best to make meals I'll enjoy and ones that actually feed me well enough!"
                 jump vc1cont
+            "Anton, what is a tomahawk.":
+                a "A tomahawk is a type of steak! So it's moreso just a tofu steak."
+                a "Specifically a ribeye cut!"
+                a "Gots lot of marbling, tenderness, and flavor. Delicious."
+                pause.2
+                a "But yours is completely tofu, don't worry."
+                if not nonmeat:
+                    a "I know you just changed from the gizzard, but the whole menu changes if you change the gizzard. Sorry."
 
         label vc1cont:
         "The potatoes are all lumped into one bowl of oil and spices, shaken around until even coating."
@@ -574,7 +592,7 @@ label car:
                     a "Oh. Sorry. I would never feed someone something they aren't comfortable without asking first!"
                     a "You just scared me, that's all."
                 pc "Eh. It's fine, don't stress too much."
-                jump vserve01
+                jump serve01
             "How do you know when to take them out of the fryer?":
                 a "Huh?"
                 a "Oh, you mean the food?"
@@ -583,10 +601,8 @@ label car:
                 a "Or you keep an eye on the colour!"
                 pc "Hmm... Sounds a bit more easy than you make it look."
                 a "I do tend to do that."
-                jump vserve01
+                jump serve01
 
-        
-        
     label vserve01:
         "Everything is done quickly, with a subtle layer of quiet finesse to it. You're not sure how often he cooks for himself."
         "But his apparent talent is clear."
@@ -599,20 +615,15 @@ label car:
             "Can I do anything to help you with?":
                 a "Ah, you could set the table? You just need to grab your preffered cutlery. Top drawer."
                 "He gestures to his left."
-
                 ## scene bg cutlery01
-
                 menu:
                     "Open the top drawer.":
 
                     ## scene bg cutlery02, the cutlery is spoon knife chopstick butterknife etc.
-
                     ## $ cutlery = whatever they choose
                         "PEAK"
                         jump serve01
-
                     "Open the second drawer.":
-
                         # blur of action or sum with hpunch
                         "You slide open the second drawer with a clatter, hearing metal scrape as you quickly glance to your right as Anton's eyes narrow on you."
                         a "No--"
@@ -624,17 +635,8 @@ label car:
 
 
     label serve01:
-
-        "YIPE"
-
-
-
-
-
-
-    a "so... you come round here often?"
-
-    a "or we're just balling with ts"
+        #diverges based of non meat etc
+        "peak"
 
     
 
