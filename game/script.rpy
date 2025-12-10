@@ -147,7 +147,7 @@ label bar:
     show ant_pouto at center
 
 
-    a "W-What?! Why can't I go?"
+    a "W-What?!{w=0.2} Why can't I go?"
 
     show ant_pout 
 
@@ -163,6 +163,9 @@ label bar:
     
 label cont:
 
+    scene bg desk 
+    with dis
+
     "It was NOT nothing."
 
     "24 hours later, you're running on no sleep, leading a team of people you've known for either as long as five years or as little as three months trying to catch a violent, destructive murderer."
@@ -170,7 +173,7 @@ label cont:
 
     scene bg desk
 
-    "Your head sinks into your hands at your desk, waiting for the results of your database searches to finalize based off of what little information of the victim you have."
+    "Your head sinks into your hands in your cubicle, awaiting for the results of your database searches to finalize based off of what little information of the victim you have."
 
     "The only comfort you had, was what litle 'battery acid' you and Marlen snuck to the back to create. An amalgamation of coffee, sour candies, energy drinks, and a bit of sugar packets from the break room. It had lasted you pretty long, you'll admit."
     
@@ -311,23 +314,25 @@ label dinner_inv:
     "...Something in his hand smells... delicious. Goddamn it, you're starving."
 
     "And in record time, your stomach growls equally as loud. You've technically missed every word he's said since, but the growing smile on his face..."
-    "does NOT go unremarked."
+    
 
     show ant_grin
-    pause.25
+    "does NOT go unremarked."
+    
     show ant_neutralo
 
     a "You, uh, hungry, sarge?"
-    show ant_neutral
+    show ant_grin
     "He manages, a cheeky undertone pulling at his tired voice."
 
     pc "No."
 
     show ant_fond
+    
     pause.25
+    
     show ant_neutralo
     a "Really now? I think something else disagrees."
-
     show ant_grin
 
     "And if on cue, your stomach growls again. Sure, you had eaten earlier."
@@ -337,7 +342,7 @@ label dinner_inv:
     pc "What is it to you if I am? Are you offering to deal with it?"
 
     show ant_grin
-    pause.2
+    pause.25
     show ant_neutralo
 
     a "Sure! I usually make a mean pulled pork sandwich, or at least I have the leftovers here with me right now. But back at home, I've got like a large dinner set up for me and everything, if you'd like to join me!"
@@ -357,7 +362,7 @@ label dinner_inv:
                     #vro draws the line at religion my chevre my beloved son  <3
                     show ant_shocko
                     a "Oh!"
-                    show ant_worryo
+                    show ant_worry
                     a "Sorry, I didn't know that! I don't have anything on me at the ready..."
                     pause.2
                     show ant_neutralo
