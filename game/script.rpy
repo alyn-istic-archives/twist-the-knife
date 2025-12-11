@@ -60,7 +60,8 @@ label start:
 
     pc "He's struck again."
 
-    "The immediate silence that follows is nothing short of chilling. It's been three months since the [s] had brought a halt to his crimes. However, it seems to have been extremely short-lived as he's back on the rise."
+    "The immediate silence that follows is nothing short of chilling. It's been three months since the [s] had brought a halt to his crimes."
+    "However, it seems to have been extremely short-lived as he's back on the rise."
 
     pc "The victim is aged 24, female, identified as Annalisse Intar."
     
@@ -119,6 +120,7 @@ label bar:
     "Your nose wrinkles at the very thought of Delta unit, stomach twisting as you do. You push it down, as that unfortunately led to you having to do supplemental teaching. Leave it to Delta Precinct to fuck up, as usual."
 
     show bg bar zoom1
+    with dis
 
     "The first case rolled around three months into Anton's successful integration to the team. You're off hours, having a drink, your arm casually wrapped around his back, grinning down at him as he offers a crooked, earnest smile back to you."
     "The rest of the team is toasting together, hell even Marlen is chiming in."
@@ -144,12 +146,12 @@ label bar:
     with dis
     scene bg bar empty
     with Dissolve(.65)
-    show ant_pouto at center
+    show ant pouto at center
 
 
     a "W-What?!{w=0.2} Why can't I go?"
 
-    show ant_pout 
+    show ant pout 
 
     "He stutter indignantly, affronted by the exclusionary practice."
 
@@ -157,18 +159,18 @@ label bar:
     
     "You glance over at one of the older, grayer members. He's stocky, onset eyes that lock with yours before sending over a slow nod in your direction. You pat Anton on the back, offering him a cautious grin."
 
-    show ant_worry
+    show ant worry
     
     pc "It's probably nothing, Anton. Don't fuss. Enjoy your night."
     
 label cont:
 
     scene bg desk 
-    with dis
+    with Dissolve(0.5)
 
     "It was NOT nothing."
 
-    "24 hours later, you're running on no sleep, leading a team of people you've known for either as long as five years or as little as three months trying to catch a violent, destructive murderer."
+    "24 hours later, you're running on no sleep, leading a team of people you've known for either as long as five years or as little as three months trying to catch a violent,{w=0.2} destructive{w=0.2} murderer."
     "One victim is all you know of so far, but it's not long until your 'very professional' boss tells you that the corpse is HOW OLD-- and that there's probably MORE VICTIMS--"
 
     scene bg desk
@@ -206,14 +208,14 @@ label cont:
 
     "Anton's firm and broad shoulders come into view, stiffening at the immediate reaction, pulled tight to avoid laughing as he slowly retracts the bill."
 
-    show ant_grin
+    show ant neutral
 
     a "Sorry, Sarge. You looked like you needed a pick-me-up."
 
     show item mug
     with zoomin
 
-    show ant_fond
+    show ant fond
 
     "Before you have any time to complain or interject or assure him you're fine (like a good superior), he slides you a mug of... something."
 
@@ -221,11 +223,11 @@ label cont:
 
     "He clarifies, pointedly looking away, as he awkwardly explains himself."
 
-    show ant_worryo
+    show ant worryo
     
     a "Ah-- is it too rude of me to offer? I can take it away--"
 
-    show ant_worry
+    show ant worry
 
     pc "You're fine."
     
@@ -235,7 +237,7 @@ label cont:
             hide item mug 
             show item tea mug
             "It's... good."
-            show ant_fond
+            show ant fond
             with dis
             show item empty mug
             "Really good."
@@ -266,7 +268,11 @@ label cont:
     with dis
 
     "That morning, Anton had finished external research and networking, before presenting it with some information that just... clicks with what you were working on!"
-    "You approach Marlen with this new evidence and ask if he could go with you on a stakeout later that day. He readily agrees, his wife having scolded him last night for his absence and he is ready to be done with this quick but cruel case."
+    "You approach Marlen with this new evidence and ask if he could go with you on a stakeout later that day."
+    "He readily agrees, his wife having scolded him last night for his absence and he is ready to be done with this quick but cruel case."
+
+    scene night office bg
+    with dis
 
     "Dusk arrives and the two of you are all but rushing out of the door, barely missing the forlorn look Anton shoots your way."
     "You both arrive on sight, just to see the suspect arguing with, what you assume is a business partner, before he pulls out what seems to be the {u}exact same weapon used on the victim {/u}!"
@@ -280,7 +286,7 @@ label cont:
 
     label tea_dont_sip:
     
-    hide ant_worry
+    hide ant worry
     "Hours pass just sat in front of your computer. Some of your coworkers check in on you."
     "It's really boring. You take several small power naps."
     pause.25
@@ -305,49 +311,46 @@ label dinner_inv:
     "You're finally honing it to that far door, you're so close--"
 
     with hpunch
-    show ant_worryo
+    show ant worryo
     
     a "Uh, hi boss?"
 
-    show ant_neutral
+    show ant neutral
 
     "...Something in his hand smells... delicious. Goddamn it, you're starving."
 
     "And in record time, your stomach growls equally as loud. You've technically missed every word he's said since, but the growing smile on his face..."
     
 
-    show ant_grin
+    show ant grin
     "does NOT go unremarked."
     
-    show ant_neutralo
+    show ant happyo
 
     a "You, uh, hungry, sarge?"
-    show ant_grin
+
+    show ant fond
+    
     "He manages, a cheeky undertone pulling at his tired voice."
 
     pc "No."
-
-    show ant_fond
     
-    pause.25
-    
-    show ant_neutralo
+    show ant neutralo
     a "Really now? I think something else disagrees."
-    show ant_grin
+    show ant grin
 
-    "And if on cue, your stomach growls again. Sure, you had eaten earlier."
-    pause.25
-    "Earlier this week, at least."
+    "And if on cue, your stomach growls again. Sure, you had eaten earlier. {w=0.5} Earlier this week, at least."
 
     pc "What is it to you if I am? Are you offering to deal with it?"
 
-    show ant_grin
+    show ant grin
     pause.25
-    show ant_neutralo
+    show ant neutralo
 
-    a "Sure! I usually make a mean pulled pork sandwich, or at least I have the leftovers here with me right now. But back at home, I've got like a large dinner set up for me and everything, if you'd like to join me!"
+    a "Sure! I usually make a mean pulled pork sandwich, or at least I have the leftovers here with me right now."
+    a "But back at home, I've got like a large dinner set up for me and everything, if you'd like to join me!"
 
-    show ant_grin
+    show ant grin
 
     "That sounds... really good considering you don't have any food already prepped..."
 
@@ -360,27 +363,18 @@ label dinner_inv:
                     #aka ur not dying any time soon
                     #not cause he hates you, but because like,, youre a vegan, you cna't eat humans
                     #vro draws the line at religion my chevre my beloved son  <3
-                    show ant_shocko
+                    show ant shocko
                     a "Oh!"
-                    show ant_worry
+                    show ant worryo
                     a "Sorry, I didn't know that! I don't have anything on me at the ready..."
                     pause.2
-                    show ant_neutralo
+                    show ant shocko
                     a "I actually do!"
+                    show ant neutralo
                     a "I was planning on a quaint four course meal tonight, nothing too heavy or anything. I'm so glad to have you join me!"
                     a "I don't mind making some quick alternatives, but most of it is a little meat-heavy... But I've got alternatives, so don't you worry!"
                     jump car
                 "Sounds great.":
-                    show ant_grin
-                    pause.25
-                    show ant_neutralo
-                    a "Fantastic! We'll take my car!"
-                    show ant_neutral
-                    "Silently, you raise an eyebrow in his direction. He quickly scatters following up with his reasoning."
-                    show ant_worryo
-                    a "Well, uhm, you look really tired, Sarge."
-                    a "Least I can do for you."
-                    a "If you don't mind..."
                     jump car
         "No thanks.":
             pc "I'll pass tonight."
@@ -393,11 +387,29 @@ label dinner_inv:
             return
 
 label car:
+    show ant grin
+    pause.25
+    show ant neutralo
+    a "Fantastic! We'll take my car!"
+    show ant neutral
+    "Silently, you raise an eyebrow in his direction. He quickly scatters following up with his reasoning."
+    show ant worryo
+    a "Well, uhm, you look really tired, Sarge."
+    a "Least I can do for you."
+    a "If you don't mind..."
+    show ant worry
+    "You let out a grudging sigh. You've told him not to call you that before."
+    show ant shocko
+    pc "You can refer to me by name, Anton. {w=0.25} We're coworkers, not employer-employee."
+    show ant worry
+    pause.25
+    show ant shyo
+    a "I will if you let me drive you?"
+    "..."
 
     scene bg car
-    with dis
-
-    show car Anton
+    with Dissolve(0.5)
+    show ant car1
 
     "The car ride isn't spectacular or anything, still on edge from spending countless nights at your desk. It's a couple moments later that you're hesitantly speaking up."
 
@@ -522,8 +534,8 @@ label car:
                 "Not at all!":
                     jump yay_gizzard
             label yay_gizzard:
-            "Something about the sudden pleasantries makes you feel a bit defensive."
-            "Your hands raise up to your shoulders in defense."
+            "Something about the sudden assumption makes you feel a bit defensive."
+            "Your hands raise up to your shoulders in defense. It's not as if you cared that much."
             pc "It doesn't bother me! Really!"
             "His shoulders relax at the assurance."
             a "As long as you're sure. I wouldn't want to scare away my guest now."
@@ -543,7 +555,7 @@ label car:
         menu:
             "(Well, if you didn't you're eating them now.)":
                 pc "Uh... I like them enough!"
-                a "Ahh, sorry. I'll rememeber for next time."
+                a "Ahh, sorry. I'll remember for next time."
                 "...?"
                 "There's going to be a next time?"
                 "Ambitious, you guess."
@@ -568,7 +580,7 @@ label car:
                 a "A tomahawk is a type of steak! So it's moreso just a tofu steak."
                 a "Specifically a ribeye cut!"
                 a "Gots lot of marbling, tenderness, and flavor. Delicious."
-                pause.2
+                pause.25
                 a "But yours is completely tofu, don't worry."
                 if not nonmeat:
                     a "I know you just changed from the gizzard, but the whole menu changes if you change the gizzard. Sorry."
@@ -631,9 +643,9 @@ label car:
                     "Open the second drawer.":
                         # blur of action or sum with hpunch
                         "You slide open the second drawer with a clatter, hearing metal scrape as you quickly glance to your right as Anton's eyes narrow on you."
+                        with hpunch
                         a "No--"
-                        #hpunch
-                        a "What. {w=.2}Are. {w=.2}You. {w=.2} Doing."
+                        a "What. {w=.2}Are. {w=.2}You.{w=.2} Doing."
                         jump serve01
 
 
