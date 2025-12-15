@@ -13,6 +13,7 @@ define dis = { "master" : Dissolve(0.5) }
 
 define a = "Anton"
 define pc = "You"
+define protag = "Alyn"
 define s = "???"
 define m = "Marlen"
 
@@ -20,6 +21,10 @@ default preferences.text_cps = 45
 default preferences.afm_enable = False
 default nonmeat = False
 default orphan = False
+#police experience, police funds, police transfer
+default p_exp = False
+default p_fund = False
+default p_tran = False
 
 
 # stats such as affection, suspicion, murder rate (how likely u r to die)
@@ -130,6 +135,8 @@ label bar:
     show bg bar zoom1
     with dis
 
+    "This is in the past. Back when things were easier. You need this flashback so you don't lose your mind."
+
     "The first case rolled around three months into Anton's successful integration to the team. You're off hours, having a drink, your arm casually wrapped around his back, grinning down at him as he offers a crooked, earnest smile back to you."
     "The rest of the team is toasting together, hell even Marlen is chiming in."
     "All of you receive a simultaneous, familiar chime on your phone -- save for Anton. You groan, frustrated. Anton's wary eyes meet yours, lips pursing in an unsaid question."
@@ -183,6 +190,8 @@ label cont:
 
     scene bg desk
 
+    "And now you're back. In the present. With that stupid killer."
+
     "Your head sinks into your hands in your cubicle, awaiting for the results of your database searches to finalize based off of what little information of the victim you have."
 
     "The only comfort you had, was what litle 'battery acid' you and Marlen snuck to the back to create. An amalgamation of coffee, sour candies, energy drinks, and a bit of sugar packets from the break room. It had lasted you pretty long, you'll admit."
@@ -201,7 +210,7 @@ label cont:
     scene bg slam desk
     with vpunch
 
-    "Your head falls, nearly banging on the hard of your desk, vision blurring as you hear worried mutters from those around you. You're so... {b} so {/b} done."
+    "Your head falls, nearly banging on the hard of your desk, vision blurring as you hear worried mutters from those around you. You're so... {b}so{/b} done."
 
     "It's the hesitant footfalls against the linoleum floor that slowly gets your attention of the white of your computer screen."
     
@@ -283,13 +292,15 @@ label cont:
     with dis
 
     "Dusk arrives and the two of you are all but rushing out of the door, barely missing the forlorn look Anton shoots your way."
-    "You both arrive on sight, just to see the suspect arguing with, what you assume is a business partner, before he pulls out what seems to be the {u}exact same weapon used on the victim {/u}!"
+    "You both arrive on sight, just to see the suspect arguing with, what you assume is a business partner, before he pulls out what seems to be the {u}exact same weapon used on the victims {/u}!"
     "Marlen calls in backup before heading towards the man, hidden by the sunset cover. You support him from behind, trailing far enough to be able to step in, should he need it."
 
     "The takedown is swift and easy. Aside from the already-bloodied knife, coated in the previous victim's blood, the suspect (white, late 20s, jealous ex-boyfriend) practically breaks down and confesses everything in front of Marlen's body camera."
 
     "It's the weight of the blood on his hands that has him pleading guilty in front of the court, not even properly hiring a lawyer."
-
+    "And he claims he couldn't stop killing? Because it became addictive? Uh...."
+    "You don't get paid enough for this."
+    
     jump dinner_inv
 
     label tea_dont_sip:
@@ -307,6 +318,12 @@ label cont:
     "Somehow this dead end is enough to locate the original drop site of the murder, and luckily enough, you manage to find the weapon! It's a typical murder, stab and ditch."
     show item knife
     "You catch the guy (white, early-to-mid 30s, businessman with a grudge) and he's promptly sent to jail after he pleads guilty, feeling the weight of his crimes heavy on him."
+    hide item knife
+    "Evidence shows he had a hit-list to take out by the end of the week. And he'd get paid--"
+    with vpunch
+    "HOW MUCH-!!"
+    "Man, you would kill for that much too."
+    jump dinner_inv
 
 label dinner_inv:
 
@@ -702,7 +719,7 @@ label vserve01:
                             pc "I just wanted to check out the other drawers!"
                             pc "Is that so wrong?"
                             "Stilted anger courses through his words."
-                            a "Yes? I was pretty obvious when I said {b} top {/b} drawer."
+                            a "Yes? I was pretty obvious when I said {b}top{/b} drawer."
                             "Your eyebrow twitches at the sudden anger."
                             pc "I made a mistake. My bad. No need to be so aggressive."
                             "He lets out a frustrated sigh before his face takes on a more common expression."
@@ -780,10 +797,34 @@ label vserve01:
         "Er... well, not really something you wanna do but can't hurt..."
         show ant grin
         a "Eat your food?"
-        "Oh yeah. It's definitely cooled down by now."  
+        "Oh yeah. It's definitely cooled down by now."
+        "You gingerly take a piece in between your thumb and pointer, the thin layer batter crumbling under your fingers."
+        with vpunch
+        "!!!"
+        "This is really good !!"
+        "The sweet potatoes are so... {w} sweet! The inside is so soft and fluffy, it practically melts on your tongue."
+        "The batter is crispy and light in a way that doesn't take away from the flavors of the starch."
+        "Breaking your spell of satiation, Anton coughs into his hand."
+        a "I'll take that it tastes good?"
+        pc "Fantastic! Really!" 
+        pc "I know that they're easy to make taste good. But I mean it!"
+        pc "You could pursue a career in food."
+        show ant happyo
+        a "That means a lot to me, thank you [protag]."
+        pc "How's your beef?"
+        a "Huh?"
+        "You gesture to his plate, that he hasn't really taken a bite out of."
+        a "Oh! {w} It's good! Thanks for asking!" 
+        "As if emphasizing, he goes in to take a bite before looking back up at you."
+        a "It really is. This was an excellent cut, good on me! {w} Props to the butcher!"
 
-
-
+        "It's a brief silence that has him pushing back out of his chair after eating a bit of the food. He takes the empty plate with him."
+        a "I'll start on the soup. It's mainly just returning it to the stovetop."
+        pc "I can-"
+        a "You can help stir it if you'd like?"
+        "Huh. How'd he guess that?"
+        a "You're a very open person to read, boss."
+        "I guess that explains it."  
 
 label serve01:
     "Everything is done quickly, with a subtle layer of quiet finesse to it. You're not sure how often he cooks for himself."
@@ -818,7 +859,7 @@ label serve01:
                             pc "I just wanted to check out the other drawers!"
                             pc "Is that so wrong?"
                             "Stilted anger courses through his words."
-                            a "Yes? I was pretty obvious when I said {b} top {/b} drawer."
+                            a "Yes? I was pretty obvious when I said {b}top{/b} drawer."
                             "Your eyebrow twitches at the sudden anger."
                             pc "I made a mistake. My bad. No need to be so aggressive."
                             "He lets out a frustrated sigh before his face takes on a more common expression."
@@ -915,13 +956,12 @@ label serve01:
         "Er... well, not really something you wanna do but can't hurt..."
         show ant grin
         a "Eat your food?"
-        "Oh yeah. It's definitely cooled down by now."
-        ## vegan diff    
+        "Oh yeah. It's definitely cooled down by now."  
         "You gingerly take a piece in between your thumb and pointer, the batter flaking away as you do."
         with vpunch
         "!!!"
         "This is really good !!"
-        "The outer coating of the gizzard bites are crunchy and flaky, crackling with each bite you take.
+        "The outer coating of the gizzard bites are crunchy and flaky, crackling with each bite you take."
         "The flesh is tender and meaty, practically falling apart with each chew of your incisors (?)."
         "Some parts are more thicker than others, you note mildly, but it's not unpleasant!"
         "Breaking your spell of satiation, Anton coughs into his hand."
@@ -935,19 +975,77 @@ label serve01:
         pause.2
         show ant happyo
         a "You wound me!"
+        show ant grin
+        pc "But seriously. This is really good, Anton."
+        show ant fond
+        pc "You could genuinely pursue a career in food."
+        show ant happyo
+        a "That means a lot to me, thank you [protag]."
+        "It's a brief silence that has him pushing back out of his chair after eating a bit of the food. He takes the empty plate with him."
+        a "I'll start on the soup. It's mainly just returning it to the stovetop."
+        pc "I can-"
+        a "You can help stir it if you'd like?"
+        "Huh. How'd he guess that?"
+        a "You're a very open person to read, boss."
+        "I guess that explains it."
+        jump course02
 
 
 
+label course02:
+    scene bg kitchen
+    "You watch him haul a big pot out of his fridge that he says basically just needs to be reheated and stirred for a bit."
+    "You, of course, then move to the stovetop."
+    "He fiddles with the notches and the buttons on his stovetop before settling and leaving you to stir."
+    a "I'll just cut up some garlic bread."
+    "Grabbing a long baguette loaf, he gingerly slices it behind you. You can hear the bread knife rocking through it."
 
+label interrogation:
+    menu:
+        "So uh. How were your trainee years?" if not p_exp:
+            jump police_years
+        #"How'd you get the money for the academy?" if not p_fund: 
+        #    jump police_funds
+        "Why'd you transfer here?" if not p_tran:
+            jump police_transfer
+        "Stay quiet.":
 
+label police_years:
+    $p_exp = True
+    a "I, uh, I'm not sure if you read my file. Or if the big boss let you."
+    "You did. You know he transferred from Delta. God forbid."
+    a "But I came from Delta. And they don't have the best reputation.{w} Should my memory serve me right."
+    pc "You'd be right, unfortunately."
+    pc "We know them as local scumbags. Like the worst of the worst."
+    "Anton makes a choked noise from behind you."
+    pc "Uh....{w} not that you're as bad as them...{w} Of course..."
+    "He lets out a lighthearted chuckle at that."
+    a "It's fine. Really."
+    a "I know how bad they are."
+    "Gah! {w} Of course he would, he actually worked with them."
+    "Nice going, dumbass."
+    a "They're not bullies, they didn't pick on me. But the list of what they didn't do is very short."
+    a "They're elitist, ironic considering how they act."
+    "You let out a short snicker at his remark."
+    ""
 
+#label police_funds:
+#    $p_fund = True
 
+label police_transfer:
+    $p_tran = True
+    a "Delta. You know how they are."
+    a "They're {b} very hard {/b} to be around on a constant basis."
+    a "They can't get along with anyone because they're all vying to be better than one another."
+    a "It's tiring. Really."
+    "..."
+    pc "... Sorry I asked?"
+    a "No! {w} No, you're fine."
+    a "I don't talk a lot about them, just because of how... {w}much{w} it was dealing with them."
 
-
-
-    
-
-
-    # This ends the game.
+    if police_years and police_transfer:
+        jump cont
+    else:
+        jump interrogation
 
 return
