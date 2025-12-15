@@ -28,6 +28,13 @@ default a_s = 0
 default a_mr = 10
 default a_a = 0
 
+image sweetpotatoes:
+    "images/potato1.png"
+    pause.3
+    "images/potato2.png"
+    pause.3
+    repeat
+
 # The game starts here.
 
 label start:
@@ -488,9 +495,15 @@ label car:
 
 label house_01:
 
+    scene bg kitchen
+    with dis
+
     "You follow him to the entrance of Anton's house. He fiddles with his keys, before the door swings open with little to no fanfare."
     "He has you put your shoes on a shoe rack and hang up your coat in the closet."
     "You awkwardly trail behind him as he gives you a quick introduction around his primary living space."
+
+    show kitchen ant happyo
+    with dis
 
     "He tells you to get settled at the island bar as you watch him get to cooking. Grinning, he boasts, tying the apron around his waist."
     a "I promise that everything I'm gonna serve is gonna be like nothing you've ever had before."
@@ -582,8 +595,9 @@ label course01:
         jump vserve01
 
 label vegancourse01:
+        show sweetpotatoes
         "It's... sweet potatoes? They look fairly fresh and they've already been peeled."
-        "He pours it into a pot, letting it boil on the stove for 4-10 minutes before letting them cool and drying them gently."
+        "He begins cutting them into cubes, hands nimble before he looks back up at you."
         a "Do you like sweet potatoes?"
         menu:
             "(Well, if you didn't you're eating them now.)":
@@ -619,6 +633,9 @@ label vegancourse01:
                     a "I know you just changed from the gizzard, but the whole menu changes if you change the gizzard. Sorry."
 
         label vc1cont:
+        scene bg kitchen
+        with dis
+        "He pours the cubes all into a pot, letting it boil on the stove for 4-10 minutes before letting them cool and drying them gently."
         "The potatoes are all lumped into one bowl of oil and spices, shaken around until even coating."
         "Anton makes quick work of the sweet potatoes, expertly frying them in the built-in deep fryer (?!!?!) in his kitchen before he grabs a seperate package from his fridge."
         menu:
@@ -747,7 +764,23 @@ label vserve01:
         "Ouch."
         pc "Er... {w=0.5} Let me rephrase-"
         a "It's fine!"
-        a "I had a... rough childhood."
+        a "I had an interesting... childhood."
+        a "My parents weren't very stable. In any way, shape, or form."
+        a "And then, I got tossed."
+        a "I was alone, for a very long time. And being alone at a young age, it... does something to you."
+        a "But someone saved me from that... that despair."
+        a "And if I could be saved, there's probably a bunch of others who need saving."
+        a "So I enrolled in police school. I want to be able to save others just like I had been."
+        pc "That's... a lot."
+        a "Yeah. Sorry."
+        pc "Is there... anything I can say? Like. An apology feels insufficient."
+        a "Eh, I've been over it for a while..."
+        pause.2
+        a "But you know what you can do to make me feel better?"
+        "Er... well, not really something you wanna do but can't hurt..."
+        show ant grin
+        a "Eat your food?"
+        "Oh yeah. It's definitely cooled down by now."  
 
 
 
@@ -822,12 +855,20 @@ label serve01:
 
             show ant worryo
             a "It was... uncalled for."
+        show ant neutralo
         a "Wait a couple minutes and it should be good to cool down."
+        show ant fond
         "The question that's been lingering on the tip of your tongue escapes your traitorous mouth."
         pc "So how do you afford this?"
+        show ant worry
         "Ouch."
         pc "Er... {w=0.5} Let me rephrase-"
+        show ant fond
+        pause.2
+        show ant neutralo
         a "It's fine!"
+        show ant worry
+        pause.25
         a "I had a... rough childhood."
        ## if orphan:
          ##   a "You know I didn't have parents."
@@ -865,7 +906,7 @@ label serve01:
         a "I'm no paragon of perfection now."
         a "But they saved me when I had nothing. And it made me realize that my life has... value. Has potential."
         "That sounds... vaguely familiar."
-        a "And so I changed things around. Got a job, moved cities, got another job. And then eventually, I got into police school."
+        a "And so I changed things around. Got a job, moved cities, got another job. And then eventually, I got into a police program."
         a "I want to be able to make change. Like that officer had done for me."
         pc "Wow... That's really..."
         a "It's a lot. I know."
@@ -874,7 +915,30 @@ label serve01:
         "Er... well, not really something you wanna do but can't hurt..."
         show ant grin
         a "Eat your food?"
-        "Oh yeah. It's definitely cooled down by now."        
+        "Oh yeah. It's definitely cooled down by now."
+        ## vegan diff    
+        "You gingerly take a piece in between your thumb and pointer, the batter flaking away as you do."
+        with vpunch
+        "!!!"
+        "This is really good !!"
+        "The outer coating of the gizzard bites are crunchy and flaky, crackling with each bite you take.
+        "The flesh is tender and meaty, practically falling apart with each chew of your incisors (?)."
+        "Some parts are more thicker than others, you note mildly, but it's not unpleasant!"
+        "Breaking your spell of satiation, Anton coughs into his hand."
+        a "I'll take that it tastes good?"
+        pc "Fantastic! It's a lot better than I was expecting?"
+        show ant neutralo
+        a "Oh? Really now? {w} And what were you expecting?"
+        show ant grin
+        "..."
+        pc "Nothing this great really... Uh."
+        pause.2
+        show ant happyo
+        a "You wound me!"
+
+
+
+
 
 
 
