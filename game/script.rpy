@@ -1027,7 +1027,6 @@ label police_years:
     a "They're not bullies, they didn't pick on me. But the list of what they didn't do is very short."
     a "They're elitist, ironic considering how they act."
     "You let out a short snicker at his remark."
-    ""
 
 #label police_funds:
 #    $p_fund = True
@@ -1042,6 +1041,10 @@ label police_transfer:
     pc "... Sorry I asked?"
     a "No! {w} No, you're fine."
     a "I don't talk a lot about them, just because of how... {w}much{w} it was dealing with them."
+    a "Plus, I can't say I was a lot better."
+    "Now, that's a surprise."
+    a "Hey! I can practically hear you thinking from over there!"
+    a "I'm not as sketchy! {w} I swear!"
 
     if police_years and police_transfer:
         jump cont
