@@ -999,56 +999,96 @@ label course02:
     "He fiddles with the notches and the buttons on his stovetop before settling and leaving you to stir."
     a "I'll just cut up some garlic bread."
     "Grabbing a long baguette loaf, he gingerly slices it behind you. You can hear the bread knife rocking through it."
-
-label interrogation:
     menu:
-        "So uh. How were your trainee years?" if not p_exp:
-            jump police_years
-        #"How'd you get the money for the academy?" if not p_fund: 
-        #    jump police_funds
-        "Why'd you transfer here?" if not p_tran:
-            jump police_transfer
-        "Stay quiet.":
+        "Ask about work.":
+            jump interrogation
+        "Ask about you." if a_a>10:
+            jump checkup
+        "Stay silent.":
+            jump course02cont
 
-label police_years:
-    $p_exp = True
-    a "I, uh, I'm not sure if you read my file. Or if the big boss let you."
-    "You did. You know he transferred from Delta. God forbid."
-    a "But I came from Delta. And they don't have the best reputation.{w} Should my memory serve me right."
-    pc "You'd be right, unfortunately."
-    pc "We know them as local scumbags. Like the worst of the worst."
-    "Anton makes a choked noise from behind you."
-    pc "Uh....{w} not that you're as bad as them...{w} Of course..."
-    "He lets out a lighthearted chuckle at that."
-    a "It's fine. Really."
-    a "I know how bad they are."
-    "Gah! {w} Of course he would, he actually worked with them."
-    "Nice going, dumbass."
-    a "They're not bullies, they didn't pick on me. But the list of what they didn't do is very short."
-    a "They're elitist, ironic considering how they act."
-    "You let out a short snicker at his remark."
+    label checkup:
+        menu:
+            "Why do you call me boss?" if not f_nick:
+                jump friend_nickname
+            "What are we?" if not f_rel:
+                jump friend_relationship
+                
 
-#label police_funds:
-#    $p_fund = True
+    label friend_nickname:
+    
 
-label police_transfer:
-    $p_tran = True
-    a "Delta. You know how they are."
-    a "They're {b} very hard {/b} to be around on a constant basis."
-    a "They can't get along with anyone because they're all vying to be better than one another."
-    a "It's tiring. Really."
-    "..."
-    pc "... Sorry I asked?"
-    a "No! {w} No, you're fine."
-    a "I don't talk a lot about them, just because of how... {w}much{w} it was dealing with them."
-    a "Plus, I can't say I was a lot better."
-    "Now, that's a surprise."
-    a "Hey! I can practically hear you thinking from over there!"
-    a "I'm not as sketchy! {w} I swear!"
+    label firend_relationship
 
-    if police_years and police_transfer:
-        jump cont
-    else:
-        jump interrogation
+    label interrogation:
+        menu:
+            "So uh. How were your trainee years?" if not p_exp:
+                jump police_years
+            #"How'd you get the money for the academy?" if not p_fund: 
+            #    jump police_funds
+            "Why'd you transfer here?" if not p_tran:
+                jump police_transfer
+
+    label police_years:
+        $p_exp = True
+        a "I, uh, I'm not sure if you read my file. Or if the big boss let you."
+        "You did. You know he transferred from Delta. God forbid."
+        a "But I came from Delta. And they don't have the best reputation.{w} Should my memory serve me right."
+        pc "You'd be right, unfortunately."
+        pc "We know them as local scumbags. Like the worst of the worst."
+        "Anton makes a choked noise from behind you."
+        pc "Uh....{w} not that you're as bad as them...{w} Of course..."
+        "He lets out a lighthearted chuckle at that."
+        a "It's fine. Really."
+        a "I know how bad they are."
+        "Gah! {w} Of course he would, he actually worked with them."
+        "Nice going, dumbass."
+        a "They're not bullies, they didn't pick on me. But the list of what they didn't do is very short."
+        a "They're elitist, ironic considering how they act."
+        "You let out a short snicker at his remark."
+        if p_exp and p_tran:
+            jump cont
+        else:
+            jump interrogation
+
+    #label police_funds:
+    #    $p_fund = True
+
+    label police_transfer:
+        $p_tran = True
+        a "Delta. You know how they are."
+        a "They're {b} very hard {/b} to be around on a constant basis."
+        a "They can't get along with anyone because they're all vying to be better than one another."
+        a "It's tiring. Really."
+        "..."
+        pc "... Sorry I asked?"
+        a "No! {w} No, you're fine."
+        a "I don't talk a lot about them, just because of how... {w}much{w} it was dealing with them."
+        a "Plus, I can't say I was a lot better."
+        "Now, that's a surprise."
+        a "Hey! I can practically hear you thinking from over there!"
+        a "I'm not as sketchy! {w} I swear!"
+        pc "Yeah? Care to elaborate?"
+        a "Everyone does some bad things in life. I just happen to be better than those I left behind."
+        pc "Sounds a little biased."
+        if a_s>0:
+            a "You mean to tell me, you've never done anything bad either?"
+            "You stiltedly remember how he caught you checking his other drawer despite his insistence not to."
+            pc "... {w} Fair point."
+            "He gracefully moves on."
+        a "Everyone's a little biased at the end of the day."
+        a "It's not like I could tell you what I've done to make me feel better about what happened."
+        pc "I mean, you could."
+        "The silence that fills makes it obvious he has no intentions of doing so."
+        "He lets out a quite chuckle at your remark."
+
+        if p_exp and p_tran:
+            jump cont
+        else:
+            jump interrogation
+
+    label course02cont:
+
+
 
 return
