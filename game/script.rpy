@@ -1005,7 +1005,7 @@ label course02:
         "Ask about you." if a_a>10:
             jump checkup
         "Stay silent.":
-            jump course02cont
+            jump cont
 
     label checkup:
         menu:
@@ -1013,12 +1013,67 @@ label course02:
                 jump friend_nickname
             "What are we?" if not f_rel:
                 jump friend_relationship
-                
+                    
+        label friend_nickname:
+            $f_nick = True
+            pc "So why do you call me that?"
+            a "Huh?"
+            pc "Boss, sarge, whatever."
+            pc "Like, we both know I'm not your actual boss."
+            pc "I trained you, but so did half the people at the station."
+            a "Oh."
+            a "Uh, I guess I just thought it was nice to have a nickname for you."
+            a "You were the first one to teach me."
+            a "And the first one to sound like you appreciated me outside of my work."
+            pc "I mean.{w} We do work together. Your performance affects how you're perceived."
+            a "Valid, but not what I meant, I guess?"
+            a "It feels like...{w} you see me as a real person.{w} I don't know."
+            a "You're the only one who's ever really tried to understand me as a person."
+            a "Not just a coworker, but me on my own."
+            if f_nick and f_rel:
+                jump cont
+            else:
+                jump checkup
 
-    label friend_nickname:
-    
-
-    label firend_relationship
+        label friend_relationship:
+        $f_rel = True
+        pc "What are we?"
+        "You belatedly can hear Anton choke before briefly cursing."
+        with hpunch
+        a "Shit!{w} I accidentally cut myself!{w} The bread is fine though."
+        "You continue stirring the pot, occasionally glancing over your shoulder to see him cleaning up the mess."
+        pc "Er... I didn't mean it in a weird way.{w} Sorry?"
+        a "No, no! You're good. Just...{w} caught me off guard."
+        pc "Sorry."
+        a "Really, you're good."
+        a "Huh. It's a good question...{w} I know you don't mean anything by it."
+        pc "Like, do you think of me as your coworker? Or your friend?"
+        a "Well,{w} they're basically the same thing to me."
+        a "But I would like to be your friend if you let me?"
+        a "I've technically thought we were friends for a while."
+        a "But if we haven't been, and you don't want to be, then coworkers is fine."
+        menu:
+            "I've thought we were friends too!":
+                a "Really?! That's great."
+                pc "I wasn't sure if I was overstepping or not with the question."
+                a "Yeah, you're good, don't worry!"
+                jump fr_cont
+            "Yeah, we can be friends, if you'd like.":
+                a "Great!{w} That's awesome to hear!"
+                a "I'd love nothing more!"
+                pc "So...{w} friends?"
+                a "Friends."
+                jump fr_cont
+            "I'd like to keep this strictly professional.":
+                a "Oh."
+                a "Sorry for the assumption."
+                "Stilted silence fills the air.{w} Well, that's awkward."
+                jump fr_cont
+        label fr_cont:
+        if f_nick and f_rel:
+            jump cont 
+        else:
+            jump checkup
 
     label interrogation:
         menu:
@@ -1029,65 +1084,117 @@ label course02:
             "Why'd you transfer here?" if not p_tran:
                 jump police_transfer
 
-    label police_years:
-        $p_exp = True
-        a "I, uh, I'm not sure if you read my file. Or if the big boss let you."
-        "You did. You know he transferred from Delta. God forbid."
-        a "But I came from Delta. And they don't have the best reputation.{w} Should my memory serve me right."
-        pc "You'd be right, unfortunately."
-        pc "We know them as local scumbags. Like the worst of the worst."
-        "Anton makes a choked noise from behind you."
-        pc "Uh....{w} not that you're as bad as them...{w} Of course..."
-        "He lets out a lighthearted chuckle at that."
-        a "It's fine. Really."
-        a "I know how bad they are."
-        "Gah! {w} Of course he would, he actually worked with them."
-        "Nice going, dumbass."
-        a "They're not bullies, they didn't pick on me. But the list of what they didn't do is very short."
-        a "They're elitist, ironic considering how they act."
-        "You let out a short snicker at his remark."
-        if p_exp and p_tran:
-            jump cont
-        else:
-            jump interrogation
+        label police_years:
+            $p_exp = True
+            a "I, uh, I'm not sure if you read my file. Or if the big boss let you."
+            "You did. You know he transferred from Delta. God forbid."
+            a "But I came from Delta. And they don't have the best reputation.{w} Should my memory serve me right."
+            pc "You'd be right, unfortunately."
+            pc "We know them as local scumbags. Like the worst of the worst."
+            "Anton makes a choked noise from behind you."
+            pc "Uh....{w} not that you're as bad as them...{w} Of course..."
+            "He lets out a lighthearted chuckle at that."
+            a "It's fine. Really."
+            a "I know how bad they are."
+            "Gah! {w} Of course he would, he actually worked with them."
+            "Nice going, dumbass."
+            a "They're not bullies, they didn't pick on me. But the list of what they didn't do is very short."
+            a "They're elitist, ironic considering how they act."
+            "You let out a short snicker at his remark."
+            if p_exp and p_tran:
+                jump cont
+            else:
+                jump interrogation
 
-    #label police_funds:
-    #    $p_fund = True
+        #label police_funds:
+        #    $p_fund = True
 
-    label police_transfer:
-        $p_tran = True
-        a "Delta. You know how they are."
-        a "They're {b} very hard {/b} to be around on a constant basis."
-        a "They can't get along with anyone because they're all vying to be better than one another."
-        a "It's tiring. Really."
-        "..."
-        pc "... Sorry I asked?"
-        a "No! {w} No, you're fine."
-        a "I don't talk a lot about them, just because of how... {w}much{w} it was dealing with them."
-        a "Plus, I can't say I was a lot better."
-        "Now, that's a surprise."
-        a "Hey! I can practically hear you thinking from over there!"
-        a "I'm not as sketchy! {w} I swear!"
-        pc "Yeah? Care to elaborate?"
-        a "Everyone does some bad things in life. I just happen to be better than those I left behind."
-        pc "Sounds a little biased."
-        if a_s>0:
-            a "You mean to tell me, you've never done anything bad either?"
-            "You stiltedly remember how he caught you checking his other drawer despite his insistence not to."
-            pc "... {w} Fair point."
-            "He gracefully moves on."
-        a "Everyone's a little biased at the end of the day."
-        a "It's not like I could tell you what I've done to make me feel better about what happened."
-        pc "I mean, you could."
-        "The silence that fills makes it obvious he has no intentions of doing so."
-        "He lets out a quite chuckle at your remark."
+        label police_transfer:
+            $p_tran = True
+            a "Delta. You know how they are."
+            a "They're {b} very hard {/b} to be around on a constant basis."
+            a "They can't get along with anyone because they're all vying to be better than one another."
+            a "It's tiring. Really."
+            "..."
+            pc "... Sorry I asked?"
+            a "No! {w} No, you're fine."
+            a "I don't talk a lot about them, just because of how... {w}much{w} it was dealing with them."
+            a "Plus, I can't say I was a lot better."
+            "Now, that's a surprise."
+            a "Hey! I can practically hear you thinking from over there!"
+            a "I'm not as sketchy! {w} I swear!"
+            pc "Yeah? Care to elaborate?"
+            a "Everyone does some bad things in life. I just happen to be better than those I left behind."
+            pc "Sounds a little biased."
+            if a_s>0:
+                a "You mean to tell me, you've never done anything bad either?"
+                "You stiltedly remember how he caught you checking his other drawer despite his insistence not to."
+                pc "... {w} Fair point."
+                "He gracefully moves on."
+            a "Everyone's a little biased at the end of the day."
+            a "It's not like I could tell you what I've done to make me feel better about what happened."
+            pc "I mean, you could."
+            "The silence that fills makes it obvious he has no intentions of doing so."
+            "He lets out a quite chuckle at your remark."
 
-        if p_exp and p_tran:
-            jump cont
-        else:
-            jump interrogation
+            if p_exp and p_tran:
+                jump cont
+            else:
+                jump interrogation
 
-    label course02cont:
+    label cont:
+    if (a_s>5):
+        menu:
+            "Ask about the second drawer.":
+                "You can almost feel the way he stops in place, the cuts of the knife no longer audible."
+                a "Why do you want to know?{w} Why can't you just leave it alone?"
+                a "It's not important."
+                pc "I-"
+                with vpunch
+                pc "It's not important, boss."
+                pc "Stop asking."
+                "He's mad.{w} You don't know why.{w} It feels uncanny.{w} But not unfamiliar."
+                jump c2cont1
+            "Say the food tasted off.":
+                "The floor squeaks under the weight of his feet as he turns to you."
+                "You pointedly avoid the glare you can feel burn under your skin."
+                a "...{w}What?"
+                $a_s+=5
+                $a_mr +=5
+                a "Could you{w} repeat that...?"
+                pc "Nothing...{w}! Maybe I don't have an elevated palette."
+                "You can hear him scoff."
+                "Is he mad? Insulted?"
+                "...{w} Regardless. Maybe you shouldn't have said that."
+                jump c2cont1
+    label c2cont1:
+        "He gingerly slides the tray of garlic bread in the toaster oven for a bit before turning to you with a bottle of wine in hand."
+        a "Would you like some?"
+        menu:
+            "Sure.":
+                "He pours you a wine glass to the side whilst you continue stirring the pot."
+                a "It's Chianti."
+                "You chuckle lightly."
+                pc "That means nothing to me."
+                a "It's bright and fruity. It'll mirror the tang of the soup."
+                a "Harmonize. They're nice complements."
+                jump c2cont2
+            "Do you have anything else?":
+                a "I have some tea?"
+                "He shelves the wine from wherever he got it before pulling out a teapot and steeping some leaves in it."
+                "It blossoms into this wonderful bright red shade."
+                a "It's rose rooibos. A red tea, if you will."
+                a "A personal mix of mine. It's smooth and earthy."
+                a "The richness should complement the acidity of the tomatoes."
+                jump c2cont2
+
+                "yap yap ytpa please please work??"
+                "I've been coding for so long why doesnt this work ??? "
+    label c2cont2:
+
+    
+
+
 
 
 
