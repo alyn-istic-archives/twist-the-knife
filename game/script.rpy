@@ -50,7 +50,7 @@ default sink = False
 # stats such as affection, suspicion, murder rate (how likely u r to die)
 
 default a_s = 0
-default a_mr = 10
+default a_mr = 0
 default a_a = 0
 
 image sweetpotatoes:
@@ -275,7 +275,7 @@ label cont:
 
     "Before you have any time to complain or interject or assure him you're fine (like a good superior), he slides you a mug of... something."
 
-    show ant neutralo
+    show ant worry
 
     a "Tea. It's chamomile."
 
@@ -449,7 +449,7 @@ label dinner_inv:
 label car:
     show ant grin
     pause.25
-    show ant neutralo
+    show ant happyo
     a "Fantastic! We'll take my car!"
     show ant neutral
     "Silently, you raise an eyebrow in his direction. He quickly scatters following up with his reasoning."
@@ -771,7 +771,7 @@ label vserve01:
                             a "...Sorry. {w=0.2} Could you just go sit down at the table?"
                             pc "Fine."
                             "Fuck you too."
-                            $a_s += 10
+                            $a_s += 5
                             jump vserve1cont
                         "Lie.":
                             pc "Oh, sorry. Opened the wrong drawer."
@@ -914,7 +914,7 @@ label serve01:
                             a "...Sorry. {w=0.2} Could you just go sit down at the table?"
                             pc "Fine."
                             "Fuck you too."
-                            $a_s += 10
+                            $a_s += 5
                             jump serve1cont
                         "Lie.":
                             pc "Oh, sorry. Opened the wrong drawer."
@@ -1192,7 +1192,7 @@ label course02:
                 jump interrogation
 
     label c2cont:
-    if (a_s=>5):
+    if (a_s>=5):
         menu:
             "Ask about the second drawer.":
                 "You can almost feel the way he stops in place, the cuts of the knife no longer audible."
@@ -1206,7 +1206,7 @@ label course02:
                 "The floor squeaks under the weight of his feet as he turns to you."
                 "You pointedly avoid the glare you can feel burn under your skin."
                 a "...{w}What?"
-                $a_s+=5
+                $a_s+=2
                 $a_mr +=5
                 a "Could you{w} repeat that...?"
                 pc "Nothing...{w}! Maybe I don't have an elevated palette."
@@ -1291,81 +1291,117 @@ label course03:
     label c3prep:
         if nonmeat:
             jump vc3prep
-        # insert actual meal prep for steak
+        "You cautiously hover around the island as Anton works, his back to you as he does."
+        "Silence fills the air before you decide to ask him something."
         menu:
-        "...Are we friends?" if p_exp:
-            pc "Urk-"
-            pc "Uh, just wondering. Cause a multi-course meal doesn't really sound like just coworkers."
-            pc "Or I'm overthinking."
-            a "No, no! I'd love nothing more than to be friends!"
-            a "I've actually been too shy to work up the nerve and ask you, so maybe that's on me."
-            a "I wasn't sure. So you really took a weight off my shoulders!"
-            jump c3cont
-        "You're too casual outside work events." if p_tran:
-            "You're not sure how you feel about this sudden bout of closeness."
-            "It's almost out of the blue. You don't know him."
-            "And you don't really care to."
-            $a_mr+=2
-            a "Ah... sorry?"
-            jump c3cont
-        "Why don't we hang out more?" if f_nick:
-            $a_a+=1
-            "You rarely see him outside the office, even less with your fellow coworkers."
-            "And it's not like they treat him poorly or anything else like that."
-            a "Hmm...{w} I guess I just don't get along very well with them."
-            "That's... odd. The rest of them really like Anton. Like teasing-a-younger-junior kind of like."
-            a "They just feel... overbearing."
-            a "Not you, of course!"
-            a "Just...{w} they can be a lot."
-            "Hmm... He was right, to be fair."
-            "Marlen has been strung tight with every night he's had to take away from his family."
-            "To be fair, being a police officer tends to require that type of dedication regardless."
-            "Perch is quiet. He doesn't talk much but maybe he's intimidated?"
-            "Anton's voice interrupts your perusal of reasons he might feel overwhelemed by the team."
-            a "You look worried, it's fine. Really."
-            a "I'm sure they'll grow on me. Eventually."
-            pc "Yeah...{w} If it's Marlen, he'll be less of a jerk soon, promise. He just needs a couple days off."
-            a "...{w} I'm sure."
-            jump c3cont
-        "We should hangout more." if f_rel:
-            $a_a+=3
-            "You can practically feel the smile that worms its way onto his face."
-            a "...{w} We should. That'd be fun."
-            "Letting out an awkward cough, you voice a tentative suggestion."
-            pc "Maybe you shouldn't have to cook all the time though."
-            "You can hear a lilting chuckle from behind you."
-            a "Really now? Here I thought you liked my cooking?"
-            pc "It's not that I don't! I just... feel a bit guilty."
-            a "Don't worry, I like cooking!{w} Are you gonna deprive me of my one and only vice?"
-        "We have a nice casual relationship, don't we?" if a_a>=20:
-            $a_a+=5
-            a "O-Oh!" with vpunch
-            "You hear a metal clang behind you and you almost whip your head around at neckbreaking speeds."
-            a "{cps=75}Don't!{w} Don't look at me right now!"
-            "It's a strained sound that his throat makes before you pointedly follow his demand."
-            pc "Are...{w} Are you alright?"
-            a "{size=-15}Fuck... this is embarassing.{w}{size=-30} Why...? Why would they?"
-            a "Yeah. Yeah, I'm good." 
-            "...{w}"
-            pc "So as I was saying..."
-            pc "It's nice, isn't it?"
-            "Er... {w}well...{w} that feels unfinished."
-            pc "Like, being close to someone, without being uncomfortable?"
-            pc "You make talking to you easy.{w}{cps=60} I don't know.{w}{cps=80} Maybe I'm wrong..."
-            a "No!{cps=60}{w} I know what you mean!" with vpunch
-            a "It's nice. Being able to talk with you. It's...{w} good."
-            pc "Yeah, it's casual, nonchalant even."
-            a "{size-=20}{cps=100}We could be more if you want..."
-            pc "Huh?"
-            a "Ack!{w} Nothing!" with vpunch
-            "Huh. Wonder what he said."
-            jump c3cont
+            "...Are we friends?" if p_exp:
+                pc "Urk-"
+                pc "Uh, just wondering. Cause a multi-course meal doesn't really sound like just coworkers."
+                pc "Or I'm overthinking."
+                a "No, no! I'd love nothing more than to be friends!"
+                a "I've actually been too shy to work up the nerve and ask you, so maybe that's on me."
+                a "I wasn't sure. So you really took a weight off my shoulders!"
+                jump serve03
+            "You're too casual outside work events." if p_tran:
+                "You're not sure how you feel about this sudden bout of closeness."
+                "It's almost out of the blue. You don't know him."
+                "And you don't really care to."
+                $a_mr+=2
+                a "Ah... sorry?"
+                jump serve03
+            "Why don't we hang out more?" if f_nick:
+                $a_a+=1
+                "You rarely see him outside the office, even less with your fellow coworkers."
+                "And it's not like they treat him poorly or anything else like that."
+                a "Hmm...{w} I guess I just don't get along very well with them."
+                "That's... odd. The rest of them really like Anton. Like teasing-a-younger-junior kind of like."
+                a "They just feel... overbearing."
+                a "Not you, of course!"
+                a "Just...{w} they can be a lot."
+                "Hmm... He was right, to be fair."
+                "Marlen has been strung tight with every night he's had to take away from his family."
+                "To be fair, being a police officer tends to require that type of dedication regardless."
+                "Perch is quiet. He doesn't talk much but maybe he's intimidated?"
+                "Anton's voice interrupts your perusal of reasons he might feel overwhelemed by the team."
+                a "You look worried, it's fine. Really."
+                a "I'm sure they'll grow on me. Eventually."
+                pc "Yeah...{w} If it's Marlen, he'll be less of a jerk soon, promise. He just needs a couple days off."
+                a "...{w} I'm sure."
+                jump serve03
+            "We should hangout more." if f_rel:
+                $a_a+=3
+                "You can practically feel the smile that worms its way onto his face."
+                a "...{w} We should. That'd be fun."
+                "Letting out an awkward cough, you voice a tentative suggestion."
+                pc "Maybe you shouldn't have to cook all the time though."
+                "You can hear a lilting chuckle from behind you."
+                a "Really now? Here I thought you liked my cooking?"
+                pc "It's not that I don't! I just... feel a bit guilty."
+                a "Don't worry, I like cooking!{w} Are you gonna deprive me of my one and only vice?"
+                jump serve03
+            "We have a nice casual relationship, don't we?" if a_a>=20:
+                $a_a+=5
+                a "O-Oh!" with vpunch
+                "You hear a metal clang behind you and you almost whip your head around at neckbreaking speeds."
+                a "{cps=75}Don't!{w} Don't look at me right now!"
+                "It's a strained sound that his throat makes before you pointedly follow his demand."
+                pc "Are...{w} Are you alright?"
+                a "{size=-15}Fuck... this is embarassing.{w}{size=-30} Why...? Why would they?"
+                a "Yeah. Yeah, I'm good." 
+                "...{w}"
+                pc "So as I was saying..."
+                pc "It's nice, isn't it?"
+                "Er... {w}well...{w} that feels unfinished."
+                pc "Like, being close to someone, without being uncomfortable?"
+                pc "You make talking to you easy.{w}{cps=60} I don't know.{w}{cps=80} Maybe I'm wrong..."
+                a "No!{cps=60}{w} I know what you mean!" with vpunch
+                a "It's nice. Being able to talk with you. It's...{w} good."
+                pc "Yeah, it's casual, nonchalant even."
+                a "{size-=20}{cps=100}We could be more if you want..."
+                pc "Huh?"
+                a "Ack!{w} Nothing!" with vpunch
+                "Huh. Wonder what he said."
+                jump serve03
 
     label c3meal:
         if nonmeat:
             jump vc3meal
-        "nomnom"
-        jump c3cont
+        "It's only a couple moments later until the both of you are sat down face to face at the table once more."
+        "Your eyes move down towards the steak placed in front of you as you carefully glide through the soft, wavering flesh and the perfect crust."
+        "The juices of the steak ooze around the bottom, forming a small accumulation on the surface of the ceramic plate."
+        "You note, while slicing through the tender meat, that it's a lot easier to cut than you've ever had to."
+        "Maybe it's very marbled?"
+        "You tentatively take a small bite."
+        "!!!" with vpunch
+        "The meat practically melts on your tongue, rendered fat and lack of muscle leaving a soft, smooth, silken taste!"
+        "There's an undertone of smokiness that you could proabbaly attribute to the long bone inside it, but it's subtle and unique."
+        "It does taste reminiscent of pork, despite Anton mentioning it was beef."
+        "Odd."
+        pc "Is this pork?"
+        a "If that's a problem with your religion, it's not! Don't worry."
+        "You hum, satisfied with the answer, before you continue diving into the meal."
+        if (a_a>=10):
+            "You belatedly look back up every now and then to see Anton staring at you."
+            "Normally, he stares at you with an air of curiosity, eager to learn and ask more questions at work."
+            "Tonight, it feels... {w}different. Still curious."
+            jump serve03
+        if (a_mr>=10):
+            "You belatedly look back up every now and then to see Anton staring at you."
+            "Normally, he stares at you with an air of curiosity but this is blatantly disregard for you."
+            "He masks it well. But not well enough."
+            "Something about it scares you."
+            "But he recovers quickly enough to act like nothing had happened."
+            jump serve03
+        if (a_s>=5):
+            "You belatedly look back up every now and then to see Anton staring at you."
+            "Normally, he stares at you with an air of curiosity but there's something darker in his eyes tonight."
+            "It sets you on edge."
+            "Because you've seen that look in other eyes before."
+            "Specifically, other criminals."
+            jump serve03
+        else:
+            "The two of you sit in awkward silence as you both indulge in your food."
+            jump serve03
 
     label c3investigation:
         "...So he's gone. Finally."
@@ -1378,7 +1414,7 @@ label course03:
                 jump c3i_lr
             "Search the powder room." if (not pr):
                 jump c3i_pr
-            "Check out '[???]'" if (pr and lr) and (a_s>=10):
+            "Check out '[???]'" if (pr and lr) and (a_s>=5):
                 jump c3i_room
         label c3i_lr:
                 $lr = True
@@ -1472,103 +1508,320 @@ label course03:
                     "Leave." if not soap or not toilet or not towel or not sink:
                         jump c3i_pr
         label c3i_room:
-        "You tiptoe down the hall, to a room across the powder room."
-        "Faintly, you remember Anton saying it's a guest room that he hasn't cleaned out yet."
-        "And to stay out of it. But something smells foul here."
-        "... And ew, all of a sudden that is literally speaking."
-        "What is he hiding?{w} It smells like melted steel."
-        "You glance to your right, no one there."
-        "Slowly, you creak the door open..."
-        pc "What the-" with vpunch
-        "..."
-        pause.4
-        a "I told you to stay out."
-        a "How{w} stupid{w} are{w} you?"
-        with dis
-        "Bad Ending: You have got to be more nonchalant..."
+            "You tiptoe down the hall, to a room across the powder room."
+            "Faintly, you remember Anton saying it's a guest room that he hasn't cleaned out yet."
+            "And to stay out of it. But something smells foul here."
+            "... And ew, all of a sudden that is literally speaking."
+            "What is he hiding?{w} It smells like melted steel."
+            "You glance to your right, no one there."
+            "Slowly, you creak the door open..."
+            pc "What the-" with vpunch
+            "..."
+            pause.4
+            a "I told you to stay out."
+            a "How{w} stupid{w} are{w} you?"
+            with dis
+            "Bad Ending: You have got to be more nonchalant..."
             if "Vro is not slick" not in persistent.endings:
                 $persistent.endings.append("Vro is not slick")
             return
     
-    label c3cont:
-    "yipwe"
 
 label vcourse03:
 
     label vc3prep:
-    # insert actual meal prep for tofu steak
+        "You cautiously hover around the island as Anton works, his back to you as he does."
+        "Silence fills the air before you decide to ask him something."
         menu:
-        "...Are we friends?" if p_exp:
-            pc "Urk-"
-            pc "Uh, just wondering. Cause a multi-course meal doesn't really sound like just coworkers."
-            pc "Or I'm overthinking."
-            a "No, no! I'd love nothing more than to be friends!"
-            a "I've actually been too shy to work up the nerve and ask you, so maybe that's on me."
-            a "I wasn't sure. So you really took a weight off my shoulders!"
-            jump c3cont
-        "You're too casual outside work events." if p_tran:
-            "You're not sure how you feel about this sudden bout of closeness."
-            "It's almost out of the blue. You don't know him."
-            "And you don't really care to."
-            $a_mr+=2
-            a "Ah... sorry?"
-            jump c3cont
-        "Why don't we hang out more?" if f_nick:
-            $a_a+=1
-            "You rarely see him outside the office, even less with your fellow coworkers."
-            "And it's not like they treat him poorly or anything else like that."
-            a "Hmm...{w} I guess I just don't get along very well with them."
-            "That's... odd. The rest of them really like Anton. Like teasing-a-younger-junior kind of like."
-            a "They just feel... overbearing."
-            a "Not you, of course!"
-            a "Just...{w} they can be a lot."
-            "Hmm... He was right, to be fair."
-            "Marlen has been strung tight with every night he's had to take away from his family."
-            "To be fair, being a police officer tends to require that type of dedication regardless."
-            "Perch is quiet. He doesn't talk much but maybe he's intimidated?"
-            "Anton's voice interrupts your perusal of reasons he might feel overwhelemed by the team."
-            a "You look worried, it's fine. Really."
-            a "I'm sure they'll grow on me. Eventually."
-            pc "Yeah...{w} If it's Marlen, he'll be less of a jerk soon, promise. He just needs a couple days off."
-            a "...{w} I'm sure."
-            jump c3cont
-        "We should hangout more." if f_rel:
-            $a_a+=3
-            "You can practically feel the smile that worms its way onto his face."
-            a "...{w} We should. That'd be fun."
-            "Letting out an awkward cough, you voice a tentative suggestion."
-            pc "Maybe you shouldn't have to cook all the time though."
-            "You can hear a lilting chuckle from behind you."
-            a "Really now? Here I thought you liked my cooking?"
-            pc "It's not that I don't! I just... feel a bit guilty."
-            a "Don't worry, I like cooking!{w} Are you gonna deprive me of my one and only vice?"
-        "We have a nice casual relationship, don't we?" if a_a>=20:
-            $a_a+=5
-            a "O-Oh!" with vpunch
-            "You hear a metal clang behind you and you almost whip your head around at neckbreaking speeds."
-            a "{cps=75}Don't!{w} Don't look at me right now!"
-            "It's a strained sound that his throat makes before you pointedly follow his demand."
-            pc "Are...{w} Are you alright?"
-            a "{size=-15}Fuck... this is embarassing.{w}{size=-30} Why...? Why would they?"
-            a "Yeah. Yeah, I'm good." 
-            "...{w}"
-            pc "So as I was saying..."
-            pc "It's nice, isn't it?"
-            "Er... {w}well...{w} that feels unfinished."
-            pc "Like, being close to someone, without being uncomfortable?"
-            pc "You make talking to you easy.{w}{cps=60} I don't know.{w}{cps=80} Maybe I'm wrong..."
-            a "No!{cps=60}{w} I know what you mean!" with vpunch
-            a "It's nice. Being able to talk with you. It's...{w} good."
-            pc "Yeah, it's casual, nonchalant even."
-            a "{size-=20}{cps=100}We could be more if you want..."
-            pc "Huh?"
-            a "Ack!{w} Nothing!" with vpunch
-            "Huh. Wonder what he said."
-            jump c3cont
+            "...Are we friends?" if p_exp:
+                pc "Urk-"
+                pc "Uh, just wondering. Cause a multi-course meal doesn't really sound like just coworkers."
+                pc "Or I'm overthinking."
+                a "No, no! I'd love nothing more than to be friends!"
+                a "I've actually been too shy to work up the nerve and ask you, so maybe that's on me."
+                a "I wasn't sure. So you really took a weight off my shoulders!"
+                jump serve03
+            "You're too casual outside work events." if p_tran:
+                "You're not sure how you feel about this sudden bout of closeness."
+                "It's almost out of the blue. You don't know him."
+                "And you don't really care to."
+                $a_mr+=2
+                a "Ah... sorry?"
+                jump serve03
+            "Why don't we hang out more?" if f_nick:
+                $a_a+=1
+                "You rarely see him outside the office, even less with your fellow coworkers."
+                "And it's not like they treat him poorly or anything else like that."
+                a "Hmm...{w} I guess I just don't get along very well with them."
+                "That's... odd. The rest of them really like Anton. Like teasing-a-younger-junior kind of like."
+                a "They just feel... overbearing."
+                a "Not you, of course!"
+                a "Just...{w} they can be a lot."
+                "Hmm... He was right, to be fair."
+                "Marlen has been strung tight with every night he's had to take away from his family."
+                "To be fair, being a police officer tends to require that type of dedication regardless."
+                "Perch is quiet. He doesn't talk much but maybe he's intimidated?"
+                "Anton's voice interrupts your perusal of reasons he might feel overwhelemed by the team."
+                a "You look worried, it's fine. Really."
+                a "I'm sure they'll grow on me. Eventually."
+                pc "Yeah...{w} If it's Marlen, he'll be less of a jerk soon, promise. He just needs a couple days off."
+                a "...{w} I'm sure."
+                jump serve03
+            "We should hangout more." if f_rel:
+                $a_a+=3
+                "You can practically feel the smile that worms its way onto his face."
+                a "...{w} We should. That'd be fun."
+                "Letting out an awkward cough, you voice a tentative suggestion."
+                pc "Maybe you shouldn't have to cook all the time though."
+                "You can hear a lilting chuckle from behind you."
+                a "Really now? Here I thought you liked my cooking?"
+                pc "It's not that I don't! I just... feel a bit guilty."
+                a "Don't worry, I like cooking!{w} Are you gonna deprive me of my one and only vice?"
+                jump serve03
+            "We have a nice casual relationship, don't we?" if a_a>=20:
+                $a_a+=5
+                a "O-Oh!" with vpunch
+                "You hear a metal clang behind you and you almost whip your head around at neckbreaking speeds."
+                a "{cps=75}Don't!{w} Don't look at me right now!"
+                "It's a strained sound that his throat makes before you pointedly follow his demand."
+                pc "Are...{w} Are you alright?"
+                a "{size=-15}Fuck... this is embarassing.{w}{size=-30} Why...? Why would they?"
+                a "Yeah. Yeah, I'm good." 
+                "...{w}"
+                pc "So as I was saying..."
+                pc "It's nice, isn't it?"
+                "Er... {w}well...{w} that feels unfinished."
+                pc "Like, being close to someone, without being uncomfortable?"
+                pc "You make talking to you easy.{w}{cps=60} I don't know.{w}{cps=80} Maybe I'm wrong..."
+                a "No!{cps=60}{w} I know what you mean!" with vpunch
+                a "It's nice. Being able to talk with you. It's...{w} good."
+                pc "Yeah, it's casual, nonchalant even."
+                a "{size-=20}{cps=100}We could be more if you want..."
+                pc "Huh?"
+                a "Ack!{w} Nothing!" with vpunch
+                "Huh. Wonder what he said."
+                jump serve03
 
     label vc3meal:
     label vc3investigation:
+        "...So he's gone. Finally."
+        "Something has felt off this whole time. The ease at which he approached you. How easily you listened."
+        "It's too...{w} uncanny."
+        "And you're going to figure out why."
+        label vc3i:
+        menu:
+            "Search the living room." if (not lr):
+                jump vc3i_lr
+            "Search the powder room." if (not pr):
+                jump vc3i_pr
+            "Check out '[???]'" if (pr and lr) and (a_s>=10):
+                jump vc3i_room
+        label vc3i_lr:
+                $lr = True
+                menu:
+                    "Check the couch." if not couch:
+                        $couch = True
+                        "The couch is made of stiff dark leather."
+                        "It compresses under your touch, but not easily."
+                        "The upholstery is barely lived in."
+                        if couch and coffee and tv and magazine:
+                            "You've seen everything here."
+                            jump vc3i
+                        else:   
+                            jump vc3i_lr
+                    "Check the coffee table." if not coffee:
+                        $coffee = True
+                        "There's a stack of coasters on the coffee table, but no visible signs of usage."
+                        "It says 'Happy Birthday Kael!'."
+                        "Who's Kael?"
+                        if couch and coffee and tv and magazine:
+                            "You've seen everything here."
+                            jump vc3i
+                        else:   
+                            jump vc3i_lr
+                    "Check the TV." if not tv:
+                        $tv = True
+                        "You hear clattering in the kitchen and take the oppurtunity to turn on the television, muting it."
+                        "You glance to the kitchen and nothing is there."
+                        "Good."
+                        "The TV flickers alive and you see a brief weather report on exerting caution."
+                        "That's odd."
+                        if couch and coffee and tv and magazine:
+                            "You've seen everything here."
+                            jump vc3i
+                        else:   
+                            jump vc3i_lr
+                    "Check the magazines." if not magazine:
+                        $magazine = True
+                        "WOAH WOAH WOAH !!!" with vpunch
+                        "Anton, what is THAT ?!"
+                        "Oh wait. Nevermind this isn't interesting. It's just some boring dumb magazine from the 2000s."
+                        if couch and coffee and tv and magazine:
+                            "You've seen everything here."
+                            jump vc3i
+                        else:   
+                            jump vc3i_lr
+                    "Leave." if not couch or not coffee or not tv or not magazine:
+                        jump vc3i
+        label vc3i_pr:
+                $pr = True
+                menu:
+                    "Check the soap." if not soap:
+                        $soap = True
+                        "You gingerly squirt a bit of the capped soap he has on the counter."
+                        "You lave your hands under a running stream of cool water."
+                        "You note that your hands smell like cherry blossoms now."
+                        if soap and toilet and towel and sink:
+                            "You've seen everything here."
+                            jump vc3i
+                        else:   
+                            jump vc3i_pr
+                    "Check the toilet." if not toilet:
+                        $toilet = True
+                        "Just, uh, a normal toilet here."
+                        "Why are you investigating here? You're probably gonna get jumpscared."
+                        if soap and toilet and towel and sink:
+                            "You've seen everything here."
+                            jump vc3i
+                        else:   
+                            jump vc3i_pr
+                    "Check the towels." if not towel:
+                        $towel = True
+                        "You grasp the towels in your hands."
+                        "So... fluffy.{w} So... warm."
+                        "They must be freshly washed, they feel so nice..."
+                        if soap and toilet and towel and sink:
+                            "You've seen everything here."
+                            jump vc3i
+                        else:   
+                            jump vc3i_pr
+                    "Check the sink." if not sink:
+                        $sink = True
+                        "You stare down the sink, noticing a pinkish tint to it."
+                        "You grab some of the toilet paper, and swipe at it."
+                        "It's not fresh, and you're not sure how to feel about that."
+                        if soap and toilet and towel and sink:
+                            "You've seen everything here."
+                            jump vc3i
+                        else:   
+                            jump vc3i_pr
+                    "Leave." if not soap or not toilet or not towel or not sink:
+                        jump vc3i_pr
+        label vc3i_room:
+            "You tiptoe down the hall, to a room across the powder room."
+            "Faintly, you remember Anton saying it's a guest room that he hasn't cleaned out yet."
+            "And to stay out of it. But something smells foul here."
+            "... And ew, all of a sudden that is literally speaking."
+            "What is he hiding?{w} It smells like melted steel."
+            "You glance to your right, no one there."
+            "Slowly, you creak the door open..."
+            pc "What the-" with vpunch
+            "..."
+            pause.4
+            a "I told you to stay out."
+            a "How{w} stupid{w} are{w} you?"
+            with dis
+            "Bad Ending: You have got to be more nonchalant..."
+            if "Vro is not slick (vegan edition)" not in persistent.endings:
+                $persistent.endings.append("Vro is not slick (vegan edition)")
+            return
+
+
 label serve03:
+    with dis
+    "20 minutes pass and with the empty plates, you both move to the island sink."
+    a "It's been wonderful having you over, boss."
+    pc "Yeah. Thanks for having me."
+    pc "But I should really get going now."
+    a "Ah, yes, of course! And I can drive you back to the office."
+    pc "Sure."
+    "..."
+    "Or at least thats what you thought."
+    "Before there was a crazy SNOWSTORM EVERYWHERE ??" with pixellate
+    "..."
+    a "Uh... that definitely throws a wrench into things...{w} Is there any chance I could convince you into staying the night?"
+    a "I'm not fond of driving on the snow, gotten into a couple accidents lately."
+    a "And this looks... really bad."
+    menu:
+        "Yeah sure!" if (a_s<10):
+            jump house02
+            #good end
+        "No thanks..." if (a_s>10)and (a_mr<10):
+            #you arent close anymore, you figured smth was up
+            a "Oh. Okay."
+            "Something about his voice sounds strained. You're more grateful he isn't crashing out."
+            "You have this feeling that if you had made him mad, he would retaliate...{w} poorly."
+            scene bg car with dis
+            show ant car2
+            "The car ride back is quiet. You can't tell how he feels. But you're not sure you want to."
+            scene bg office doors with dis
+            pause.2
+            scene night office bg with dis
+            "Neutral Ending: Survival of the Fittest"
+            if "not hunted, still pursued" not in persistent.endings:
+                $persistent.endings.append("not hunted, still pursued")
+            return
+        "Fuck no." if (a_mr>=10):
+            pc "No. You've been acting up this whole time."
+            pc "Don't think I haven't noticed, Anton."
+            "You take a step backwards from him, the snow melting as it lands on your skin."
+            "Your heart skips a beat traitorously as he takes a step towards you, face dark."
+            a "...{w} Care to elaborate, boss?"
+            #show ant evil at bounch
+            pc "Don't call me that!" with vpunch
+            "Hurriedly, you take more and more steps back, eyes trained on his approaching figure."
+            a "We can talk this out, sarge...!{w} {cps=80}{size = -10} Please..."
+            pc "No. You're hiding something. I know you are. And I don't care to find out what."
+            "Stealthily, you pull out your phone, dialing a familiar three-digit number."
+            "Unfortunately, the receiver is far from stealthy."
+            s "{size=30}Hello!{w} Police Station #0001, how can I help you?" with vpunch
+            "...Fuck."
+            "Anton grabs the phone out of your hand, glaring at you."
+            "You try to run but he trips you with a quick movement of his leg." with hpunch
+            a "Hi, sorry, I misdialed."
+            s "Oh! All good! Be careful tonight!"
+            "How is that receiver that stupid...?"
+            a "I can't believe you...{w} I trusted you..."
+            ## dramatic snow bg
+            "You see a glint of silver in your peripheral."
+            pc "A-Anton... wait. We can{w}... we can talk about this."
+            "As if unable to hear your strained voice, he drags the knife along your clothes. Threads fray in its wake as he continues."
+            a "I...{w}I thought you were different.{w} Better."
+            a "I thought you could be like me.{w} Thought you could like me too."
+            pc "Anton--" with vpunch
+            a "Shut it."
+            a "I... Where did I go wrong? You should be fine. You should be good."
+            a "But you're not."
+            show ant nervous at bounce
+            a "You're... You're just as bad as the rest of them!"
+            
+            #you get slimed out
+
+            "Bad Ending: Ripe for the Slaughter"
+            if "ragebait 5000" not in persistent.endings:
+                $persistent.endings.append("ragebait 5000")
+            return
+
+label house02:
+    "The both of you find your way back to the kitchen island at the revelation, Anton continuing to clean plates."
+    pc "Of COURSE it's snowing. I should have just driven in my own car."
+    "As if you would've driven in this weather..."
+    pc "Sorry for imposing more than I already have."
+    a "Oh, you're all good, don't worry!"
+    menu:
+        "Complain about the situation.":
+            jump shower
+        "Help him clean up.":
+            pc "Here, let me--"
+            a "No, no, I couldn't. Let me clean this up."
+            a "You can take a shower, I'm sure you're exhausted!"
+            pc "I-"
+            a "Really, go ahead."
+            "... You could use one."
+            pc "...{w} Alright."
+            jump shower
+    label shower:
+
 
 
 
