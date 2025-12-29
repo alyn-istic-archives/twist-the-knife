@@ -9,7 +9,6 @@ init python:
     persistent.endings = []
     persistent.tw = True
 
-default preferences.text_cps = 45
 define dis = { "master" : Dissolve(0.5) }
 
 define a = "Anton"
@@ -17,6 +16,15 @@ define pc = "You"
 define protag = "Alyn"
 define s = "???"
 define m = "Marlen"
+
+transform bounce:
+    pause .15
+    yoffset 0
+    easein .175 yoffset -30
+    easeout .175 yoffset 0
+    easein .175 yoffset -4
+    easeout .175 yoffset 0
+    yoffset 0
 
 default preferences.text_cps = 45
 default preferences.afm_enable = False
@@ -742,7 +750,7 @@ label vserve01:
         "Oh. Yeah, sure.":
             $a_a+=2
             a "Alright, the table should already be set and everything!"
-            jump vservecont
+            jump vserve1cont
         "Can I do anything to help you with?":
             a "Ah, you could set the table? You just need to grab your preferred cutlery. Top drawer."
             "He gestures to his left."
@@ -752,7 +760,7 @@ label vserve01:
                 ## scene bg cutlery02, the cutlery is spoon knife chopstick butterknife etc.
                 ## $ cutlery = whatever they choose
                     "PEAK"
-                    jump vservecont
+                    jump vserve1cont
                 "Open the second drawer.":
                         # blur of action or sum with hpunch
                     "You slide open the second drawer with a clatter, hearing metal scrape as you quickly glance to your right as Anton's eyes narrow on you."
@@ -784,63 +792,70 @@ label vserve01:
                             $a_s += 5
                             jump vserve1cont
     label vserve1cont:
-        if orphan:
-            a "I told you a bit about it in the car."
-        a "But basically. I was in a really, really bad place growing up."
-        a "I didn't have the support I needed. And I did really bad things."
-        a "Like. Really bad."
-        a "And it was a rookie cop that saved my life."
-        a "I'm no paragon of perfection now."
-        a "But they saved me when I had nothing. And it made me realize that my life has... value. Has potential."
-        "That sounds... vaguely familiar."
-        a "And so I changed things around. Got a job, moved cities, got another job. And then eventually, I got into police school."
-        a "I want to be able to make change. Like that officer had done for me."
-        pc "Wow... That's really..."
-        a "It's a lot. I know."
-        pause.5
-        a "But you know what you can do to make me feel better?"
-        "Er... well, not really something you wanna do but can't hurt..."
-        show ant grin
-        a "Eat your food?"
-        "Oh yeah. It's definitely cooled down by now."      
+        scene meal ant neutral
         "You sit down at the table."
-        if (a_s >= 5):
-            "You were just curious. You didn't get the big deal. Why in the world is he so mad?"
-            "It's not your fault, really."
-            "And it was just an accident!"
-            "Whatever."
-            "Jerk."
-        "It's a couple moments later that Anton is accompanying you, a hot plate of fresh deep fried gizzards in front of you."
+        "It's a couple moments later that Anton is accompanying you, a hot plate of fresh deep fried potatoes in front of you."
         if (a_s>0):
-            show ant worryo
+            show meal ant neutralo
             a "I'm sorry. About... earlier."
-            show ant neutral
-
+            show meal ant neutral
             pause.5
-
-            show ant worryo
+            show ant neutralo
             a "It was... uncalled for."
+        show meal ant neutralo
         a "Wait a couple minutes and it should be good to cool down."
         "The question that's been lingering on the tip of your tongue escapes your traitorous mouth."
         pc "So how do you afford this?"
         "Ouch."
         pc "Er... {w=0.5} Let me rephrase-"
+        show meal ant neutralo
         a "It's fine!"
+        show meal ant angryo
         a "I had an interesting... childhood."
-        a "My parents weren't very stable. In any way, shape, or form."
-        a "And then, I got tossed."
-        a "I was alone, for a very long time. And being alone at a young age, it... does something to you."
-        a "But someone saved me from that... that despair."
-        a "And if I could be saved, there's probably a bunch of others who need saving."
-        a "So I enrolled in police school. I want to be able to save others just like I had been."
-        pc "That's... a lot."
-        a "Yeah. Sorry."
-        pc "Is there... anything I can say? Like. An apology feels insufficient."
-        a "Eh, I've been over it for a while..."
-        pause.2
+        if orphan:
+            a "I told you a bit about it in the car."
+        a "But basically. I was in a really, really bad place growing up."
+        a "I didn't have the support I needed. And I did really bad things."
+        show meal ant angryo
+        a "Like. Really bad."
+        show meal ant happyo
+        a "And it was a rookie cop that saved my life."
+        show meal ant neutralo
+        a "I'm no paragon of perfection now."
+        a "But they saved me when I had nothing. And it made me realize that my life has... value. Has potential."
+        show meal ant neutral
+        "That sounds... vaguely familiar."
+        a "And so I changed things around. Got a job, moved cities, got another job. And then eventually, I got into police school."
+        show meal ant happyo
+        a "I want to be able to make change. Like that officer had done for me."
+        show meal ant happy
+        pc "Wow... That's really..."
+        show meal ant neutralo
+        a "It's a lot. I know."
+        pause.5
+        show meal ant happyo
         a "But you know what you can do to make me feel better?"
+        show meal ant happy
         "Er... well, not really something you wanna do but can't hurt..."
-        show ant grin
+        show meal ant happyo
+        a "Eat your food?"
+        "Oh yeah. It's definitely cooled down by now."      
+    
+    #    a "My parents weren't very stable. In any way, shape, or form."
+    #    a "And then, I got tossed."
+    #    show meal ant neutralo
+     #   a "I was alone, for a very long time. And being alone at a young age, it... does something to you."
+  #  #    a "But someone saved me from that... that despair."
+   #     a "And if I could be saved, there's probably a bunch of others who need saving."
+   #     a "So I enrolled in police school. I want to be able to save others just like I had been."
+   #     pc "That's... a lot."
+   #     a "Yeah. Sorry."
+    #    pc "Is there... anything I can say? Like. An apology feels insufficient."
+ #       a "Eh, I've been over it for a while..."
+  #   #   pause.2
+   #     a "But you know what you can do to make me feel better?"
+    #    "Er... well, not really something you wanna do but can't hurt..."
+     #   show ant grin
         a "Eat your food?"
         "Oh yeah. It's definitely cooled down by now."
         "You gingerly take a piece in between your thumb and pointer, the thin layer batter crumbling under your fingers."
@@ -849,27 +864,32 @@ label vserve01:
         "The sweet potatoes are so... {w} sweet! The inside is so soft and fluffy, it practically melts on your tongue."
         "The batter is crispy and light in a way that doesn't take away from the flavors of the starch."
         "Breaking your spell of satiation, Anton coughs into his hand."
-        show ant happyo
+        show meal ant happyo
         a "I'll take that it tastes good?"
-        show ant grin
+        show meal ant happy
         pc "Fantastic! Really!" 
         pc "I know that they're easy to make taste good. But I mean it!"
-        show ant fond
         pc "You could pursue a career in food."
-        show ant happyo
+        show meal ant happyo
         a "That means a lot to me, thank you [protag]."
         pc "How's your beef?"
+        show meal ant neutralo
         a "Huh?"
+        show meal ant neutral
         "You gesture to his plate, that he hasn't really taken a bite out of."
+        show meal ant neutralo
         a "Oh! {w} It's good! Thanks for asking!" 
         "As if emphasizing, he goes in to take a bite before looking back up at you."
+        show meal ant happyo
         a "It really is. This was an excellent cut, good on me! {w} Props to the butcher!"
-
         "It's a brief silence that has him pushing back out of his chair after eating a bit of the food. He takes the empty plate with him."
+        show meal ant neutralo
         a "I'll start on the soup. It's mainly just returning it to the stovetop."
         pc "I can-"
+        show meal ant happyo
         a "You can help stir it if you'd like?"
         "Huh. How'd he guess that?"
+        show meal ant neutralo
         a "You're a very open person to read, boss."
         "I guess that explains it."  
         jump course02
@@ -894,9 +914,9 @@ label serve01:
                 ## $ cutlery = whatever they choose
                     menu:
                         "Chopsticks":
-                            jump servecont
+                            jump serve1cont
                         "Fork":
-                            jump servecont
+                            jump serve1cont
                 "Open the second drawer.":
                     # blur of action or sum with hpunch
                     "You slide open the second drawer with a clang, hearing metal crash against one another as you quickly glance to your right, Anton's figure quickly moving."
@@ -927,6 +947,7 @@ label serve01:
                             $a_s += 5
                             jump serve1cont
     label serve1cont:
+        scene meal ant neutralo
         "You sit down at the table."
         if (a_s >= 5):
             "You were just curious. You didn't get the big deal. Why in the world is he so mad?"
@@ -937,28 +958,27 @@ label serve01:
             "Jerk."
         "It's a couple moments later that Anton is accompanying you, a hot plate of fresh deep fried gizzards in front of you."
         if (a_s>0):
-            show ant worryo
+            show meal ant neutralo
             a "I'm sorry. About... earlier."
-            show ant neutral
-
+            show meal ant neutral
             pause.5
-
-            show ant worryo
+            show meal ant neutralo
             a "It was... uncalled for."
-        show ant neutralo
+        show meal ant neutralo
         a "Wait a couple minutes and it should be good to cool down."
-        show ant fond
+        show meal ant happy
         "The question that's been lingering on the tip of your tongue escapes your traitorous mouth."
         pc "So how do you afford this?"
-        show ant worry
+        show meal ant neutral
         "Ouch."
         pc "Er... {w=0.5} Let me rephrase-"
-        show ant fond
+        show meal ant happy
         pause.2
-        show ant neutralo
+        show meal ant neutralo
         a "It's fine!"
-        show ant worry
+        show meal ant neutral
         pause.25
+        show meal ant neutralo
         a "I had a... rough childhood."
        ## if orphan:
          ##   a "You know I didn't have parents."
@@ -991,20 +1011,28 @@ label serve01:
             a "I told you a bit about it in the car."
         a "But basically. I was in a really, really bad place growing up."
         a "I didn't have the support I needed. And I did really bad things."
+        show meal ant angryo
         a "Like. Really bad."
+        show meal ant neutralo
         a "And it was a rookie cop that saved my life."
         a "I'm no paragon of perfection now."
         a "But they saved me when I had nothing. And it made me realize that my life has... value. Has potential."
         "That sounds... vaguely familiar."
+        show meal ant happyo
         a "And so I changed things around. Got a job, moved cities, got another job. And then eventually, I got into a police program."
         a "I want to be able to make change. Like that officer had done for me."
+        show meal ant happy
         pc "Wow... That's really..."
+        show meal ant neutralo
         a "It's a lot. I know."
         pause.5
+        show meal ant happyo
         a "But you know what you can do to make me feel better?"
+        show meal ant happy
         "Er... well, not really something you wanna do but can't hurt..."
-        show ant grin
+        show meal ant happyo
         a "Eat your food?"
+        show meal ant happy
         "Oh yeah. It's definitely cooled down by now."  
         "You gingerly take a piece in between your thumb and pointer, the batter flaking away as you do."
         "!!!" with vpunch
@@ -1013,29 +1041,35 @@ label serve01:
         "The flesh is tender and meaty, practically falling apart with each chew of your incisors (?)."
         "Some parts are more thicker than others, you note mildly, but it's not unpleasant!"
         "Breaking your spell of satiation, Anton coughs into his hand."
-        show ant happyo
+        show ant meal happyo
         a "I'll take that it tastes good?"
+        show meal ant neutral
         pc "Fantastic! It's a lot better than I was expecting?"
-        show ant neutralo
+        show meal ant neutralo
         a "Oh? Really now? {w} And what were you expecting?"
-        show ant grin
+        show meal ant happy
         "..."
         pc "Nothing this great really... Uh."
         pause.2
-        show ant happyo
+        show meal ant happyo
         a "You wound me!"
-        show ant grin
+        show meal ant happy
         pc "But seriously. This is really good, Anton."
-        show ant fond
         pc "You could genuinely pursue a career in food."
-        show ant happyo
+        show meal ant happyo
         a "That means a lot to me, thank you [protag]."
+        show meal ant happy
         "It's a brief silence that has him pushing back out of his chair after eating a bit of the food. He takes the empty plate with him."
+        show meal ant neutralo
         a "I'll start on the soup. It's mainly just returning it to the stovetop."
         pc "I can-"
+        show meal ant happyo
         a "You can help stir it if you'd like?"
+        show meal ant happy
         "Huh. How'd he guess that?"
+        show meal ant happyo
         a "You're a very open person to read, boss."
+        show meal ant happy
         "I guess that explains it."
         jump course02
 
@@ -1247,8 +1281,11 @@ label course02:
         jump serve02
 
 label serve02:
+    show meal ant neutral
     "You sit down across from Anton as he quietly arranges the dish in front of you."
+    show meal ant neutralo
     a "So it's a tomato soup with some balsamic and basil. Would you like any parmesan?"
+    show meal ant neutral
     menu:
         "Sure!":
             jump s2cont
@@ -1258,16 +1295,21 @@ label serve02:
     label s2cont:
     "You pick up the spoon of soup, gently blowing on it before hesitantly bringing it to your lips."
     "Wow.{w} Wow!" with vpunch
+    show meal ant happy
     "He genuinely can't stop surprising you."
     "The sauce is thicker than it looked when you were mindlessly stirring it to no end."
     "You can taste a different depth to it, with every velvety bite you take."
     "It's smooth on your tongue, warm in your mouth."
     "The both of you sit in quiet silence for a couple minutes, taking an occasional sip of your drink as you do."
     "A couple moments later, Anton looks at your expression appraisingly before pulling out of his chair."
+    show meal ant neutral
     menu:
-        "Why?":
+        "Where are you going?":
+            show meal ant neutralo
             a "The next meal just requires a bit more extensive prepping."
+            show meal ant happyo
             a "Don't worry too much about it!"
+            show meal ant happy
             pc "Ah, okay."
             jump c3meal
         "Oh, ok. Go ahead." if a_s>=10:
@@ -1276,10 +1318,13 @@ label serve02:
             "He's gone however.{w} A fact you notice almost instantaneously."
             jump c3investigation
         "You're not staying to eat?" if a_a>=5:
+            show meal ant happyo
             a "Oh!"
             a "I'm just going to prepare the next meal!"
             a "It's a bit more tedious than the other two."
+            show meal ant happy
             pc "Oh. Uh.{w} I can help!"
+            show meal ant neutralo
             a "No, you've helped plenty enough! At least let me do the entree!"
             menu:
                 "Ok...":
@@ -1289,6 +1334,8 @@ label serve02:
 
 label course03:
     label c3prep:
+        scene bg kitchen
+        show kitchen ant neutral
         if nonmeat:
             jump vc3prep
         "You cautiously hover around the island as Anton works, his back to you as he does."
@@ -1298,6 +1345,7 @@ label course03:
                 pc "Urk-"
                 pc "Uh, just wondering. Cause a multi-course meal doesn't really sound like just coworkers."
                 pc "Or I'm overthinking."
+                show kitchen ant happyo
                 a "No, no! I'd love nothing more than to be friends!"
                 a "I've actually been too shy to work up the nerve and ask you, so maybe that's on me."
                 a "I wasn't sure. So you really took a weight off my shoulders!"
@@ -1357,7 +1405,7 @@ label course03:
                 a "No!{cps=60}{w} I know what you mean!" with vpunch
                 a "It's nice. Being able to talk with you. It's...{w} good."
                 pc "Yeah, it's casual, nonchalant even."
-                a "{size-=20}{cps=100}We could be more if you want..."
+                a "{size=-20}{cps=100}We could be more if you want..."
                 pc "Huh?"
                 a "Ack!{w} Nothing!" with vpunch
                 "Huh. Wonder what he said."
@@ -1417,6 +1465,7 @@ label course03:
             "Check out '[???]'" if (pr and lr) and (a_s>=5):
                 jump c3i_room
         label c3i_lr:
+                scene bg livingroom
                 $lr = True
                 menu:
                     "Check the couch." if not couch:
@@ -1464,6 +1513,7 @@ label course03:
                     "Leave." if not couch or not coffee or not tv or not magazine:
                         jump c3i
         label c3i_pr:
+                scene bg bathroom
                 $pr = True
                 menu:
                     "Check the soap." if not soap:
@@ -1596,7 +1646,7 @@ label vcourse03:
                 a "No!{cps=60}{w} I know what you mean!" with vpunch
                 a "It's nice. Being able to talk with you. It's...{w} good."
                 pc "Yeah, it's casual, nonchalant even."
-                a "{size-=20}{cps=100}We could be more if you want..."
+                a "{size=-20}{cps=100}We could be more if you want..."
                 pc "Huh?"
                 a "Ack!{w} Nothing!" with vpunch
                 "Huh. Wonder what he said."
@@ -1617,6 +1667,7 @@ label vcourse03:
             "Check out '[???]'" if (pr and lr) and (a_s>=10):
                 jump vc3i_room
         label vc3i_lr:
+                scene bg livingroom
                 $lr = True
                 menu:
                     "Check the couch." if not couch:
@@ -1664,6 +1715,7 @@ label vcourse03:
                     "Leave." if not couch or not coffee or not tv or not magazine:
                         jump vc3i
         label vc3i_pr:
+                scene bg bathroom
                 $pr = True
                 menu:
                     "Check the soap." if not soap:
@@ -1770,7 +1822,7 @@ label serve03:
             #show ant evil at bounch
             pc "Don't call me that!" with vpunch
             "Hurriedly, you take more and more steps back, eyes trained on his approaching figure."
-            a "We can talk this out, sarge...!{w} {cps=80}{size = -10} Please..."
+            a "We can talk this out, sarge...!{w} {cps=80}{size=-10} Please..."
             pc "No. You're hiding something. I know you are. And I don't care to find out what."
             "Stealthily, you pull out your phone, dialing a familiar three-digit number."
             "Unfortunately, the receiver is far from stealthy."
@@ -1821,6 +1873,7 @@ label house02:
             pc "...{w} Alright."
             jump shower
     label shower:
+        scene bg bathroom
 
 
 
