@@ -18,9 +18,9 @@ define s = "???"
 define m = "Marlen"
 
 transform bounce:
-    pause .15
+    pause .2
     yoffset 0
-    easein .175 yoffset -30
+    easein .175 yoffset -20
     easeout .175 yoffset 0
     easein .175 yoffset -4
     easeout .175 yoffset 0
@@ -90,11 +90,11 @@ image soup:
 
 image door:
     "images/door1.png"
-    pause.1
+    pause.3
     "images/door2.png"
-    pause.1
+    pause.2
     "images/door3.png"
-    pause.1
+    pause.15
     "images/door3.1.png"
     pause.1
     "images/door3.2.png"
@@ -104,8 +104,6 @@ image door:
 # The game starts here.
 
 label start:
-    
-    jump c3i_room
 
     if persistent.tw:
         "Trigger Warning: blood, gore, violence (specifically only bad endings so u should be fine)"
@@ -607,9 +605,11 @@ label house_01:
 
 label course01:
     "You watch him pull a bowl of... buttermilk(?) out of the fridge."
+    show kitchen ant grin
     "And there it was in front of you."
     "...?"
     pc "Is that... actually, no, what is that?"
+    show kitchen ant grino
     a "Gizzard! Have you heard of it before?"
     "This didn't answer any questions. This actually gave you more questions."
     menu:
@@ -617,34 +617,50 @@ label course01:
             jump what_gizzard
         "Yeah, it seems pretty cool!":
             $a_a+=1
+            show kitchen ant shocko
             a "Really now? I don't think I've met a lot of people who know what it is!"
+            show kitchen ant grino
             a "That's super cool!"
             jump yes_gizzard
         "Um, ew, unfortunately. And you think I'm eating that?":
             jump no_gizzard
 
     label what_gizzard:
+        show kitchen ant fond
         pc "What's gizzard?"
+        show kitchen ant neutralo
         a "Well, I don't actually have a real definition for you. But it's part of the chicken's stomach!"
+        show kitchen ant grino
         a "It also tastes really similar to other dark meat!"
         a "And if you know what giblets are, they're part of that sub-group."
+        show kitchen ant fond
         "You subtly grab your phone and type in gizzards and giblets into your search bar."
         "Giblets... Giblets are... edible internal organs? And gizzards happen to be those. So... gizzards are uysed to grind the food of chickens? They're muscles?"
         pc "Why do chickens need to grind their food."
+        show kitchen ant neutralo
         a "They don't have teeth. I guess their beaks don't do all of that."
+        show kitchen ant neutral
         pc "So, uh, why's it soaking in all that?"
+        show kitchen ant neutralo
         a "Well, I'm guessing it said something about the gizzards being a muscle. And usually, muscles don't have the best texture."
         a "Buttermilk has acidic properties that let it break those muscle fibers."
+        show kitchen ant grino
         a "It also tenderizes the meat!"
+        show kitchen ant fondo
         a "I let these guys sit for about 20 hours to tenderize them. I could slow cook them, but I prefer to have something already ready to cook when I get home."
+        show kitchen ant worry
         pc "Especially with that psycho on the loose."
+        show kitchen ant fondo
         a "Correction, having *been* on the loose. Off the streets now, thank god."
+        show kitchen ant neutral
         jump yes_gizzard
 
     label yes_gizzard:
+        show kitchen ant neutral
         "He moves aside, preparing two bowls of a beaten egg mixture and another bowl that he adds flour, salt, garlic and onion powder, and some paprika to."
         "Generously, he coats each individual piece in the egg wash and then the flour."
         "His hands stiffen in the bowl, as if remembering a question."
+        show kitchen ant worryo
         a "Oh. Sorry, does the idea of eating these bother you?"
         menu:
             "A little...":
@@ -652,7 +668,9 @@ label course01:
                 "He... hadn't known you were coming. How would he have prepared all that?"
                 menu:
                     "Yeah, I'd rather that.":
+                        show kitchen ant fond
                         a "Yeah. Yeah, of course!"
+                        show kitchen ant neutral
                         "He quickly washes his hands, moving to put the gizzard in the fridge and bringing out a different bowl."
                         "Water sloshes around the rim as you lean in."
                         jump vegancourse01
@@ -662,11 +680,15 @@ label course01:
                 $a_a+=3
                 jump yay_gizzard
         label yay_gizzard:
+        show kitchen ant worry
         "Something about the sudden assumption makes you feel a bit defensive."
         "Your hands raise up to your shoulders in defense. It's not as if you cared that much."
         pc "It doesn't bother me! Really!"
+        show kitchen ant fond 
         "His shoulders relax at the assurance."
+        show kitchen ant fondo
         a "As long as you're sure. I wouldn't want to scare away my guest now."
+        show kitchen ant fond
         "Silence follows the end of the conversation as Anton begins frying the gizzard pieces in the oil expertly."
         with dis
         jump serve01
@@ -674,8 +696,11 @@ label course01:
     label no_gizzard:
         $a_a-=2
         $a_mr+=10
+        show kitchen ant angry
         "He winces at your tone and diction. If almost wounded by your harshness."
+        show kitchen ant worryo
         a "Ouch, alright, I get it."
+        show kitchen ant neutralo
         a "I can prepare you something else."
         jump vserve01
 
@@ -755,14 +780,18 @@ label vegancourse01:
                 jump serve01
 
 label vserve01:
+    scene bg kitchen with dis
+    show kitchen ant neutral
     "Everything is done quickly, with a subtle layer of quiet finesse to it. You're not sure how often he cooks for himself."
     "But his apparent talent is clear."
-    "His plate sits in front of you, pouring you a glass of water in a wineglass, the lemon pitcher resting nearby."
     "He gestures to his dining table as you watch him clean the cutting boards, washing them under running water."
+    show kitchen ant neutralo
     a "You can go make yourself comfortable if you'd like?"
+    show kitchen ant grin
     menu:
         "Oh. Yeah, sure.":
             $a_a+=2
+            show kitchen ant grino
             a "Alright, the table should already be set and everything!"
             jump vserve1cont
         "Can I do anything to help you with?":
@@ -884,7 +913,7 @@ label vserve01:
         pc "I know that they're easy to make taste good. But I mean it!"
         pc "You could pursue a career in food."
         show meal ant happyo
-        a "That means a lot to me, thank you [protag]."
+        a "That means a lot to me, thank you, boss."
         pc "How's your beef?"
         show meal ant neutralo
         a "Huh?"
@@ -908,23 +937,29 @@ label vserve01:
         jump course02
 
 label serve01:
+    show kitchen ant neutral
     "Everything is done quickly, with a subtle layer of quiet finesse to it. You're not sure how often he cooks for himself."
     "But his apparent talent is clear."
     "His plate sits in front of you, pouring you a glass of water in a wineglass, the lemon pitcher resting nearby."
     "He gestures to his dining table as you watch him clean the cutting boards, wash them under running water."
+    show kitchen ant fondo
     a "You can go make yourself comfortable if you'd like?"
     menu:
         "Oh. Yeah, sure.":
-            a "I mean you don't have to!"
+            show kitchen ant grino
+            a "Alright, the table should already be set and everything!"
+            jump vserve1cont
         "Can I do anything to help you with?":
             $a_a+=2
+            show kitchen ant grinop
             a "Ah, you could set the table? You just need to grab your preferred cutlery. Top drawer."
             "He gestures to his left."
             ## scene bg cutlery01
             menu:
                 "Open the top drawer.":
-                    ## scene bg cutlery02, the cutlery is spoon knife chopstick butterknife etc.
-                ## $ cutlery = whatever they choose
+                    scene bg cutlery
+                    "With little fanfare, you choose your desired cutlery before heading to the dinner table,"
+                    jump vserve1cont
                     menu:
                         "Chopsticks":
                             jump serve1cont
@@ -933,18 +968,24 @@ label serve01:
                 "Open the second drawer.":
                     # blur of action or sum with hpunch
                     "You slide open the second drawer with a clang, hearing metal crash against one another as you quickly glance to your right, Anton's figure quickly moving."
+                    show kitchen ant angryo
                     a "{cps=70}What. {w=.2}Are. {w=.2}You.{w=.2} Doing." with hpunch
+                    show kitchen ant angry
                     pc "I--"
                     menu:
                         "Tell the truth.":
                             pc "I just wanted to check out the other drawers!"
                             pc "Is that so wrong?"
                             "Stilted anger courses through his words."
+                            show kitchen ant angryo
                             a "Yes? I was pretty obvious when I said {b}top{/b} drawer."
+                            show kitchen ant angry
                             "Your eyebrow twitches at the sudden anger."
                             pc "I made a mistake. My bad. No need to be so aggressive."
                             "He lets out a frustrated sigh before his face takes on a more common expression."
+                            show kitchen ant neutralo
                             a "...Sorry. {w=0.2} Could you just go sit down at the table?"
+                            show kitchen ant worry
                             pc "Fine."
                             "Fuck you too."
                             $a_s += 5
@@ -952,15 +993,20 @@ label serve01:
                         "Lie.":
                             pc "Oh, sorry. Opened the wrong drawer."
                             "..."
+                            show kitchen ant worry
+                            pause.25
+                            show kitchen ant neutralo
                             a "Just be careful next time."
                             a "Ok?"
+                            show kitchen ant neutral
                             pc "...Okay."
+                            show kitchen ant angry
                             "Well. That was weird."
                             "He's giving you the stink eye now... so I guess it's best to go sit down then."
                             $a_s += 5
                             jump serve1cont
     label serve1cont:
-        scene meal ant neutralo
+        scene meal ant angry
         "You sit down at the table."
         if (a_s >= 5):
             "You were just curious. You didn't get the big deal. Why in the world is he so mad?"
@@ -1028,6 +1074,9 @@ label serve01:
         a "Like. Really bad."
         show meal ant neutralo
         a "And it was a rookie cop that saved my life."
+        show meal ant neutral
+        pause.25
+        show meal ant neutralo
         a "I'm no paragon of perfection now."
         a "But they saved me when I had nothing. And it made me realize that my life has... value. Has potential."
         "That sounds... vaguely familiar."
@@ -1070,7 +1119,7 @@ label serve01:
         pc "But seriously. This is really good, Anton."
         pc "You could genuinely pursue a career in food."
         show meal ant happyo
-        a "That means a lot to me, thank you [protag]."
+        a "That means a lot to me, thank you, boss."
         show meal ant happy
         "It's a brief silence that has him pushing back out of his chair after eating a bit of the food. He takes the empty plate with him."
         show meal ant neutralo
@@ -1243,6 +1292,8 @@ label course02:
         menu:
             "Ask about the second drawer.":
                 "You can almost feel the way he stops in place, the cuts of the knife no longer audible."
+                $a_s+=5
+                $a_mr+=2
                 a "Why do you want to know?{w} Why can't you just leave it alone?"
                 pc "I-" with vpunch
                 a "It's not important, boss."
@@ -1262,7 +1313,7 @@ label course02:
                 "...{w} Regardless. Maybe you shouldn't have said that."
                 jump c2cont1
             "Keep quiet.":
-                $a_a+=1
+                $a_a+=3
                 jump c2cont1
 
     label c2cont1:
@@ -1380,7 +1431,7 @@ label course03:
                 show kitchen ant worry
                 jump serve03
             "Why don't we hang out more?" if f_nick:
-                show ktichen ant shocko
+                show kitchen ant shocko
                 $a_a+=1
                 "You rarely see him outside the office, even less with your fellow coworkers."
                 "And it's not like they treat him poorly or anything else like that."
@@ -1469,6 +1520,8 @@ label course03:
                 show kitchen ant neutral
                 "Huh. Wonder what he said."
                 jump serve03
+            "Stay quiet.":
+                jump serve03
 
     label c3meal:
         if nonmeat:
@@ -1495,7 +1548,7 @@ label course03:
             "You belatedly look back up every now and then to see Anton staring at you."
             "Normally, he stares at you with an air of curiosity, eager to learn and ask more questions at work."
             "Tonight, it feels... {w}different. Still curious."
-            jump serve03
+            jump c3meal
         if (a_mr>=10): 
             show meal ant neutral
             "You belatedly look back up every now and then to see Anton staring at you."
@@ -1504,7 +1557,7 @@ label course03:
             "Something about it scares you."
             show meal ant happy
             "But he recovers quickly enough to act like nothing had happened."
-            jump serve03
+            jump c3meal
         if (a_s>=5):
             show meal ant neutral
             "You belatedly look back up every now and then to see Anton staring at you."
@@ -1513,11 +1566,11 @@ label course03:
             "Because you've seen that look in other eyes before."
             show meal ant angry
             "Specifically, other criminals."
-            jump serve03
+            jump c3meal
         else:
             show meal ant happy
             "The two of you sit in awkward silence as you both indulge in your food."
-            jump serve03
+            jump c3meal
 
     label c3investigation:
         "...So he's gone. Finally."
@@ -1662,7 +1715,7 @@ label vcourse03:
                 a "I've actually been too shy to work up the nerve and ask you, so maybe that's on me."
                 a "I wasn't sure. So you really took a weight off my shoulders!"
                 show kitchen ant fond
-                jump serve03
+                jump vc3meal
             "You're too casual outside work events." if p_tran:
                 show kitchen ant shocko
                 "You're not sure how you feel about this sudden bout of closeness."
@@ -1674,9 +1727,9 @@ label vcourse03:
                 $a_mr+=2
                 a "Ah... sorry?"
                 show kitchen ant worry
-                jump serve03
+                jump vc3meal
             "Why don't we hang out more?" if f_nick:
-                show ktichen ant shocko
+                show kitchen ant shocko
                 $a_a+=1
                 "You rarely see him outside the office, even less with your fellow coworkers."
                 "And it's not like they treat him poorly or anything else like that."
@@ -1705,7 +1758,7 @@ label vcourse03:
                 show kitchen ant worryo
                 a "...{w} I'm sure."
                 show kitchen ant neutral
-                jump serve03
+                jump vc3meal
             "We should hangout more." if f_rel:
                 $a_a+=3
                 show kitchen ant grin
@@ -1725,7 +1778,7 @@ label vcourse03:
                 pause.5
                 show kitchen ant grino
                 a "Don't worry, I like cooking!{w} Are you gonna deprive me of my one and only vice?"
-                jump serve03
+                jump vc3meal
             "We have a nice casual relationship, don't we?" if a_a>=20:
                 $a_a+=5
                 show kitchen ant neutral
@@ -1764,7 +1817,9 @@ label vcourse03:
                 a "Ack!{w} Nothing!" with vpunch
                 show kitchen ant neutral
                 "Huh. Wonder what he said."
-                jump serve03
+                jump vc3meal
+            "Stay quiet.":
+                jump vc3meal
 
     label vc3meal:
         "It's only a couple moments later until the both of you are sat down face to face at the table once more."
@@ -1934,19 +1989,32 @@ label vcourse03:
 
 
 label serve03:
-    with dis
+    scene bg kitchen with dis
+    show kitchen ant neutral
     "20 minutes pass and with the empty plates, you both move to the island sink."
+    show kitchen ant fondo
     a "It's been wonderful having you over, boss."
+    show kitchen ant grin
     pc "Yeah. Thanks for having me."
     pc "But I should really get going now."
+    show kitchen ant worryo
+    pause.5
+    show kitchen ant neutralo
     a "Ah, yes, of course! And I can drive you back to the office."
+    show kitchen ant fond
     pc "Sure."
     "..."
+    show ant worry
     "Or at least thats what you thought."
     "Before there was a crazy SNOWSTORM EVERYWHERE ??" with pixellate
     "..."
+    show ant shocko
     a "Uh... that definitely throws a wrench into things...{w} Is there any chance I could convince you into staying the night?"
+    show ant worryo
     a "I'm not fond of driving on the snow, gotten into a couple accidents lately."
+    show ant worry
+    pause.25
+    show ant neutralo
     a "And this looks... really bad."
     menu:
         "Yeah sure!" if (a_s<10):
@@ -1954,7 +2022,9 @@ label serve03:
             #good end
         "No thanks..." if (a_s>10)and (a_mr<10):
             #you arent close anymore, you figured smth was up
+            show ant worryo
             a "Oh. Okay."
+            show ant worry
             "Something about his voice sounds strained. You're more grateful he isn't crashing out."
             "You have this feeling that if you had made him mad, he would retaliate...{w} poorly."
             scene bg car with dis
@@ -1972,34 +2042,54 @@ label serve03:
             pc "Don't think I haven't noticed, Anton."
             "You take a step backwards from him, the snow melting as it lands on your skin."
             "Your heart skips a beat traitorously as he takes a step towards you, face dark."
+            show ant angryo
             a "...{w} Care to elaborate, boss?"
+            show ant angry
             #show ant evil at bounch
             pc "Don't call me that!" with vpunch
+            show ant worry
             "Hurriedly, you take more and more steps back, eyes trained on his approaching figure."
+            show ant worryo
             a "We can talk this out, sarge...!{w} {cps=80}{size=-10} Please..."
+            show ant angry
             pc "No. You're hiding something. I know you are. And I don't care to find out what."
             "Stealthily, you pull out your phone, dialing a familiar three-digit number."
+            show ant worry
             "Unfortunately, the receiver is far from stealthy."
             s "{size=30}Hello!{w} Police Station #0001, how can I help you?" with vpunch
             "...Fuck."
+            show ant angry
             "Anton grabs the phone out of your hand, glaring at you."
             "You try to run but he trips you with a quick movement of his leg." with hpunch
+            show ant shyo
             a "Hi, sorry, I misdialed."
+            show ant angry
             s "Oh! All good! Be careful tonight!"
             "How is that receiver that stupid...?"
+            show ant angryo
             a "I can't believe you...{w} I trusted you..."
             ## dramatic snow bg
             "You see a glint of silver in your peripheral."
             pc "A-Anton... wait. We can{w}... we can talk about this."
+            show ant worry
             "As if unable to hear your strained voice, he drags the knife along your clothes. Threads fray in its wake as he continues."
+            show ant worryo
             a "I...{w}I thought you were different.{w} Better."
+            show ant fondo
             a "I thought you could be like me.{w} Thought you could like me too."
+            show ant angry
             pc "Anton--" with vpunch
+            show ant angryo
             a "Shut it."
+            show ant worryo
             a "I... Where did I go wrong? You should be fine. You should be good."
+            show ant angryo
             a "But you're not."
-            show ant worryo at bounce
+            show ant angryo at bounce
             a "You're... You're just as bad as the rest of them!"
+            "Belatedly, you can feel the knife that he stabs into your chest, tears pooling in his eyes as he does."
+            "He repeatedly mumbles something to himself, but all you can feel is the bite of the cold."
+            "Has the winter always been this freezing?"
             #you get slimed out
 
             "Bad Ending: Ripe for the Slaughter"
@@ -2008,27 +2098,51 @@ label serve03:
             return
 
 label house02:
+    scene bg kitchen with dis
+    show kitchen ant neutral with dis
     "The both of you find your way back to the kitchen island at the revelation, Anton continuing to clean plates."
     pc "Of COURSE it's snowing. I should have just driven in my own car."
+    show kitchen ant fond
     "As if you would've driven in this weather..."
     pc "Sorry for imposing more than I already have."
+    show kitchen ant grino
     a "Oh, you're all good, don't worry!"
     menu:
         "Complain about the situation.":
+            pc "This blows. Are you joking right now?"
+            pc "I know it's winter, but a whole snowstorm?"
+            pc "This is ridiculous."
+            show kitchen ant neutralo
+            "Anton sighs from in front of you."
+            a "You can say that again."
+            show kitchen ant shyo
+            a "Here, go take a shower and warm up."
+            show kitchen ant neutralo
+            a "I know I have good heating but you look like you could use some downtime."
+            show kitchen ant grin
+            "...You know what?"
+            "Sure."
+            pc "Thanks."
             jump shower
         "Help him clean up.":
             pc "Here, let me--"
+            show kitchen ant neutralo at bounce
             a "No, no, I couldn't. Let me clean this up."
+            show kitchen ant worryo
             a "You can take a shower, I'm sure you're exhausted!"
+            show kitchen ant fond
             pc "I-"
+            show kitchen ant fondo
             a "Really, go ahead."
+            show kitchen ant grin
             "... You could use one."
             pc "...{w} Alright."
             jump shower
     label shower:
         scene bg bathroom
+        "The shower slowly creaks to life, hot water raining against the tiled floor."
         "You step into the shower, feeling the water wash over your strained shoulders."
-        "It's not as if you haven't showered since the beginning of the case, it's simply that you were too exhausted to enjoy."
+        "It's not as if you haven't showered since the beginning of the case, it's simply that you were too exhausted to enjoy one."
         "The tension slips from your back, as you hum to yourself."
         "You borrow the shampoo and conditioner available in the washroom."
         "Unfortunately, it's as you shut off the faucet that you starkly realize you have no clothes."
