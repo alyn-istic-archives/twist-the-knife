@@ -88,10 +88,24 @@ image soup:
     repeat
 
 
+image door:
+    "images/door1.png"
+    pause.1
+    "images/door2.png"
+    pause.1
+    "images/door3.png"
+    pause.1
+    "images/door3.1.png"
+    pause.1
+    "images/door3.2.png"
+    pause.1
+
+
 # The game starts here.
 
 label start:
     
+    jump c3i_room
 
     if persistent.tw:
         "Trigger Warning: blood, gore, violence (specifically only bad endings so u should be fine)"
@@ -301,7 +315,7 @@ label cont:
     
     "You grin back at the gesture, basking in the warmth of the mug."
     menu:
-        "Take a sip.":
+        "(Take a sip.)":
             $a_a+=3
             hide item mug 
             show item tea mug
@@ -317,7 +331,7 @@ label cont:
           #  menu:
           #  "Some people just... maybe need help, you suppose.":
           #  "Good fucking riddance.":
-        "Don't drink it, but thank him.":
+        "(Don't drink it, but thank him.)":
             $a_a+=2
             hide item with dis
             jump tea_dont_sip
@@ -394,7 +408,7 @@ label dinner_inv:
     
     show ant grin
     "does NOT go unremarked."
-    show ant happyo
+    show ant grino
 
     a "You, uh, hungry, sarge?"
     show ant fond
@@ -437,7 +451,7 @@ label dinner_inv:
                     pause.25
                     show ant shocko
                     a "I actually do!"
-                    show ant happyo
+                    show ant grino
                     a "I was planning on a quaint meal tonight, nothing too heavy or anything. I'm so glad to have you join me!"
                     a "Appetizer, entree, dessert, etc. Except I'm not huge on dessert so it's another entree. If you don't mind."
                     show ant neutralo
@@ -457,7 +471,7 @@ label dinner_inv:
 label car:
     show ant grin
     pause.25
-    show ant happyo
+    show ant grino
     a "Fantastic! We'll take my car!"
     show ant neutral
     "Silently, you raise an eyebrow in his direction. He quickly scatters following up with his reasoning."
@@ -567,7 +581,7 @@ label house_01:
     "He has you put your shoes on a shoe rack and hang up your coat in the closet."
     "You awkwardly trail behind him as he gives you a quick introduction around his primary living space."
 
-    show kitchen ant happyo with dis
+    show kitchen ant grino with dis
 
     "He tells you to get settled at the island bar as you watch him get to cooking. Grinning, he boasts, tying the apron around his waist."
     a "I promise that everything I'm gonna serve is gonna be like nothing you've ever had before."
@@ -575,13 +589,13 @@ label house_01:
     a "Well, there's a good chance it'll be something you've had before. But better!"
 
     menu:
-        "Watch him make the first course.":
+        "(Watch him make the first course.)":
             $a_a+=1
             if nonmeat:
                 jump vegancourse01
             else:
                 jump course01
-        "Take a look around from where you're sitting.":
+        "(Take a look around from where you're sitting.)":
             $a_mr+=5
             $a_s+=1
             "It's not like you were expecting much. But still."
@@ -671,7 +685,7 @@ label vegancourse01:
         "He begins cutting them into cubes, hands nimble before he looks back up at you."
         a "Do you like sweet potatoes?"
         menu:
-            "(Well, if you didn't you're eating them now.)":
+            "Well, if you didn't you're eating them now.":
                 pc "Uh... I like them enough!"
                 a "Ahh, sorry. I'll remember for next time."
                 "...?"
@@ -754,15 +768,14 @@ label vserve01:
         "Can I do anything to help you with?":
             a "Ah, you could set the table? You just need to grab your preferred cutlery. Top drawer."
             "He gestures to his left."
-                ## scene bg cutlery01
             menu:
-                "Open the top drawer.":
-                ## scene bg cutlery02, the cutlery is spoon knife chopstick butterknife etc.
-                ## $ cutlery = whatever they choose
-                    "PEAK"
+                "(Open the top drawer.)":
+                    scene bg cutlery
+                    "With little fanfare, you choose your desired cutlery before heading to the dinner table,"
                     jump vserve1cont
-                "Open the second drawer.":
-                        # blur of action or sum with hpunch
+                "(Open the second drawer.)":
+                    $a_mr+=5
+                    scene bg cutlery with dis
                     "You slide open the second drawer with a clatter, hearing metal scrape as you quickly glance to your right as Anton's eyes narrow on you."
                     a "No--" with hpunch
                     a "{cps=70} What. {w=.2}Are. {w=.2}You.{w=.2} Doing."
@@ -1041,7 +1054,7 @@ label serve01:
         "The flesh is tender and meaty, practically falling apart with each chew of your incisors (?)."
         "Some parts are more thicker than others, you note mildly, but it's not unpleasant!"
         "Breaking your spell of satiation, Anton coughs into his hand."
-        show ant meal happyo
+        show meal ant happyo
         a "I'll take that it tastes good?"
         show meal ant neutral
         pc "Fantastic! It's a lot better than I was expecting?"
@@ -1342,112 +1355,167 @@ label course03:
         "Silence fills the air before you decide to ask him something."
         menu:
             "...Are we friends?" if p_exp:
+                show kitchen ant shocko
                 pc "Urk-"
+                show kitchen ant fond
                 pc "Uh, just wondering. Cause a multi-course meal doesn't really sound like just coworkers."
                 pc "Or I'm overthinking."
-                show kitchen ant happyo
+                show kitchen ant grino
                 a "No, no! I'd love nothing more than to be friends!"
+                show kitchen ant shyo
                 a "I've actually been too shy to work up the nerve and ask you, so maybe that's on me."
                 a "I wasn't sure. So you really took a weight off my shoulders!"
+                show kitchen ant fond
                 jump serve03
             "You're too casual outside work events." if p_tran:
+                show kitchen ant shocko
                 "You're not sure how you feel about this sudden bout of closeness."
+                show kitchen ant angry
                 "It's almost out of the blue. You don't know him."
+                show kitchen ant worry
                 "And you don't really care to."
+                show kitchen ant neutralo
                 $a_mr+=2
                 a "Ah... sorry?"
+                show kitchen ant worry
                 jump serve03
             "Why don't we hang out more?" if f_nick:
+                show ktichen ant shocko
                 $a_a+=1
                 "You rarely see him outside the office, even less with your fellow coworkers."
                 "And it's not like they treat him poorly or anything else like that."
+                show kitchen ant neutralo
                 a "Hmm...{w} I guess I just don't get along very well with them."
+                show kitchen ant worry
                 "That's... odd. The rest of them really like Anton. Like teasing-a-younger-junior kind of like."
+                show kitchen ant worryo
                 a "They just feel... overbearing."
+                show kitchen ant grino at bounce
                 a "Not you, of course!"
+                show kitchen ant neutralo
                 a "Just...{w} they can be a lot."
+                show kitchen ant fond
                 "Hmm... He was right, to be fair."
                 "Marlen has been strung tight with every night he's had to take away from his family."
                 "To be fair, being a police officer tends to require that type of dedication regardless."
                 "Perch is quiet. He doesn't talk much but maybe he's intimidated?"
                 "Anton's voice interrupts your perusal of reasons he might feel overwhelemed by the team."
+                show kitchen ant worryo
                 a "You look worried, it's fine. Really."
+                show kitchen ant grino
                 a "I'm sure they'll grow on me. Eventually."
+                show kitchen ant neutral
                 pc "Yeah...{w} If it's Marlen, he'll be less of a jerk soon, promise. He just needs a couple days off."
+                show kitchen ant worryo
                 a "...{w} I'm sure."
+                show kitchen ant neutral
                 jump serve03
             "We should hangout more." if f_rel:
                 $a_a+=3
+                show kitchen ant grin
                 "You can practically feel the smile that worms its way onto his face."
+                show kitchen ant grino
                 a "...{w} We should. That'd be fun."
+                show kitchen ant fond
                 "Letting out an awkward cough, you voice a tentative suggestion."
                 pc "Maybe you shouldn't have to cook all the time though."
+                show kitchen ant smirk
                 "You can hear a lilting chuckle from behind you."
+                show kitchen ant grino
                 a "Really now? Here I thought you liked my cooking?"
+                show kitchen ant smirk
                 pc "It's not that I don't! I just... feel a bit guilty."
+                show kitchen ant fond
+                pause.5
+                show kitchen ant grino
                 a "Don't worry, I like cooking!{w} Are you gonna deprive me of my one and only vice?"
                 jump serve03
             "We have a nice casual relationship, don't we?" if a_a>=20:
                 $a_a+=5
+                show kitchen ant neutral
+                pause.2
+                show kitchen ant shocko at bounce
                 a "O-Oh!" with vpunch
                 "You hear a metal clang behind you and you almost whip your head around at neckbreaking speeds."
                 a "{cps=75}Don't!{w} Don't look at me right now!"
                 "It's a strained sound that his throat makes before you pointedly follow his demand."
                 pc "Are...{w} Are you alright?"
+                show kitchen ant worryo
                 a "{size=-15}Fuck... this is embarassing.{w}{size=-30} Why...? Why would they?"
+                show kitchen ant shyo
                 a "Yeah. Yeah, I'm good." 
+                show kitchen ant fond
                 "...{w}"
                 pc "So as I was saying..."
                 pc "It's nice, isn't it?"
+                show kitchen ant grin
                 "Er... {w}well...{w} that feels unfinished."
                 pc "Like, being close to someone, without being uncomfortable?"
+                show kitchen ant fond
                 pc "You make talking to you easy.{w}{cps=60} I don't know.{w}{cps=80} Maybe I'm wrong..."
+                show kitchen ant shyo
                 a "No!{cps=60}{w} I know what you mean!" with vpunch
+                show kitchen ant fondo
                 a "It's nice. Being able to talk with you. It's...{w} good."
+                show kitchen ant fond
                 pc "Yeah, it's casual, nonchalant even."
+                show kitchen ant grino
                 a "{size=-20}{cps=100}We could be more if you want..."
                 pc "Huh?"
+                show kitchen ant shocko at bounce
+                pause.2
+                show kitchen ant worryo
                 a "Ack!{w} Nothing!" with vpunch
+                show kitchen ant neutral
                 "Huh. Wonder what he said."
                 jump serve03
 
     label c3meal:
         if nonmeat:
             jump vc3meal
+        show meal ant neutral
         "It's only a couple moments later until the both of you are sat down face to face at the table once more."
         "Your eyes move down towards the steak placed in front of you as you carefully glide through the soft, wavering flesh and the perfect crust."
         "The juices of the steak ooze around the bottom, forming a small accumulation on the surface of the ceramic plate."
         "You note, while slicing through the tender meat, that it's a lot easier to cut than you've ever had to."
         "Maybe it's very marbled?"
         "You tentatively take a small bite."
+        show meal ant happy
         "!!!" with vpunch
         "The meat practically melts on your tongue, rendered fat and lack of muscle leaving a soft, smooth, silken taste!"
-        "There's an undertone of smokiness that you could proabbaly attribute to the long bone inside it, but it's subtle and unique."
+        "There's an undertone of smokiness that you could probabaly attribute to the long bone inside it, but it's subtle and unique."
         "It does taste reminiscent of pork, despite Anton mentioning it was beef."
         "Odd."
         pc "Is this pork?"
+        show meal ant neutralo
         a "If that's a problem with your religion, it's not! Don't worry."
+        show meal ant happy
         "You hum, satisfied with the answer, before you continue diving into the meal."
         if (a_a>=10):
             "You belatedly look back up every now and then to see Anton staring at you."
             "Normally, he stares at you with an air of curiosity, eager to learn and ask more questions at work."
             "Tonight, it feels... {w}different. Still curious."
             jump serve03
-        if (a_mr>=10):
+        if (a_mr>=10): 
+            show meal ant neutral
             "You belatedly look back up every now and then to see Anton staring at you."
             "Normally, he stares at you with an air of curiosity but this is blatantly disregard for you."
             "He masks it well. But not well enough."
             "Something about it scares you."
+            show meal ant happy
             "But he recovers quickly enough to act like nothing had happened."
             jump serve03
         if (a_s>=5):
+            show meal ant neutral
             "You belatedly look back up every now and then to see Anton staring at you."
             "Normally, he stares at you with an air of curiosity but there's something darker in his eyes tonight."
             "It sets you on edge."
             "Because you've seen that look in other eyes before."
+            show meal ant angry
             "Specifically, other criminals."
             jump serve03
         else:
+            show meal ant happy
             "The two of you sit in awkward silence as you both indulge in your food."
             jump serve03
 
@@ -1565,9 +1633,9 @@ label course03:
             "What is he hiding?{w} It smells like melted steel."
             "You glance to your right, no one there."
             "Slowly, you creak the door open..."
+            show door
             pc "What the-" with vpunch
             "..."
-            pause.4
             a "I told you to stay out."
             a "How{w} stupid{w} are{w} you?"
             with dis
@@ -1578,81 +1646,166 @@ label course03:
     
 
 label vcourse03:
-
     label vc3prep:
         "You cautiously hover around the island as Anton works, his back to you as he does."
         "Silence fills the air before you decide to ask him something."
         menu:
             "...Are we friends?" if p_exp:
+                show kitchen ant shocko
                 pc "Urk-"
+                show kitchen ant fond
                 pc "Uh, just wondering. Cause a multi-course meal doesn't really sound like just coworkers."
                 pc "Or I'm overthinking."
+                show kitchen ant grino
                 a "No, no! I'd love nothing more than to be friends!"
+                show kitchen ant shyo
                 a "I've actually been too shy to work up the nerve and ask you, so maybe that's on me."
                 a "I wasn't sure. So you really took a weight off my shoulders!"
+                show kitchen ant fond
                 jump serve03
             "You're too casual outside work events." if p_tran:
+                show kitchen ant shocko
                 "You're not sure how you feel about this sudden bout of closeness."
+                show kitchen ant angry
                 "It's almost out of the blue. You don't know him."
+                show kitchen ant worry
                 "And you don't really care to."
+                show kitchen ant neutralo
                 $a_mr+=2
                 a "Ah... sorry?"
+                show kitchen ant worry
                 jump serve03
             "Why don't we hang out more?" if f_nick:
+                show ktichen ant shocko
                 $a_a+=1
                 "You rarely see him outside the office, even less with your fellow coworkers."
                 "And it's not like they treat him poorly or anything else like that."
+                show kitchen ant neutralo
                 a "Hmm...{w} I guess I just don't get along very well with them."
+                show kitchen ant worry
                 "That's... odd. The rest of them really like Anton. Like teasing-a-younger-junior kind of like."
+                show kitchen ant worryo
                 a "They just feel... overbearing."
+                show kitchen ant grino at bounce
                 a "Not you, of course!"
+                show kitchen ant neutralo
                 a "Just...{w} they can be a lot."
+                show kitchen ant fond
                 "Hmm... He was right, to be fair."
                 "Marlen has been strung tight with every night he's had to take away from his family."
                 "To be fair, being a police officer tends to require that type of dedication regardless."
                 "Perch is quiet. He doesn't talk much but maybe he's intimidated?"
                 "Anton's voice interrupts your perusal of reasons he might feel overwhelemed by the team."
+                show kitchen ant worryo
                 a "You look worried, it's fine. Really."
+                show kitchen ant grino
                 a "I'm sure they'll grow on me. Eventually."
+                show kitchen ant neutral
                 pc "Yeah...{w} If it's Marlen, he'll be less of a jerk soon, promise. He just needs a couple days off."
+                show kitchen ant worryo
                 a "...{w} I'm sure."
+                show kitchen ant neutral
                 jump serve03
             "We should hangout more." if f_rel:
                 $a_a+=3
+                show kitchen ant grin
                 "You can practically feel the smile that worms its way onto his face."
+                show kitchen ant grino
                 a "...{w} We should. That'd be fun."
+                show kitchen ant fond
                 "Letting out an awkward cough, you voice a tentative suggestion."
                 pc "Maybe you shouldn't have to cook all the time though."
+                show kitchen ant smirk
                 "You can hear a lilting chuckle from behind you."
+                show kitchen ant grino
                 a "Really now? Here I thought you liked my cooking?"
+                show kitchen ant smirk
                 pc "It's not that I don't! I just... feel a bit guilty."
+                show kitchen ant fond
+                pause.5
+                show kitchen ant grino
                 a "Don't worry, I like cooking!{w} Are you gonna deprive me of my one and only vice?"
                 jump serve03
             "We have a nice casual relationship, don't we?" if a_a>=20:
                 $a_a+=5
+                show kitchen ant neutral
+                pause.2
+                show kitchen ant shocko at bounce
                 a "O-Oh!" with vpunch
                 "You hear a metal clang behind you and you almost whip your head around at neckbreaking speeds."
                 a "{cps=75}Don't!{w} Don't look at me right now!"
                 "It's a strained sound that his throat makes before you pointedly follow his demand."
                 pc "Are...{w} Are you alright?"
+                show kitchen ant worryo
                 a "{size=-15}Fuck... this is embarassing.{w}{size=-30} Why...? Why would they?"
+                show kitchen ant shyo
                 a "Yeah. Yeah, I'm good." 
+                show kitchen ant fond
                 "...{w}"
                 pc "So as I was saying..."
                 pc "It's nice, isn't it?"
+                show kitchen ant grin
                 "Er... {w}well...{w} that feels unfinished."
                 pc "Like, being close to someone, without being uncomfortable?"
+                show kitchen ant fond
                 pc "You make talking to you easy.{w}{cps=60} I don't know.{w}{cps=80} Maybe I'm wrong..."
+                show kitchen ant shyo
                 a "No!{cps=60}{w} I know what you mean!" with vpunch
+                show kitchen ant fondo
                 a "It's nice. Being able to talk with you. It's...{w} good."
+                show kitchen ant fond
                 pc "Yeah, it's casual, nonchalant even."
+                show kitchen ant grino
                 a "{size=-20}{cps=100}We could be more if you want..."
                 pc "Huh?"
+                show kitchen ant shocko at bounce
+                pause.2
+                show kitchen ant worryo
                 a "Ack!{w} Nothing!" with vpunch
+                show kitchen ant neutral
                 "Huh. Wonder what he said."
                 jump serve03
 
     label vc3meal:
+        "It's only a couple moments later until the both of you are sat down face to face at the table once more."
+        "Your eyes move down towards the tofu steak placed in front of you as you carefully glide through the soft, wavering flesh and the perfect crust."
+        "The juices of the tofu ooze around the bottom, forming a small accumulation on the surface of the ceramic plate."
+        "The brown sauce that coats over the ridges, "
+        "You note, while slicing through the tender meat, that it's a lot easier to cut than you've ever had to."
+        "Maybe it's very marbled?"
+        "You tentatively take a small bite."
+        show meal ant happy
+        "!!!" with vpunch
+        "The tofu is still firm, slightly bouncy but still tender. The material melts on your tongue slowly."
+        "There's an undertone of smokiness and sweetness that can easily be attributed to the sauce that is heavily melded into the grooves of the tofu."
+        if (a_a>=10):
+            "You belatedly look back up every now and then to see Anton staring at you."
+            "Normally, he stares at you with an air of curiosity, eager to learn and ask more questions at work."
+            "Tonight, it feels... {w}different. Still curious."
+            jump serve03
+        if (a_mr>=10): 
+            show meal ant neutral
+            "You belatedly look back up every now and then to see Anton staring at you."
+            "Normally, he stares at you with an air of curiosity but this is blatantly disregard for you."
+            "He masks it well. But not well enough."
+            "Something about it scares you."
+            show meal ant happy
+            "But he recovers quickly enough to act like nothing had happened."
+            jump serve03
+        if (a_s>=5):
+            show meal ant neutral
+            "You belatedly look back up every now and then to see Anton staring at you."
+            "Normally, he stares at you with an air of curiosity but there's something darker in his eyes tonight."
+            "It sets you on edge."
+            "Because you've seen that look in other eyes before."
+            show meal ant angry
+            "Specifically, other criminals."
+            jump serve03
+        else:
+            show meal ant happy
+            "The two of you sit in awkward silence as you both indulge in your food."
+            jump serve03
+
     label vc3investigation:
         "...So he's gone. Finally."
         "Something has felt off this whole time. The ease at which he approached you. How easily you listened."
@@ -1767,6 +1920,7 @@ label vcourse03:
             "What is he hiding?{w} It smells like melted steel."
             "You glance to your right, no one there."
             "Slowly, you creak the door open..."
+            "images/door3.1.png"
             pc "What the-" with vpunch
             "..."
             pause.4
@@ -1844,9 +1998,8 @@ label serve03:
             a "Shut it."
             a "I... Where did I go wrong? You should be fine. You should be good."
             a "But you're not."
-            show ant nervous at bounce
+            show ant worryo at bounce
             a "You're... You're just as bad as the rest of them!"
-            
             #you get slimed out
 
             "Bad Ending: Ripe for the Slaughter"
@@ -1874,6 +2027,56 @@ label house02:
             jump shower
     label shower:
         scene bg bathroom
+        "You step into the shower, feeling the water wash over your strained shoulders."
+        "It's not as if you haven't showered since the beginning of the case, it's simply that you were too exhausted to enjoy."
+        "The tension slips from your back, as you hum to yourself."
+        "You borrow the shampoo and conditioner available in the washroom."
+        "Unfortunately, it's as you shut off the faucet that you starkly realize you have no clothes."
+        "Well, other than you're old ones."
+        menu:
+            "Ask Anton for some clothes.":
+                $a_a+=2
+                "You creak the door open, opening your mouth, but you look down and see a small folded pile of clothes."
+                "Huh."
+                pc "Thanks for the clothes."
+                a "Oh!{w} It's no problem."
+                jump showercont
+            "Wear your old clothes.":
+                "You quickly get dressed, the towel around your shoulders still damp as droplets fall from your hair."
+                "You open the door, and see a pile of clothes."
+                "Awkwardly, you change into clothes a second time."
+                jump showercont
+        label showercont:
+            "It's a pair of sweatpants and a loose t-shirt."
+            "You skulk into the living room with little to no fanfare."
+            scene bg livingroom with dis
+            show ant fond with dis
+            a "Hi! Take a seat."
+            "The couch is an L-shape, and Anton pats to the left of the cushion."
+            "You watch as he nimbly flicks through an array of channels, choosing a new show to put in the background."
+            "You quietly remark a movie adaptation of one of your favorite books!"
+            "Huh. You didn't know they uploaded that yet."
+            show ant grin
+            pc " 'Bloodborne'?"
+            show ant grino
+            a "Oh? Do you know it?"
+            show ant grin
+            "Chuckling, you wistfully think back to the book series."
+            show ant shocko
+            pc "More than know it, I read it fervently as of late."
+            show ant neutralo
+            a "I didn't know this was your type of book?"
+            pc "It was reccommended to me by a friend, it's pretty good."
+            pc "Wonder if they did a faithful rendition of it."
+            "The two of you fall into a quiet and easy silence as you bore into the show."
+            a "You can take the bed, by the way.{w} For the night."
+            menu:
+                "Oh, really? Great.":
+                    "peak"
+                "(Fight for the couch.)":
+                    "peak"
+                "(... Share the bed.)":
+                    "peak"
 
 
 
