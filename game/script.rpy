@@ -26,6 +26,14 @@ transform bounce:
     easeout .175 yoffset 0
     yoffset 0
 
+transform shake:
+    linear 0.175 xoffset -2
+    linear 0.175 xoffset +0
+    linear 0.175 yoffset -2
+    linear 0.175 yoffset +0
+    repeat
+
+
 default preferences.text_cps = 45
 default preferences.afm_enable = False
 default nonmeat = False
@@ -53,6 +61,9 @@ default toilet = False
 default towel = False
 default sink = False
 
+#oooh sleeping with anton
+default bed = False
+default b_anton = False
 
 
 # stats such as affection, suspicion, murder rate (how likely u r to die)
@@ -104,6 +115,16 @@ image door:
 # The game starts here.
 
 label start:
+
+    scene bg anton jump
+    pause.5
+    scene blackscreen with dis
+    pause.5
+    scene bg anton jump at shake
+    pause.5
+    scene bg anton jumpo at bounce
+    pause.5
+    scene bg anton jumpo at shake
 
     if persistent.tw:
         "Trigger Warning: blood, gore, violence (specifically only bad endings so u should be fine)"
@@ -881,6 +902,7 @@ label vserve01:
         "Er... well, not really something you wanna do but can't hurt..."
         show meal ant happyo
         a "Eat your food?"
+        show meal ant happy
         "Oh yeah. It's definitely cooled down by now."      
     
     #    a "My parents weren't very stable. In any way, shape, or form."
@@ -898,8 +920,6 @@ label vserve01:
    #     a "But you know what you can do to make me feel better?"
     #    "Er... well, not really something you wanna do but can't hurt..."
      #   show ant grin
-        a "Eat your food?"
-        "Oh yeah. It's definitely cooled down by now."
         "You gingerly take a piece in between your thumb and pointer, the thin layer batter crumbling under your fingers."
         "!!!" with vpunch
         "This is really good !!"
@@ -951,7 +971,7 @@ label serve01:
             jump vserve1cont
         "Can I do anything to help you with?":
             $a_a+=2
-            show kitchen ant grinop
+            show kitchen ant grino
             a "Ah, you could set the table? You just need to grab your preferred cutlery. Top drawer."
             "He gestures to his left."
             ## scene bg cutlery01
@@ -2167,11 +2187,13 @@ label house02:
             show ant fond with dis
             a "Hi! Take a seat."
             "The couch is an L-shape, and Anton pats to the left of the cushion."
+            scene bg shittytv with dis
             "You watch as he nimbly flicks through an array of channels, choosing a new show to put in the background."
             "You quietly remark a movie adaptation of one of your favorite books!"
             "Huh. You didn't know they uploaded that yet."
-            show ant grin
-            pc " 'Bloodborne'?"
+            scene bg shittytv solo with dis
+            show ant grin with dis
+            pc "'Bloodborne'?"
             show ant grino
             a "Oh? Do you know it?"
             show ant grin
@@ -2186,11 +2208,47 @@ label house02:
             a "You can take the bed, by the way.{w} For the night."
             menu:
                 "Oh, really? Great.":
-                    "peak"
+                    $bed = True
+                    "peak" 
                 "(Fight for the couch.)":
-                    "peak"
-                "(... Share the bed.)":
-                    "peak"
+                    $bed = True
+                    pc "Or... I could take the couch. I'm the guest here."
+                    a "Exactly! Which is why you should take the bed."
+                    pc "No, it's your house. You deserve to at least have the bed."
+                    a "It's not as if you chose to be snowed in today!"
+                    show ant shyo
+                    a "No can do, boss."
+                    a "I'll take the couch.{w} And that's final."
+                    "Letting out a small huff, you resign yourself to your fate."
+                    jump movie
+                "(... Share the bed.)" if (a_a >=15):
+                    $bed = True
+                    if nonmeat:
+                        show ant shyo
+                        a "No can do, boss."
+                        a "I'll take the couch.{w} And that's final."
+                        "Letting out a small huff, you resign yourself to your fate."
+                        jump movie
+                    else:
+                        $b_anton
+                        show ant shocko
+                        pause.5
+                        show ant shyo
+                        a "I-I mean...{w} Sure?"
+                        "His voice nearly cracks at the last unsure word."
+
+            
+        label movie:
+            scene bg shittytv
+            "The two of you find a comfortable silence in watching the show 'Bloodborne'."
+            "It's nothing eventful, and Anton remarks several times the inaccuracies compared to the book."
+            "You find yourself agreeing with some points and disagreeing with others."
+            "It's not much later until you find yourself yawning."
+            scene bg shittytv solo with dis
+            show ant worryo with dis
+            a "Are you ready to head to bed?"
+            pc "I think so... Ugh..."
+
 
 
 
