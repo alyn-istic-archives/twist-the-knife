@@ -26,6 +26,15 @@ transform bounce:
     easeout .175 yoffset 0
     yoffset 0
 
+transform jump:
+    pause .15
+    yoffset 0
+    easein .15 yoffset -10
+    easeout .15 yoffset 0
+    easein .15 yoffset -2
+    easeout .15 yoffset 0
+    yoffset 0
+
 transform shake:
     linear 0.175 xoffset -2
     linear 0.175 xoffset +0
@@ -64,6 +73,9 @@ default sink = False
 #oooh sleeping with anton
 default bed = False
 default b_anton = False
+
+#we should be mroe core
+default upgrade = False
 
 
 # stats such as affection, suspicion, murder rate (how likely u r to die)
@@ -115,16 +127,6 @@ image door:
 # The game starts here.
 
 label start:
-
-    scene bg anton jump
-    pause.5
-    scene blackscreen with dis
-    pause.5
-    scene bg anton jump at shake
-    pause.5
-    scene bg anton jumpo at bounce
-    pause.5
-    scene bg anton jumpo at shake
 
     if persistent.tw:
         "Trigger Warning: blood, gore, violence (specifically only bad endings so u should be fine)"
@@ -374,7 +376,9 @@ label cont:
     scene night office bg with dis
 
     "Dusk arrives and the two of you are all but rushing out of the door, barely missing the forlorn look Anton shoots your way."
+    show item knife with dis
     "You both arrive on sight, just to see the suspect arguing with, what you assume is a business partner, before he pulls out what seems to be the {u}exact same weapon used on the victims {/u}!"
+    hide item knife with dis
     "Marlen calls in backup before heading towards the man, hidden by the sunset cover. You support him from behind, trailing far enough to be able to step in, should he need it."
 
     "The takedown is swift and easy. Aside from the already-bloodied knife, coated in the previous victim's blood, the suspect (white, late 20s, jealous ex-boyfriend) practically breaks down and confesses everything in front of Marlen's body camera."
@@ -504,7 +508,7 @@ label car:
     pc "You can refer to me by name, Anton. {w=0.25} We're coworkers, not employer-employee."
     show ant worry
     pause.25
-    show ant shyo
+    show ant shyo at bounce
     a "I will if you let me drive you?"
     "..."
 
@@ -982,9 +986,9 @@ label serve01:
                     jump vserve1cont
                     menu:
                         "Chopsticks":
-                            jump serve1cont
+                            jump vserve1cont
                         "Fork":
-                            jump serve1cont
+                            jump vserve1cont
                 "Open the second drawer.":
                     # blur of action or sum with hpunch
                     "You slide open the second drawer with a clang, hearing metal crash against one another as you quickly glance to your right, Anton's figure quickly moving."
@@ -1433,7 +1437,7 @@ label course03:
                 pc "Or I'm overthinking."
                 show kitchen ant grino
                 a "No, no! I'd love nothing more than to be friends!"
-                show kitchen ant shyo
+                show kitchen ant shyo at bounce
                 a "I've actually been too shy to work up the nerve and ask you, so maybe that's on me."
                 a "I wasn't sure. So you really took a weight off my shoulders!"
                 show kitchen ant fond
@@ -1502,6 +1506,7 @@ label course03:
                 a "Don't worry, I like cooking!{w} Are you gonna deprive me of my one and only vice?"
                 jump serve03
             "We have a nice casual relationship, don't we?" if a_a>=20:
+                $upgrade = True
                 $a_a+=5
                 show kitchen ant neutral
                 pause.2
@@ -1511,9 +1516,9 @@ label course03:
                 a "{cps=75}Don't!{w} Don't look at me right now!"
                 "It's a strained sound that his throat makes before you pointedly follow his demand."
                 pc "Are...{w} Are you alright?"
-                show kitchen ant worryo
+                show kitchen ant worryo at shake
                 a "{size=-15}Fuck... this is embarassing.{w}{size=-30} Why...? Why would they?"
-                show kitchen ant shyo
+                show kitchen ant shyo at reset
                 a "Yeah. Yeah, I'm good." 
                 show kitchen ant fond
                 "...{w}"
@@ -1530,7 +1535,7 @@ label course03:
                 a "It's nice. Being able to talk with you. It's...{w} good."
                 show kitchen ant fond
                 pc "Yeah, it's casual, nonchalant even."
-                show kitchen ant grino
+                show kitchen ant grino at shake
                 a "{size=-20}{cps=100}We could be more if you want..."
                 pc "Huh?"
                 show kitchen ant shocko at bounce
@@ -1809,9 +1814,9 @@ label vcourse03:
                 a "{cps=75}Don't!{w} Don't look at me right now!"
                 "It's a strained sound that his throat makes before you pointedly follow his demand."
                 pc "Are...{w} Are you alright?"
-                show kitchen ant worryo
+                show kitchen ant worryo at shake
                 a "{size=-15}Fuck... this is embarassing.{w}{size=-30} Why...? Why would they?"
-                show kitchen ant shyo
+                show kitchen ant shyo at reset
                 a "Yeah. Yeah, I'm good." 
                 show kitchen ant fond
                 "...{w}"
@@ -1828,7 +1833,7 @@ label vcourse03:
                 a "It's nice. Being able to talk with you. It's...{w} good."
                 show kitchen ant fond
                 pc "Yeah, it's casual, nonchalant even."
-                show kitchen ant grino
+                show kitchen ant grino at shake
                 a "{size=-20}{cps=100}We could be more if you want..."
                 pc "Huh?"
                 show kitchen ant shocko at bounce
@@ -2024,8 +2029,9 @@ label serve03:
     show kitchen ant fond
     pc "Sure."
     "..."
-    show ant worry
+    show kitchen ant worry
     "Or at least thats what you thought."
+    scene bg snow with dis
     "Before there was a crazy SNOWSTORM EVERYWHERE ??" with pixellate
     "..."
     show ant shocko
@@ -2062,26 +2068,26 @@ label serve03:
             pc "Don't think I haven't noticed, Anton."
             "You take a step backwards from him, the snow melting as it lands on your skin."
             "Your heart skips a beat traitorously as he takes a step towards you, face dark."
-            show ant angryo
+            show ant angryo at shake
             a "...{w} Care to elaborate, boss?"
-            show ant angry
+            show ant angry at reset 
             #show ant evil at bounch
             pc "Don't call me that!" with vpunch
             show ant worry
             "Hurriedly, you take more and more steps back, eyes trained on his approaching figure."
-            show ant worryo
+            show ant worryo at shake
             a "We can talk this out, sarge...!{w} {cps=80}{size=-10} Please..."
-            show ant angry
+            show ant angry at bounce
             pc "No. You're hiding something. I know you are. And I don't care to find out what."
             "Stealthily, you pull out your phone, dialing a familiar three-digit number."
-            show ant worry
+            show ant worry at shake
             "Unfortunately, the receiver is far from stealthy."
             s "{size=30}Hello!{w} Police Station #0001, how can I help you?" with vpunch
             "...Fuck."
-            show ant angry
+            show ant angry at reset
             "Anton grabs the phone out of your hand, glaring at you."
             "You try to run but he trips you with a quick movement of his leg." with hpunch
-            show ant shyo
+            show ant shyo at bounce
             a "Hi, sorry, I misdialed."
             show ant angry
             s "Oh! All good! Be careful tonight!"
@@ -2092,30 +2098,7 @@ label serve03:
             "You see a glint of silver in your peripheral."
             pc "A-Anton... wait. We can{w}... we can talk about this."
             show ant worry
-            "As if unable to hear your strained voice, he drags the knife along your clothes. Threads fray in its wake as he continues."
-            show ant worryo
-            a "I...{w}I thought you were different.{w} Better."
-            show ant fondo
-            a "I thought you could be like me.{w} Thought you could like me too."
-            show ant angry
-            pc "Anton--" with vpunch
-            show ant angryo
-            a "Shut it."
-            show ant worryo
-            a "I... Where did I go wrong? You should be fine. You should be good."
-            show ant angryo
-            a "But you're not."
-            show ant angryo at bounce
-            a "You're... You're just as bad as the rest of them!"
-            "Belatedly, you can feel the knife that he stabs into your chest, tears pooling in his eyes as he does."
-            "He repeatedly mumbles something to himself, but all you can feel is the bite of the cold."
-            "Has the winter always been this freezing?"
-            #you get slimed out
-
-            "Bad Ending: Ripe for the Slaughter"
-            if "ragebait 5000" not in persistent.endings:
-                $persistent.endings.append("ragebait 5000")
-            return
+            jump crashout
 
 label house02:
     scene bg kitchen with dis
@@ -2129,11 +2112,15 @@ label house02:
     a "Oh, you're all good, don't worry!"
     menu:
         "Complain about the situation.":
+            show kitchen ant worry
             pc "This blows. Are you joking right now?"
+            show kitchen ant fond
             pc "I know it's winter, but a whole snowstorm?"
+            show kitchen ant worry
             pc "This is ridiculous."
             show kitchen ant neutralo
             "Anton sighs from in front of you."
+            show kitchen ant angryo
             a "You can say that again."
             show kitchen ant shyo
             a "Here, go take a shower and warm up."
@@ -2202,16 +2189,23 @@ label house02:
             pc "More than know it, I read it fervently as of late."
             show ant neutralo
             a "I didn't know this was your type of book?"
+            show ant neutral
             pc "It was reccommended to me by a friend, it's pretty good."
             pc "Wonder if they did a faithful rendition of it."
             "The two of you fall into a quiet and easy silence as you bore into the show."
+            show ant grino
             a "You can take the bed, by the way.{w} For the night."
             menu:
                 "Oh, really? Great.":
                     $bed = True
-                    "peak" 
+                    "Anton slowly starts asking you about the show."
+                    show ant grino
+                    "How you found the adaptation, your favorite character, your least favorite."
+                    show ant grin
+                    "You personally really enjoyed Khion, for all the blissful energy he had about him."
+                    "You could use that after the several shitty cases that piled upon your desk."
+                    jump movie
                 "(Fight for the couch.)":
-                    $bed = True
                     pc "Or... I could take the couch. I'm the guest here."
                     a "Exactly! Which is why you should take the bed."
                     pc "No, it's your house. You deserve to at least have the bed."
@@ -2219,7 +2213,17 @@ label house02:
                     show ant shyo
                     a "No can do, boss."
                     a "I'll take the couch.{w} And that's final."
-                    "Letting out a small huff, you resign yourself to your fate."
+                    "Letting out a small huff, you refuse to resign yourself to your fate."
+                    pc "No, Anton. I'm taking the couch."
+                    "Before he can start, you add on."
+                    pc "You're really going to refuse your guest?"
+                    show ant angry
+                    pause.25
+                    show ant neutral
+                    pause.25
+                    show ant fondo
+                    a "You've got me there, sarge.{w} Fine."
+                    show ant grino
                     jump movie
                 "(... Share the bed.)" if (a_a >=15):
                     $bed = True
@@ -2230,26 +2234,220 @@ label house02:
                         "Letting out a small huff, you resign yourself to your fate."
                         jump movie
                     else:
-                        $b_anton
+                        $b_anton = True
                         show ant shocko
                         pause.5
                         show ant shyo
                         a "I-I mean...{w} Sure?"
                         "His voice nearly cracks at the last unsure word."
+                        pc "If it doesn't bother you, of course."
+                        show ant shocko at bounce
+                        a "Bother?!{w} Me?!"
+                        show ant shyo at bounce
+                        a "Never!"
+                        show ant worryo
+                        a "There's more than enough room!{w} If you're worried about it!"
+                        pc "I suggested it, I'll be fine, Anton. Thank you for the concern."
+                        show ant fondo
+                        a "Great!{w} Great...!{w} Great."
+                        jump movie
 
             
-        label movie:
-            scene bg shittytv
-            "The two of you find a comfortable silence in watching the show 'Bloodborne'."
-            "It's nothing eventful, and Anton remarks several times the inaccuracies compared to the book."
-            "You find yourself agreeing with some points and disagreeing with others."
-            "It's not much later until you find yourself yawning."
-            scene bg shittytv solo with dis
-            show ant worryo with dis
-            a "Are you ready to head to bed?"
-            pc "I think so... Ugh..."
+    label movie:
+        scene bg shittytv
+        "The two of you find a comfortable silence in watching the 'Bloodborne'."
+        "It's nothing eventful, and Anton remarks several times the inaccuracies compared to the book."
+        "You find yourself agreeing with some points and disagreeing with others."
+        "It's not much later until you find yourself yawning."
+        scene bg shittytv solo with dis
+        show ant worryo with dis
+        a "Are you ready to head to bed?"
+        pc "I think so... Ugh..."
+        "Anton walks you down the hallway and to your room."
+        if (b_anton):
+            jump romancing
+        if (bed):
+            jump bed
+        else:
+            jump comfy
+
+        label romancing:
+            scene bg bedroom with dis
+            "You settle in bed first, letting Anton get changed into what he claims are his... pyjamas?"
+            show ant pj shyo with dis
+            a "Sorry about the wait."
+            a "You've, uh, made yourself comfortable, right?"
+            pc "Yeah."
+            hide ant pj shyo with dis
+            "You cough awkwardly, shuffling to give him more space."
+            "The two of you lie back to back, a pillow awkwardly stuffed between you by your own actions."
+            "Anton cited he was an unruly sleeper, so it worked in his favor as well."
+            "It's the easy breathing that his chest takes that you realize,{w} he's already asleep."
+            "You'd ask how, but you're starting to realize he has little-to-no self-preservation skills clearly."
+            "Fighting the chuckle that worms its way to your throat, you can hear his borderline incoherent mumbling."
+            a "...stupid blondes."
+            "Well, that's a new fact."
+            pause.5
+            a "dumb serial killer...{w} ruining everything..."
+            "And that's a sentiment you can gladly echo!"
+            "You're more than glad to see him off the streets. Endangering lives just because he was stressed. Honestly."
+            pause.5
+            a "damned thunder-stealer...{w} should've been my work..."
+            "...Is he talking about Marlen catching the serial killer? Can't blame him though."
+            "Everyone wants a piece of the limelight these days."
+            "Maybe even you."
+            pause.5
+            "Settling on your back, you take a long, hard look at his ceiling."
+            "Your eyes flick to his back, softly rising and falling with each breath he takes."
+            scene blackscreen with Dissolve(0.75)
+            "You will your eyes shut as you sigh, this sleep will do you more good than harm."
+            pause.75
+            "Why's it taking you so long to fall asleep?"
+            a "Zzzz...{w} zzz...."
+            "That should be you...!"
+            scene bg ceiling with Dissolve(0.75)
+            "You sigh, sitting up in the bed, careful not to jostle Anton."
+            "Unfortuantely, that's exactly what you do, hearing the hitch in his breath as he stirs."
+            a "...{w}You good?"
+            pc "Oh shit.{w} Er, yeah. Just... can't sleep."
+            a "Do you want to talk about it?"
+            pc "No, I think...{w} I think I just need something to listen to."
+            pc "I'll go find my headphones with some bum ass podcast."
+            a "Or I could just talk to you??"
+            "Huh."
+            pc "I mean, if you don't mind."
+            a "Well, where do I even begin?"
+            a "I guess it really started when I was young..."
+            scene blackscreen with dis
+            "You wake up the next morning and Anton is asking you if you want to date him."
+            "Who cares about your reaction, he LIKES YOU ?!?!"
+            scene blackscreen with dis
+            "Good(?) Ending: Does This Count as Workplace Harrassment?"
+            if "workplace harassment" not in persistent.endings:
+                $persistent.endings.append("workplace harrassment")
+            return
+
+        label bed:
+            scene bg bedroom with dis
+            "You settle in bed first, letting Anton get changed into what he claims are his... pyjamas?"
+            show ant pj shyo with dis
+            a "Sorry about the wait."
+            show ant pj grin
+            pause.25
+            show ant pj grino
+            a "You've, uh, made yourself comfortable, right?"
+            pc "Yeah."
+            a "Alright, I'll be on the couch.{w} If you need anything."
+            hide ant pj shyo with dis
+            pc "Thanks."
+            "Settling on your back, you take a long, hard look at his ceiling."
+            "It doesn't normally take this long to fall asleep."
+            scene blackscreen with Dissolve(0.75)
+            "You will your eyes shut as you sigh, this sleep will do you more good than harm."
+            "So why doesn't your body realize that?"
+            "It's like it doesn't want to sleep out of sheer determination."
+            pause.75
+            "This is taking forever."
+            scene bg ceiling with Dissolve(0.75)
+            "You sigh, sitting up in the bed, careful not to cause too much noise."
+            "As you do, goosebumps rise along your arms as you shiver."
+            scene bg bedroom with dis
+            "Is it cold in here? You don't feel cold."
+            "Hesitantly, you creak open the bedroom door."       
+            scene bg livingroom with dis
+            "If you squint, you can barely make out Anton's figure, rising and falling with each heave of his chest."
+            if (a_mr>=10) or (a_s>=10):
+                scene blackscreen at shake
+                menu:
+                    "go to the room":
+                        jump spooky
+                    "Go To The Room":
+                        jump spooky
+                    "GO TO THe ROom":
+                        jump spooky
+                    "GO TO THE ROOm":
+                        jump spooky
+                    "GO TO THE ROOM":
+                        jump spooky
+            else:
+                "You rub at the temples of your forehead, heading back to the bed and getting as much rest as you can."
+                scene bg kitchen
+                show kitchen ant grino with dis
+                a "Good morning! I'll drive you in to the station in 10 minutes?"
+                show kitchen ant grin
+                pc "Oh, sure.{w} Thank you again for everything. I appreciate it."
+                show kitchen ant shyo
+                a "Ahh, it's nothing. Don't worry about it!"
+                scene blackscreen with dis
+                "Neutral Ending: Normal Sleepover"
+                if "normal sleepover time" not in persistent.endings:
+                    $persistent.endings.append("normal sleepover time")
+                return
 
 
+        label spooky:
+            "You stand in the hallway in front of the door."     
+            "But you fail to hear Anton snoring."
+            "Shit."
+            "{i} {size=+30} Creak! {/size} {/i}" with vpunch
+            "Your head whips to your left and right, nothing."
+            "Fuck."
+            "Maybe he's got sleep apnea."
+            scene bg door at shake
+            a "Boss." with vpunch
+            a "What are you doing?"
+            "Scared shitless, your eyes are trained on the door, refusing to listen to the voice hauntingly calling your name from over your shoulder."
+            "Unfortunately, a hand lands on your shoulder and you turn around to scream."
+            "But nothing leaves your lips as he covers your mouth with an unrecognizable expression displayed on it."
+            a "Shouldn't have done that."
+            scene blackscreen with dis
+            "Bad Ending: Curiosity Killed the Cat"
+            if "shroedingers curiosity" not in persistent.endings:
+                $persistent.endings.append("shroedingers curiosity")
+            return
+
+
+        label comfy:
+
+            "yipe"
+
+label crashout:
+    hide ant
+    scene bg anton jump with Dissolve(0.75)
+    "As if unable to hear your strained voice, he drags his hands up your clothes. You can feel the involuntary spasms as you try to squirm away from him.{w} To no avail."
+    scene bg anton jumpo at shake
+    a "I...{w}I thought you were different.{w} Better."
+    scene bg anton jump
+    pause.25
+    "His hands inch closer to your neck."
+    scene blackscreen with Dissolve(0.25)
+    pause.15
+    scene bg anton jumpo at jump
+    a "I thought you could be like me.{w} Thought you could like me too."
+    scene bg anton jump at shake
+    pc "Anton--" with vpunch
+    scene bg anton jump at jump 
+    a "Shut it."
+    scene bg anton jump shake1 at shake
+    a "I... Where did I go wrong? You should be fine. You should be good."
+    "Your hands struggle to find purchase amongst the cold snow."
+    scene blackscreen with Dissolve(0.75)
+    a "But you're not."
+    "Your throat closes in sheer fear."
+    show bg anton jump blur1 at jump
+    a "You're... You're just as bad as the rest of them!"
+    scene bg anton jump zoom blur1 at shake
+    "Belatedly, you can his hands close around your neck, tears pooling in your eyes as he does."
+    scene blackscreen with Dissolve(0.75)
+    "He repeatedly mumbles something to himself, but you can't hear it over your strangled screams."
+    "Has the winter always been this cold?"
+
+    scene blackscreen with dis
+    "Bad Ending: Ripe for the Slaughter"
+    if "jumped !!" not in persistent.endings:
+        $persistent.endings.append("jumped!!")
+
+    return
 
 
 
